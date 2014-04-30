@@ -27,6 +27,18 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 	private EnumLaserMode enumMode;
 
+	public int getBlocksHit()
+	{
+		return blocksHit;
+	}
+
+	public void setBlocksHit(int blocksHit)
+	{
+		this.blocksHit = blocksHit;
+	}
+
+	private int blocksHit;
+
 
 	public EntityLaserProjectile(World par1World, EntityLivingBase shooter, EnumLaserMode mode, int lifeCycle)
 	{
@@ -36,9 +48,9 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 		this.owner = shooter;
 		this.enumMode = mode;
 		this.lifeCycle = lifeCycle;
+		this.blocksHit = 0;
 
 	}
-
 
 
 	private EntityLaserProjectile(World world, Vec3 origin, float yaw, float pitch, EntityLivingBase shooter, float speed)
@@ -59,7 +71,6 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 	}
 
 
-
 	public void setProjectileHeading(double startMotX, double startMotY, double startMotZ, float speed)
 	{
 		double currSpeed = Math.hypot(Math.hypot(startMotX, startMotY), startMotZ);
@@ -78,7 +89,6 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 	{
 
 	}
-
 
 
 	@Override
@@ -146,7 +156,7 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 		Vec3 currPos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
 		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
-		MovingObjectPosition hit = worldObj.rayTraceBlocks_do_do(Vec3Utility.cloneVec3(currPos), Vec3Utility.cloneVec3(nextPos), false, true);
+		MovingObjectPosition hit = worldObj.rayTraceBlocks_do_do(Vec3Utility.cloneVec3(currPos), Vec3Utility.cloneVec3(nextPos), false, false);
 
 		if (hit != null)
 		{
@@ -154,12 +164,11 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 			if (!isDead)
 			{
-				enumMode.onImpact(worldObj, this);
+				enumMode.onImpact(worldObj, this, hit);
 			}
 		}
 		this.setPosition(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
 	}
-
 
 	@Override
 	public Entity getThrower()

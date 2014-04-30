@@ -5,6 +5,7 @@ import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.utility.MathUtility;
+import com.tgame.advfluxtools.utility.NBTUtility;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.Entity;
@@ -14,10 +15,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.StatCollector;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -26,9 +29,6 @@ import java.util.List;
  */
 public class ItemLaserDrill extends Item implements IEnergyContainerItem
 {
-
-	protected EnumLaserMode enumLaser = EnumLaserMode.EXPLOSION;
-
 	protected int capacity = 400000;
 	protected int maxRec = 2000;
 	protected int maxExt = 2000;
@@ -42,9 +42,8 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 		this.setUnlocalizedName(this.getClass().getSimpleName());
 		this.setTextureName(Settings.RESOURCE_LOCATION + this.getClass().getSimpleName());
 
-		this.setMaxStackSize(1);
 		this.setMaxDamage(100);
-		this.setNoRepair();
+		this.setMaxStackSize(1);
 	}
 
 
@@ -151,30 +150,45 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
 	{
-		Settings.LOGGER.info("Fired: " + enumLaser);
+		NBTTagCompound tag = NBTUtility.getOrCreateNBTTag(itemstack);
+
+		if (!tag.hasKey("mode"))
+		{
+			tag.setInteger("mode", 0);
+		}
+		System.out.println("Mode: " + tag.getInteger("mode"));
+		EnumLaserMode enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
 		{
-			if (this.enumLaser.ordinal() >= EnumLaserMode.values().length)
+			EnumLaserMode[] test = EnumLaserMode.values();
+			if (tag.getInteger("mode") < EnumLaserMode.values().length - 1)
 			{
-				this.enumLaser = EnumLaserMode.values()[this.enumLaser.ordinal() + 1];
+				tag.setInteger("mode", tag.getInteger("mode") + 1);
 			}
 			else
 			{
-				this.enumLaser = EnumLaserMode.values()[0];
+				tag.setInteger("mode", 0);
 			}
+			enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
+
+			itemstack.setTagCompound(tag);
+			player.addChatMessage(StatCollector.translateToLocal("info.laser.mode").replaceAll("%m", enumLaser.name()));
 			return itemstack;
 		}
 
 		this.shootLaserDrill(world, player, itemstack, 600);
-		this.extractEnergy(itemstack, this.enumLaser.powerusage, false);
+		this.extractEnergy(itemstack, enumLaser.powerusage, false);
+
+		tag.setInteger("mode", enumLaser.ordinal());
+		itemstack.setTagCompound(tag);
 		return super.onItemRightClick(itemstack, world, player);
 	}
 
 
 	public void shootLaserDrill(World world, EntityLivingBase entity, ItemStack stack, int lifetime)
 	{
-		EntityLaserProjectile laserProjectile = new EntityLaserProjectile(world, entity, this.enumLaser, lifetime);
+		EntityLaserProjectile laserProjectile = new EntityLaserProjectile(world, entity, EnumLaserMode.values()[stack.getTagCompound().getInteger("mode")], lifetime);
 		world.spawnEntityInWorld(laserProjectile);
 	}
 
