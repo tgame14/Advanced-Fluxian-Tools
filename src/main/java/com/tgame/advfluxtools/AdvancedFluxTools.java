@@ -15,6 +15,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 
 /**
@@ -72,6 +73,23 @@ public class AdvancedFluxTools
 	@Mod.EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
+		// RECIPES
+
+		ItemStack leadConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyBasic", 1);
+		ItemStack leadEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
+
+		ItemStack hardenedConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyHardened", 1);
+		ItemStack hardenedEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellHardened", 1);
+
+		ItemStack redsConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyReinforced", 1);
+		ItemStack redsEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellReinforced", 1);
+
+		ItemStack ppIron = new ItemStack(Block.pressurePlateIron);
+
+		GameRegistry.addShapedRecipe(new ItemStack(blockChargePlatform, 1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy);
+		GameRegistry.addShapedRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy);
+		GameRegistry.addShapedRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy);
+
 
 	}
 
