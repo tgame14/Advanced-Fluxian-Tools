@@ -48,7 +48,7 @@ public class AdvancedFluxTools
 	public void init(FMLInitializationEvent event)
 	{
 		metadata.authorList.add("@AUTHOR@");
-		metadata.credits = "Those who made me want them to stop ;)";
+		metadata.credits = "@AUTHOR@, and wanting better content from mods";
 		metadata.description = "A Mod that adds Advanced tools and machinery";
 		metadata.modId = Settings.ID;
 		metadata.version = Settings.VERSION;
