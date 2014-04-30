@@ -1,3 +1,4 @@
+# Tooltips and Information
 info.laser.mode=Laser Mode: %m
 
 # Blocks
@@ -7,3 +8,6 @@ tile.BlockChargePlatform.2.name=Redstone Charge Platform
 
 # Items
 item.ItemLaserDrill.name=Fluxian Laser Drill
+
+# Creative Tab
+itemGroup.AFT=Advanced-Fluxian-Tools

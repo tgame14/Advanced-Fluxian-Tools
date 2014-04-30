@@ -25,7 +25,7 @@ public class AFTCreativeTab extends CreativeTabs
 	{
 		if (itemStack == null)
 		{
-			itemStack = new ItemStack(AdvancedFluxTools.itemLaserDrill, 1, 100);
+			itemStack = new ItemStack(AdvancedFluxTools.blockChargePlatform, 1, 2);
 		}
 
 		return itemStack;
