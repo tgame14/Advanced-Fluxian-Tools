@@ -1,1 +1,9 @@
 info.laser.mode=Laser Mode: %m
+
+# Blocks
+tile.BlockChargePlatform.0.name=Leadstone Charge Platform
+tile.BlockChargePlatform.1.name=Hardened Charge Platform
+tile.BlockChargePlatform.2.name=Redstone Charge Platform
+
+# Items
+item.ItemLaserDrill.name=Fluxian Laser Drill

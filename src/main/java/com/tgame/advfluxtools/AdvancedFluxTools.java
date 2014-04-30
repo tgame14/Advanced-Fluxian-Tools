@@ -1,5 +1,8 @@
 package com.tgame.advfluxtools;
 
+import com.tgame.advfluxtools.blocks.BlockChargePlatform;
+import com.tgame.advfluxtools.blocks.TileChargePlatform;
+import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
 import cpw.mods.fml.common.Mod;
@@ -10,10 +13,9 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraftforge.common.Configuration;
-
-import javax.swing.text.html.parser.Entity;
 
 /**
  * @author tgame14
@@ -33,12 +35,20 @@ public class AdvancedFluxTools
 
 	public static Item itemLaserDrill;
 
+	public static Block blockChargePlatform;
+
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Settings.CONFIGURATION = new Configuration(event.getSuggestedConfigurationFile());
 
 		itemLaserDrill = new ItemLaserDrill(Settings.CONFIGURATION.getItem(ItemLaserDrill.class.getSimpleName(), 22040).getInt());
+		GameRegistry.registerItem(itemLaserDrill, itemLaserDrill.getClass().getSimpleName());
+
+		blockChargePlatform = new BlockChargePlatform(Settings.CONFIGURATION.getBlock(BlockChargePlatform.class.getSimpleName(), 2040).getInt());
+		GameRegistry.registerBlock(blockChargePlatform, ItemBlockMetadata.class, blockChargePlatform.getClass().getSimpleName());
+
+		GameRegistry.registerTileEntity(TileChargePlatform.class, TileChargePlatform.class.getSimpleName());
 
 		EntityRegistry.registerGlobalEntityID(EntityLaserProjectile.class, EntityLaserProjectile.class.getSimpleName(), 0);
 
