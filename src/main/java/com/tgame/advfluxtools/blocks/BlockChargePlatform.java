@@ -35,6 +35,8 @@ public class BlockChargePlatform extends BlockContainer
 
 		this.setCreativeTab(AFTCreativeTab.INSTANCE);
 		this.setUnlocalizedName(this.getClass().getSimpleName());
+		this.setHardness(3.0F);
+		this.setResistance(5.0F);
 
 
 	}
@@ -106,6 +108,7 @@ public class BlockChargePlatform extends BlockContainer
 				{
 					IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
 					energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed, false), false);
+					break;
 				}
 			}
 		}
@@ -150,7 +153,7 @@ public class BlockChargePlatform extends BlockContainer
 			default:
 				break;
 		}
-		return this.cellLeadstone;
+		return super.getIcon(side, meta);
 	}
 
 }
