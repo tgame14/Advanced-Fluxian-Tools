@@ -1,5 +1,6 @@
 package com.tgame.advfluxtools.multiblocks.furnace;
 
+import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.libs.erogenousbeef.common.CoordTriplet;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
@@ -33,6 +34,7 @@ public class RFFurnaceController extends RFMultiblockController implements IFlui
 	protected void onBlockAdded(IMultiblockPart newPart)
 	{
 		super.onBlockAdded(newPart);
+		Settings.LOGGER.info("array "  + this.connectedParts);
 	}
 
 	@Override

@@ -142,4 +142,10 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	{
 		return new FluidTankInfo[] { getRFController().getInfo() };
 	}
+
+	@Override
+	public String toString()
+	{
+		return this.getClass().getSimpleName() + " { " + this.getWorldLocation().x + ", " + this.getWorldLocation().y + ", " + this.getWorldLocation().z + " } ";
+	}
 }
