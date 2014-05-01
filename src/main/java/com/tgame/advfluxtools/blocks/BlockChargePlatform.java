@@ -60,6 +60,20 @@ public class BlockChargePlatform extends BlockContainer
 	}
 
 	@Override
+	public boolean isOpaqueCube()
+	{
+		return false;
+	}
+
+	@Override
+	public boolean isBlockSolid(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+	{
+		return false;
+	}
+
+
+
+	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
 		int chargeSpeed = 0;
