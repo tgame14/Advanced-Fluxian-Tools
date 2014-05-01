@@ -1,4 +1,4 @@
-package erogenousbeef.core.common;
+package com.tgame.advfluxtools.libs.erogenousbeef.common;
 
 import net.minecraft.world.ChunkCoordIntPair;
 import net.minecraftforge.common.ForgeDirection;
@@ -9,7 +9,8 @@ import net.minecraftforge.common.ForgeDirection;
 public class CoordTriplet implements Comparable {
 	public int x, y, z;
 
-	public CoordTriplet(int x, int y, int z) {
+	public CoordTriplet(int x, int y, int z)
+	{
 		this.x = x;
 		this.y = y;
 		this.z = z;

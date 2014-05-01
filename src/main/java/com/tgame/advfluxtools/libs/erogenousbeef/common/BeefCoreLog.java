@@ -1,4 +1,4 @@
-package erogenousbeef.core.common;
+package com.tgame.advfluxtools.libs.erogenousbeef.common;
 
 import java.util.logging.Level;
 
