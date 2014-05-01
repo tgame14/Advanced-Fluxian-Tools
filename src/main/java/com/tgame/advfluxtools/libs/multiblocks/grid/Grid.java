@@ -90,14 +90,13 @@ public class Grid implements IGrid
     @Override
     public void writeToDelegate ()
     {
-        NBTTagCompound nbttag = new NBTTagCompound();
-
+		NBTTagCompound nbt = new NBTTagCompound("MultiblockAFTKey");
         for (IGridTicker gridTicker : gridTickers)
         {
-            nbttag.setCompoundTag(gridTicker.getClass().getName(), gridTicker.saveData());
+            nbt.setCompoundTag(gridTicker.getClass().getName(), gridTicker.saveData());
         }
 
-        getSaveDelegate().saveGridData(nbttag, IGrid.NBT_SAVE_KEY);
+        getSaveDelegate().saveGridData(nbt, IGrid.NBT_SAVE_KEY);
 
     }
 

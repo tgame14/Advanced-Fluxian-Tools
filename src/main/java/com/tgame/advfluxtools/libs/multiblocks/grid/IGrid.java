@@ -17,7 +17,7 @@ public interface IGrid
 
     public void writeToDelegate();
 
-    public void readFromDelegate(NBTTagCompound nbt);
+    public void readFromDelegate(NBTTagCompound tag);
 
 
 }

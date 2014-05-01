@@ -15,11 +15,14 @@ public interface IGridNode
 
     public IGrid getGrid();
 
-    public void setGrid();
+    public void setGrid(IGrid grid);
+
+	public Class<? extends IGrid> getNewGridClass();
 
     public boolean canBeDelegate();
 
-    public boolean saveGridData(NBTTagCompound tag, String gridKey);
+	public boolean isDelegate();
 
+	public void setDelegate(boolean isDelegate);
 
 }
