@@ -3,16 +3,15 @@ package com.tgame.advfluxtools.multiblocks;
 import cofh.api.energy.TileEnergyHandler;
 import com.tgame.advfluxtools.libs.multiblocks.WorldPos;
 import com.tgame.advfluxtools.libs.multiblocks.grid.IGrid;
-import net.minecraft.nbt.NBTTagCompound;
 
 /**
  * @author tgame14
  * @since 01/05/14
  */
-public abstract class TileRFMultiblock extends TileEnergyHandler implements IRFMultiblock
+public abstract class TileRFMultiblock extends TileEnergyHandler implements IRFMultiblockNode
 {
 	protected boolean isDelegate;
-	protected IGrid grid;
+	protected MultiblockTE3 grid;
 
 	public TileRFMultiblock()
 	{
@@ -34,7 +33,7 @@ public abstract class TileRFMultiblock extends TileEnergyHandler implements IRFM
 	@Override
 	public void setGrid(IGrid grid)
 	{
-		this.grid = grid;
+		this.grid = (MultiblockTE3) grid;
 	}
 
 	@Override

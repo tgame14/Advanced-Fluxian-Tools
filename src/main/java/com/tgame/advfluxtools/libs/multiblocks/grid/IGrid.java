@@ -19,5 +19,9 @@ public interface IGrid
 
     public void readFromDelegate(NBTTagCompound tag);
 
+	public void onClientTick();
+
+	public void onServerTick();
+
 
 }
