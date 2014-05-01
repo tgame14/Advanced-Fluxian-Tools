@@ -6,6 +6,7 @@ import com.google.common.collect.ImmutableList;
  * @since 11/03/14
  * @author tgame14
  */
+@Deprecated
 public final class GridTickerRegistry
 {
     private static ImmutableList.Builder<Class<? extends IGridTicker>> tickerBuilder = new ImmutableList.Builder<Class<? extends IGridTicker>>();

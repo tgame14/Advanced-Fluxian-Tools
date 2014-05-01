@@ -15,7 +15,7 @@ public interface IGrid
 
     public void postEventToGrid(Event event);
 
-    public void writeToDelegate();
+    public NBTTagCompound writeToDelegate();
 
     public void readFromDelegate(NBTTagCompound tag);
 

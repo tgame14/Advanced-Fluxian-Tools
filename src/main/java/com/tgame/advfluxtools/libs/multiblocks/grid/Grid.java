@@ -11,16 +11,16 @@ import java.util.*;
  * @since 10/03/14
  * @author tgame14
  */
-public class Grid implements IGrid
+public abstract class Grid implements IGrid
 {
 
-    private Set<IGridNode> nodeSet;
-    private List<IGridTicker> gridTickers;
-    private IGridNode saveDelegate;
+    protected Set<IGridNode> nodeSet;
+    protected List<IGridTicker> gridTickers;
+    protected IGridNode saveDelegate;
 
     public Grid (IGridNode node)
     {
-        this.nodeSet = new HashSet<IGridNode>();
+        this.nodeSet = new LinkedHashSet<IGridNode>();
         this.nodeSet.add(node);
 
         this.gridTickers = new ArrayList<IGridTicker>(GridTickerRegistry.tickerClasses.size());
@@ -88,15 +88,15 @@ public class Grid implements IGrid
     }
 
     @Override
-    public void writeToDelegate ()
+    public NBTTagCompound writeToDelegate ()
     {
-		NBTTagCompound nbt = new NBTTagCompound("MultiblockAFTKey");
+		NBTTagCompound nbt = new NBTTagCompound(IGrid.NBT_SAVE_KEY);
         for (IGridTicker gridTicker : gridTickers)
         {
             nbt.setCompoundTag(gridTicker.getClass().getName(), gridTicker.saveData());
         }
 
-        getSaveDelegate().saveGridData(nbt, IGrid.NBT_SAVE_KEY);
+        return nbt;
 
     }
 
