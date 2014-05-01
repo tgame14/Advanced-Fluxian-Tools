@@ -1,6 +1,7 @@
-package erogenousbeef.core.multiblock.rectangular;
+package com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular;
 
-public enum PartPosition {
+public enum PartPosition
+{
 	Unknown,
 	Interior,
 	FrameCorner,
@@ -11,9 +12,11 @@ public enum PartPosition {
 	SouthFace,
 	EastFace,
 	WestFace;
-	
-	public boolean isFace(PartPosition position) {
-		switch(position) {
+
+	public boolean isFace(PartPosition position)
+	{
+		switch (position)
+		{
 			case TopFace:
 			case BottomFace:
 			case NorthFace:

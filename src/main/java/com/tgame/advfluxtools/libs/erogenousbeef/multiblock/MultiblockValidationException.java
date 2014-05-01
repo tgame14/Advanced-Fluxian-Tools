@@ -1,13 +1,16 @@
-package erogenousbeef.core.multiblock;
+package com.tgame.advfluxtools.libs.erogenousbeef.multiblock;
 
 /**
  * An exception thrown when trying to validate a multiblock. Requires a string describing why the multiblock
  * could not assemble.
+ *
  * @author Erogenous Beef
  */
-public class MultiblockValidationException extends Exception {
+public class MultiblockValidationException extends Exception
+{
 
-	public MultiblockValidationException(String reason) {
+	public MultiblockValidationException(String reason)
+	{
 		super(reason);
 	}
 }

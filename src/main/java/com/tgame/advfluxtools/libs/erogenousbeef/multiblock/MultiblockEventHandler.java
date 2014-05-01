@@ -1,4 +1,4 @@
-package erogenousbeef.core.multiblock;
+package com.tgame.advfluxtools.libs.erogenousbeef.multiblock;
 
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -13,9 +13,11 @@ import net.minecraftforge.event.world.WorldEvent;
  * Chunks can load asynchronously in environments like MCPC+, so we cannot
  * process any blocks that are in chunks which are still loading.
  */
-public class MultiblockEventHandler {
+public class MultiblockEventHandler
+{
 	@ForgeSubscribe(priority = EventPriority.NORMAL)
-	public void onChunkLoad(ChunkEvent.Load loadEvent) {
+	public void onChunkLoad(ChunkEvent.Load loadEvent)
+	{
 		Chunk chunk = loadEvent.getChunk();
 		World world = loadEvent.world;
 		MultiblockRegistry.onChunkLoaded(world, chunk.xPosition, chunk.zPosition);
@@ -23,7 +25,8 @@ public class MultiblockEventHandler {
 
 	// Cleanup, for nice memory usageness
 	@ForgeSubscribe(priority = EventPriority.NORMAL)
-	public void onWorldUnload(WorldEvent.Unload unloadWorldEvent) {
+	public void onWorldUnload(WorldEvent.Unload unloadWorldEvent)
+	{
 		MultiblockRegistry.onWorldUnloaded(unloadWorldEvent.world);
 	}
 }
