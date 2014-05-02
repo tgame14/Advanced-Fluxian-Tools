@@ -16,4 +16,9 @@ import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.Rectangu
 public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBase implements IEnergyHandler
 {
 
+	@Override
+	public void isGoodForInterior() throws MultiblockValidationException
+	{
+		throw new MultiblockValidationException("Block cannot be be interior! Place reserved for fluids");
+	}
 }

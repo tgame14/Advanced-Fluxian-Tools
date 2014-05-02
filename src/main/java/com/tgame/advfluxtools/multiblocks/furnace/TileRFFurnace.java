@@ -36,37 +36,37 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	@Override
 	public Class<? extends MultiblockControllerBase> getMultiblockControllerType()
 	{
-		return null;
+		return RFFurnaceController.class;
 	}
 
 	@Override
 	public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b)
 	{
-		return 0;
+		return getRFController().receiveEnergy(i, b);
 	}
 
 	@Override
 	public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b)
 	{
-		return 0;
+		return getRFController().extractEnergy(i, b);
 	}
 
 	@Override
 	public boolean canInterface(ForgeDirection forgeDirection)
 	{
-		return false;
+		return true;
 	}
 
 	@Override
 	public int getEnergyStored(ForgeDirection forgeDirection)
 	{
-		return 0;
+		return getRFController().getEnergyStored();
 	}
 
 	@Override
 	public int getMaxEnergyStored(ForgeDirection forgeDirection)
 	{
-		return 0;
+		return getRFController().getMaxEnergyStored();
 	}
 
 	@Override
@@ -96,7 +96,7 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	@Override
 	public void isGoodForInterior() throws MultiblockValidationException
 	{
-
+		super.isGoodForInterior();
 	}
 
 	public RFFurnaceController getRFController()

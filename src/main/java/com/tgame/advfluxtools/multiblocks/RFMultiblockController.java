@@ -1,6 +1,7 @@
 package com.tgame.advfluxtools.multiblocks;
 
 import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyStorage;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
@@ -12,15 +13,16 @@ import net.minecraft.world.World;
  * @author tgame14
  * @since 01/05/14
  */
-public abstract class RFMultiblockController extends RectangularMultiblockControllerBase
+public abstract class RFMultiblockController extends RectangularMultiblockControllerBase implements IEnergyStorage
 {
 	/** default external energy storage object */
-	protected EnergyStorage storage;
+	protected EnergyStorage energy;
 
 	protected RFMultiblockController(World world)
 	{
 		super(world);
-		this.storage = new EnergyStorage(16000, 80);
+		//TODO: Handle per block in creation and addition
+		this.energy = new EnergyStorage(16000, 80);
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void onBlockAdded(IMultiblockPart newPart)
 	{
-
+		this.energy.setCapacity(2000 * this.getNumConnectedBlocks());
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void onMachineAssembled()
 	{
-
+		Settings.LOGGER.info("Provided multiblock assembled");
 	}
 
 	@Override
