@@ -4,6 +4,7 @@ import cofh.api.energy.IEnergyHandler;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import net.minecraftforge.common.ForgeDirection;
 
 /**
  * All multiblock tiles that want to be under this System, need to extend this class
@@ -20,5 +21,11 @@ public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBa
 	public void isGoodForInterior() throws MultiblockValidationException
 	{
 		throw new MultiblockValidationException("Block cannot be be interior! Place reserved for fluids");
+	}
+
+	@Override
+	public boolean canInterface(ForgeDirection forgeDirection)
+	{
+		return getMultiblockController().isAssembled();
 	}
 }

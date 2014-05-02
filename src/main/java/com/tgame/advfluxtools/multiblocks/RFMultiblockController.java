@@ -5,9 +5,12 @@ import cofh.api.energy.IEnergyStorage;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
+import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.RectangularMultiblockControllerBase;
+import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.IFluidBlock;
 
 /**
  * @author tgame14
@@ -40,7 +43,7 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void onBlockRemoved(IMultiblockPart oldPart)
 	{
-
+		this.energy.setCapacity(2000 * this.getNumConnectedBlocks());
 	}
 
 	@Override
@@ -70,25 +73,44 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected int getMinimumNumberOfBlocksForAssembledMachine()
 	{
-		return 0;
+		return 26;
 	}
 
 	@Override
 	protected int getMaximumXSize()
 	{
-		return 0;
+		return 24;
+	}
+
+
+	@Override
+	protected int getMaximumYSize()
+	{
+		return 24;
 	}
 
 	@Override
 	protected int getMaximumZSize()
 	{
-		return 0;
+		return 24;
 	}
 
 	@Override
-	protected int getMaximumYSize()
+	protected int getMinimumXSize()
 	{
-		return 0;
+		return 3;
+	}
+
+	@Override
+	protected int getMinimumYSize()
+	{
+		return 3;
+	}
+
+	@Override
+	protected int getMinimumZSize()
+	{
+		return 3;
 	}
 
 	@Override
@@ -112,6 +134,27 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void updateClient()
 	{
+
+	}
+
+	@Override
+	protected void isMachineWhole() throws MultiblockValidationException
+	{
+		super.isMachineWhole();
+	}
+
+	@Override
+	public void checkIfMachineIsWhole()
+	{
+		super.checkIfMachineIsWhole();
+	}
+
+	@Override
+	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
+	{
+		Block block = Block.blocksList[world.getBlockId(x, y, z)];
+		if (block != null && block.isAirBlock(world, x, y, z))
+			throw new MultiblockValidationException("Internal blocks must be EMPTY!");
 
 	}
 

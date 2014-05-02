@@ -54,7 +54,7 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	@Override
 	public boolean canInterface(ForgeDirection forgeDirection)
 	{
-		return true;
+		return super.canInterface(forgeDirection);
 	}
 
 	@Override
@@ -102,6 +102,22 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	public RFFurnaceController getRFController()
 	{
 		return (RFFurnaceController) this.getMultiblockController();
+	}
+
+	@Override
+	public void onMachineAssembled(MultiblockControllerBase controller)
+	{
+		super.onMachineAssembled(controller);
+		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 3, 1);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+	}
+
+	@Override
+	public void onMachineBroken()
+	{
+		super.onMachineBroken();
+		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 3, 0);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 
 	/// * * * IFLUIDHANDLER * * * ///
