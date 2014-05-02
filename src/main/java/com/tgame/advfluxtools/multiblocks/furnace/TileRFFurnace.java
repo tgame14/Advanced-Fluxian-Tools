@@ -108,15 +108,15 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	public void onMachineAssembled(MultiblockControllerBase controller)
 	{
 		super.onMachineAssembled(controller);
-		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 3, 1);
-		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
+		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord); //a safety, not required yet does not harm too much.
 	}
 
 	@Override
 	public void onMachineBroken()
 	{
 		super.onMachineBroken();
-		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 3, 0);
+		worldObj.setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
 		worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
 	}
 

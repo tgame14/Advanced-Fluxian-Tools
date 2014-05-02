@@ -134,20 +134,9 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void updateClient()
 	{
-
+		//STUB only do rendering and such here.
 	}
 
-	@Override
-	protected void isMachineWhole() throws MultiblockValidationException
-	{
-		super.isMachineWhole();
-	}
-
-	@Override
-	public void checkIfMachineIsWhole()
-	{
-		super.checkIfMachineIsWhole();
-	}
 
 	@Override
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
