@@ -34,7 +34,7 @@ public class AdvancedFluxTools
 	@Mod.Instance(Settings.ID)
 	public static AdvancedFluxTools instance;
 
-	@SidedProxy(clientSide = "com.tgame.advfluxtools.ClientProxy", serverSide = "com.tgame.advfluxtools.CommonProxy")
+	@SidedProxy(clientSide = "com.tgame.advfluxtools.ClientProxy", serverSide = "com.tgame.advflux.tools.CommonProxy")
 	public static CommonProxy proxy;
 
 	@Mod.Metadata
