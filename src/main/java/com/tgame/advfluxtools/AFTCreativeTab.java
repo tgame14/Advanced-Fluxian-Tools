@@ -15,7 +15,7 @@ public class AFTCreativeTab extends CreativeTabs
 
 	public static ItemStack itemStack;
 
-	public AFTCreativeTab()
+	private AFTCreativeTab()
 	{
 		super(CreativeTabs.getNextID(), "AFT");
 	}

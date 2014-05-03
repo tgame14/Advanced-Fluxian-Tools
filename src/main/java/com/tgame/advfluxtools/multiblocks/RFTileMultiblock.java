@@ -30,4 +30,10 @@ public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBa
 		return getMultiblockController().isAssembled();
 	}
 
+	@Override
+	public String toString()
+	{
+		return this.getClass().getSimpleName() + " { " + this.getWorldLocation().x + ", " + this.getWorldLocation().y + ", " + this.getWorldLocation().z + " } ";
+	}
+
 }

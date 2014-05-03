@@ -150,13 +150,13 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	public void writeToNBT(NBTTagCompound data)
 	{
-
+		this.energy.writeToNBT(data);
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound data)
 	{
-
+		this.energy.readFromNBT(data);
 	}
 
 	@Override
