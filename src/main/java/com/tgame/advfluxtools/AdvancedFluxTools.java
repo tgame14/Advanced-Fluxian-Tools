@@ -52,6 +52,7 @@ public class AdvancedFluxTools
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Settings.CONFIGURATION = new Configuration(event.getSuggestedConfigurationFile());
+		Settings.CONFIGURATION.load();
 		/** this line took me 2 hours to write. Blame stupidity */
 		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 
@@ -71,6 +72,7 @@ public class AdvancedFluxTools
 		GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
 
 		EntityRegistry.registerGlobalEntityID(EntityLaserProjectile.class, EntityLaserProjectile.class.getSimpleName(), 0);
+		Settings.CONFIGURATION.save();
 		proxy.preInit();
 
 	}
