@@ -66,7 +66,6 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 		double startMotZ = Math.cos(yawRad) * Math.cos(pitchRad);
 
 		this.setProjectileHeading(startMotX, startMotY, startMotZ, speed);
-		Settings.LOGGER.info("motX " + this.motionX + " motY " + this.motionY + " motZ " + this.motionZ);
 
 	}
 

@@ -5,6 +5,8 @@ import com.tgame.advfluxtools.blocks.TileChargePlatform;
 import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
+import com.tgame.advfluxtools.multiblocks.BlockRFMultiblockFrame;
+import com.tgame.advfluxtools.multiblocks.furnace.TileRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceCasing;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFFurnace;
 import cpw.mods.fml.common.Mod;
@@ -40,6 +42,9 @@ public class AdvancedFluxTools
 
 	public static Block blockChargePlatform;
 	public static Block blockRFFurnaceBasic;
+	public static Block blockRFMultiblockFrame;
+
+	public static ItemStack itemCresentHammer;
 
 	@Mod.EventHandler
 	public void preInit(FMLPreInitializationEvent event)
@@ -56,6 +61,10 @@ public class AdvancedFluxTools
 		blockRFFurnaceBasic = new BlockRFFurnaceCasing(Settings.CONFIGURATION.getBlock(BlockRFFurnaceCasing.class.getSimpleName(), 2041).getInt());
 		GameRegistry.registerBlock(blockRFFurnaceBasic, BlockRFFurnaceCasing.class.getSimpleName());
 		GameRegistry.registerTileEntity(TileRFFurnace.class, TileRFFurnace.class.getSimpleName());
+
+		blockRFMultiblockFrame = new BlockRFMultiblockFrame(Settings.CONFIGURATION.getBlock(BlockRFMultiblockFrame.class.getSimpleName(), 2042).getInt());
+		GameRegistry.registerBlock(blockRFMultiblockFrame, BlockRFMultiblockFrame.class.getSimpleName());
+		GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
 
 		EntityRegistry.registerGlobalEntityID(EntityLaserProjectile.class, EntityLaserProjectile.class.getSimpleName(), 0);
 		proxy.preInit();
@@ -82,6 +91,8 @@ public class AdvancedFluxTools
 	public void postInit(FMLPostInitializationEvent event)
 	{
 		// RECIPES
+
+		itemCresentHammer = GameRegistry.findItemStack("ThermalExpansion", "wrench", 1);
 
 		ItemStack leadConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyBasic", 1);
 		ItemStack leadEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);

@@ -1,13 +1,16 @@
 package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.AFTCreativeTab;
+import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.BlockMultiblockBase;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Icon;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
@@ -29,6 +32,13 @@ public class BlockRFFurnaceCasing extends BlockMultiblockBase
 	}
 
 	@Override
+	public int getLightValue(IBlockAccess world, int x, int y, int z)
+	{
+		int meta = world.getBlockMetadata(x, y, z);
+		return meta == 0 ? 0 : 15;
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(World world)
 	{
 		return new TileRFFurnace();
@@ -37,12 +47,12 @@ public class BlockRFFurnaceCasing extends BlockMultiblockBase
 	@Override
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
 	{
-		if (world.isRemote)
+		if (world.isRemote && player.getHeldItem() != null && player.getHeldItem().isItemEqual(AdvancedFluxTools.itemCresentHammer))
 		{
 			TileRFFurnace tile = (TileRFFurnace) world.getBlockTileEntity(x, y, z);
 			if (tile.getMultiblockController().getLastValidationException() != null)
 			{
-				player.addChatMessage(tile.getMultiblockController().getLastValidationException().toString());
+				player.addChatMessage(tile.getMultiblockController().getLastValidationException().getMessage());
 			}
 			else
 			{
@@ -56,29 +66,13 @@ public class BlockRFFurnaceCasing extends BlockMultiblockBase
 	@Override
 	public void registerIcons(IconRegister register)
 	{
-		this.blockIcon = register.registerIcon(Settings.RESOURCE_LOCATION + "Machine_Side");
-		this.iconActive = register.registerIcon(Settings.RESOURCE_LOCATION + "BlockCasingActive");
-		this.iconTop = register.registerIcon(Settings.RESOURCE_LOCATION + "Machine_Top");
+		this.blockIcon = register.registerIcon(Settings.RESOURCE_LOCATION + "redstonefurnace_deactive");
+		this.iconActive = register.registerIcon(Settings.RESOURCE_LOCATION + "redstonefurnace_active");
 	}
 
 	@Override
 	public Icon getIcon(int side, int meta)
 	{
-		switch (ForgeDirection.getOrientation(side))
-		{
-			case DOWN:
-				if (meta == 0)
-					return this.iconTop;
-				return this.iconActive;
-			case UP:
-				if (meta == 0)
-					return this.iconTop;
-				return this.iconActive;
-			default:
-				if (meta != 0)
-					return this.iconActive;
-				return this.blockIcon;
-
-		}
+		return meta == 0 ? this.blockIcon : this.iconActive;
 	}
 }

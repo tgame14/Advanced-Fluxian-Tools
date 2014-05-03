@@ -40,39 +40,9 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	}
 
 	@Override
-	public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b)
-	{
-		return getRFController().receiveEnergy(i, b);
-	}
-
-	@Override
-	public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b)
-	{
-		return getRFController().extractEnergy(i, b);
-	}
-
-	@Override
-	public boolean canInterface(ForgeDirection forgeDirection)
-	{
-		return super.canInterface(forgeDirection);
-	}
-
-	@Override
-	public int getEnergyStored(ForgeDirection forgeDirection)
-	{
-		return getRFController().getEnergyStored();
-	}
-
-	@Override
-	public int getMaxEnergyStored(ForgeDirection forgeDirection)
-	{
-		return getRFController().getMaxEnergyStored();
-	}
-
-	@Override
 	public void isGoodForFrame() throws MultiblockValidationException
 	{
-
+		throw new MultiblockValidationException("Invalid for Frame!");
 	}
 
 	@Override
@@ -99,11 +69,6 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 		super.isGoodForInterior();
 	}
 
-	public RFFurnaceController getRFController()
-	{
-		return (RFFurnaceController) this.getMultiblockController();
-	}
-
 	@Override
 	public void onMachineAssembled(MultiblockControllerBase controller)
 	{
@@ -125,12 +90,18 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	@Override
 	public int fill(ForgeDirection from, FluidStack resource, boolean doFill)
 	{
-		return getRFController().fill(resource, doFill);
+
+		return getRFController() != null ? getRFController().fill(resource, doFill) : 0;
 	}
 
 	@Override
 	public FluidStack drain(ForgeDirection from, FluidStack resource, boolean doDrain)
 	{
+		if (getRFController() == null)
+		{
+			return null;
+		}
+
 		if (getRFController().getFluid().isFluidEqual(resource));
 		return getRFController().drain(resource.amount, doDrain);
 	}
@@ -138,24 +109,36 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	@Override
 	public FluidStack drain(ForgeDirection from, int maxDrain, boolean doDrain)
 	{
+
+		if (getRFController() == null)
+		{
+			return null;
+		}
+
 		return this.drain(from, new FluidStack(getRFController().getFluid(), maxDrain), doDrain);
 	}
 
 	@Override
 	public boolean canFill(ForgeDirection from, Fluid fluid)
 	{
-		return getRFController().isEmpty() || getRFController().getFluid().equals(fluid);
+		return  getRFController() != null && getRFController().isEmpty() || getRFController().getFluid().equals(fluid);
 	}
 
 	@Override
 	public boolean canDrain(ForgeDirection from, Fluid fluid)
 	{
-		return !getRFController().isEmpty() || getRFController().getFluid().equals(fluid);
+		return getRFController() != null && !getRFController().isEmpty() || getRFController().getFluid().equals(fluid);
 	}
 
 	@Override
 	public FluidTankInfo[] getTankInfo(ForgeDirection from)
 	{
+
+		if (getRFController() == null)
+		{
+			return null;
+		}
+
 		return new FluidTankInfo[] { getRFController().getInfo() };
 	}
 }

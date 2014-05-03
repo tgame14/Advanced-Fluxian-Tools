@@ -23,6 +23,13 @@ public class ClientProxy extends CommonProxy
 	@Override
 	public void init()
 	{
-		TickRegistry.registerScheduledTickHandler(new MultiblockClientTickHandler(), Side.CLIENT);
+		super.init();
+	}
+
+	@Override
+	public void registerTickHandlers()
+	{
+		super.registerTickHandlers();
+		TickRegistry.registerTickHandler(new MultiblockClientTickHandler(), Side.CLIENT);
 	}
 }

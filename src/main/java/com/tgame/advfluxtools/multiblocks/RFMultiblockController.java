@@ -49,7 +49,7 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void onMachineAssembled()
 	{
-		Settings.LOGGER.info("Provided multiblock assembled");
+
 	}
 
 	@Override

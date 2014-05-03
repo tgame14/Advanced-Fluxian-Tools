@@ -1,10 +1,10 @@
 package com.tgame.advfluxtools.multiblocks;
 
 import cofh.api.energy.IEnergyHandler;
-import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.RectangularMultiblockTileEntityBase;
+import com.tgame.advfluxtools.multiblocks.furnace.RFFurnaceController;
 import net.minecraftforge.common.ForgeDirection;
 
 /**
@@ -27,7 +27,52 @@ public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBa
 	@Override
 	public boolean canInterface(ForgeDirection forgeDirection)
 	{
-		return getMultiblockController().isAssembled();
+		return getMultiblockController() != null && getMultiblockController().getLastValidationException() == null;
+	}
+
+
+	@Override
+	public int receiveEnergy(ForgeDirection forgeDirection, int i, boolean b)
+	{
+		return getRFController().receiveEnergy(i, b);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection forgeDirection, int i, boolean b)
+	{
+		return getRFController().extractEnergy(i, b);
+	}
+
+	@Override
+	public int getEnergyStored(ForgeDirection forgeDirection)
+	{
+		return getRFController().getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored(ForgeDirection forgeDirection)
+	{
+		return getRFController().getMaxEnergyStored();
+	}
+
+
+	public RFFurnaceController getRFController()
+	{
+		return (RFFurnaceController) this.getMultiblockController();
+	}
+
+	@Override
+	public void onMachineBroken()
+	{
+		super.onMachineBroken();
+		onInventoryChanged();
+	}
+
+	@Override
+	public void onMachineAssembled(MultiblockControllerBase controller)
+	{
+		super.onMachineAssembled(controller);
+		onInventoryChanged();
 	}
 
 	@Override

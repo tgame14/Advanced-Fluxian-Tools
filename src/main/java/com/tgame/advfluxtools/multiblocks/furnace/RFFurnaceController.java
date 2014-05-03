@@ -1,11 +1,15 @@
 package com.tgame.advfluxtools.multiblocks.furnace;
 
+import cofh.api.energy.EnergyStorage;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.libs.erogenousbeef.common.CoordTriplet;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.multiblocks.RFMultiblockController;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
@@ -17,11 +21,12 @@ import net.minecraftforge.fluids.IFluidTank;
  * @author tgame14
  * @since 01/05/14
  */
-public class RFFurnaceController extends RFMultiblockController implements IFluidTank
+public class RFFurnaceController extends RFMultiblockController implements IFluidTank, IInventory
 {
 	protected RFFurnaceController(World world)
 	{
 		super(world);
+		this.tank = new FluidTank(32000);
 	}
 
 	@Override
@@ -34,7 +39,6 @@ public class RFFurnaceController extends RFMultiblockController implements IFlui
 	protected void onBlockAdded(IMultiblockPart newPart)
 	{
 		super.onBlockAdded(newPart);
-		Settings.LOGGER.info("array " + this.connectedParts);
 	}
 
 	@Override
@@ -46,6 +50,8 @@ public class RFFurnaceController extends RFMultiblockController implements IFlui
 	@Override
 	protected void onMachineAssembled()
 	{
+		this.energy = new EnergyStorage(2000 * this.getNumConnectedBlocks());
+		this.tank = new FluidTank(2000 * this.getNumConnectedBlocks());
 		super.onMachineAssembled();
 	}
 
@@ -279,5 +285,90 @@ public class RFFurnaceController extends RFMultiblockController implements IFlui
 	public int getMaxEnergyStored()
 	{
 		return this.energy.getMaxEnergyStored();
+	}
+
+	/// * * * IINVENTORY * * * ///
+
+	protected ItemStack[] inv = new ItemStack[2];
+
+
+	@Override
+	public int getSizeInventory()
+	{
+		return this.inv.length;
+	}
+
+	@Override
+	public ItemStack getStackInSlot(int i)
+	{
+		return this.inv[i];
+	}
+
+	@Override
+	public ItemStack decrStackSize(int i, int j)
+	{
+		this.inv[i].stackSize -= j;
+		return this.inv[i];
+
+	}
+
+	@Override
+	public ItemStack getStackInSlotOnClosing(int i)
+	{
+		return this.inv[i];
+	}
+
+	@Override
+	public void setInventorySlotContents(int i, ItemStack itemstack)
+	{
+		this.inv[i] = itemstack;
+	}
+
+	@Override
+	public String getInvName()
+	{
+		return "inv.rffurnace.name";
+	}
+
+	@Override
+	public boolean isInvNameLocalized()
+	{
+		return true;
+	}
+
+	@Override
+	public int getInventoryStackLimit()
+	{
+		return 64;
+	}
+
+	@Override
+	public void onInventoryChanged()
+	{
+
+	}
+
+	@Override
+	public boolean isUseableByPlayer(EntityPlayer entityplayer)
+	{
+		return false;
+	}
+
+	@Override
+	public void openChest()
+	{
+
+	}
+
+	@Override
+	public void closeChest()
+	{
+
+	}
+
+	@Override
+	public boolean isItemValidForSlot(int i, ItemStack itemstack)
+	{
+		return i < this.inv.length;
 	}
 }

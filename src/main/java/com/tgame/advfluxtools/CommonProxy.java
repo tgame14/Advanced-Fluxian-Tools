@@ -22,11 +22,16 @@ public class CommonProxy
 
 	public void init()
 	{
-		TickRegistry.registerScheduledTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
+		registerTickHandlers();
 	}
 
 	public void postInit()
 	{
 
+	}
+
+	public void registerTickHandlers()
+	{
+		TickRegistry.registerTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
 	}
 }

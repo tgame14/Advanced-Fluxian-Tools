@@ -36,7 +36,7 @@ public class MultiblockClientTickHandler implements IScheduledTickHandler
 	@Override
 	public String getLabel()
 	{
-		return "BigReactors:MultiblockClientTickHandler";
+		return "AFT:MultiblockClientTickHandler";
 	}
 
 	@Override
