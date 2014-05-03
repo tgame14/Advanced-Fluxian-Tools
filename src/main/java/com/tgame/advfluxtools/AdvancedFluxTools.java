@@ -5,6 +5,7 @@ import com.tgame.advfluxtools.blocks.TileChargePlatform;
 import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
+import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockEventHandler;
 import com.tgame.advfluxtools.multiblocks.BlockRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceCasing;
@@ -21,6 +22,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
+import net.minecraftforge.common.MinecraftForge;
 
 /**
  * @author tgame14
@@ -50,6 +52,8 @@ public class AdvancedFluxTools
 	public void preInit(FMLPreInitializationEvent event)
 	{
 		Settings.CONFIGURATION = new Configuration(event.getSuggestedConfigurationFile());
+		/** this line took me 2 hours to write. Blame stupidity */
+		MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
 
 		itemLaserDrill = new ItemLaserDrill(Settings.CONFIGURATION.getItem(ItemLaserDrill.class.getSimpleName(), 22040).getInt());
 		GameRegistry.registerItem(itemLaserDrill, itemLaserDrill.getClass().getSimpleName());
