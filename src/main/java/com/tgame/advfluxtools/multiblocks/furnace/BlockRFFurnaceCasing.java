@@ -9,6 +9,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumChatFormatting;
 import net.minecraft.util.Icon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -57,7 +58,16 @@ public class BlockRFFurnaceCasing extends BlockMultiblockBase
 			else
 			{
 				player.addChatMessage("All is Good: Multiblock formed");
+				player.addChatMessage(EnumChatFormatting.BOLD + "CLIENT");
+				player.addChatMessage(String.valueOf(tile.getMultiblockController().getConnectedParts()));
 			}
+		}
+		else
+		{
+			player.addChatMessage(EnumChatFormatting.BOLD + "SERVER");
+			TileRFFurnace tile = (TileRFFurnace) world.getBlockTileEntity(x, y, z);
+			player.addChatMessage(String.valueOf(tile.getMultiblockController().getConnectedParts()));
+
 		}
 
 		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);

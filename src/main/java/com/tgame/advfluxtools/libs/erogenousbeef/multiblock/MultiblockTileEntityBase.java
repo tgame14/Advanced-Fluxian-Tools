@@ -404,4 +404,5 @@ public abstract class MultiblockTileEntityBase extends IMultiblockPart
 		// Clean part out of lists in the registry
 		MultiblockRegistry.onPartRemovedFromWorld(worldObj, this);
 	}
+
 }

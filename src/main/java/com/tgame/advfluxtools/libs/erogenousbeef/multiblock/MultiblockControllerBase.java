@@ -36,6 +36,11 @@ public abstract class MultiblockControllerBase
 
 	protected HashSet<IMultiblockPart> connectedParts;
 
+	public HashSet<IMultiblockPart> getConnectedParts()
+	{
+		return connectedParts;
+	}
+
 	/**
 	 * This is a deterministically-picked coordinate that identifies this
 	 * multiblock uniquely in its dimension.
