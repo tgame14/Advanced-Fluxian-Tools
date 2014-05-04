@@ -19,13 +19,13 @@ import net.minecraftforge.common.ForgeDirection;
  * @author tgame14
  * @since 01/05/14
  */
-public class BlockRFFurnaceCasing extends BlockMultiblockBase
+public class BlockRFFurnaceFacing extends BlockMultiblockBase
 {
 
 	protected Icon iconActive;
 	protected Icon iconTop;
 
-	public BlockRFFurnaceCasing(int id)
+	public BlockRFFurnaceFacing(int id)
 	{
 		super(id, Material.piston);
 		this.setCreativeTab(AFTCreativeTab.INSTANCE);

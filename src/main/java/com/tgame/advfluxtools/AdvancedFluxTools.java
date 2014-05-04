@@ -7,8 +7,8 @@ import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockEventHandler;
 import com.tgame.advfluxtools.multiblocks.BlockRFMultiblockFrame;
+import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceFacing;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFMultiblockFrame;
-import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceCasing;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFFurnace;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModMetadata;
@@ -63,8 +63,8 @@ public class AdvancedFluxTools
 		GameRegistry.registerBlock(blockChargePlatform, ItemBlockMetadata.class, blockChargePlatform.getClass().getSimpleName());
 		GameRegistry.registerTileEntity(TileChargePlatform.class, TileChargePlatform.class.getSimpleName());
 
-		blockRFFurnaceBasic = new BlockRFFurnaceCasing(Settings.CONFIGURATION.getBlock(BlockRFFurnaceCasing.class.getSimpleName(), 2041).getInt());
-		GameRegistry.registerBlock(blockRFFurnaceBasic, BlockRFFurnaceCasing.class.getSimpleName());
+		blockRFFurnaceBasic = new BlockRFFurnaceFacing(Settings.CONFIGURATION.getBlock(BlockRFFurnaceFacing.class.getSimpleName(), 2041).getInt());
+		GameRegistry.registerBlock(blockRFFurnaceBasic, BlockRFFurnaceFacing.class.getSimpleName());
 		GameRegistry.registerTileEntity(TileRFFurnace.class, TileRFFurnace.class.getSimpleName());
 
 		blockRFMultiblockFrame = new BlockRFMultiblockFrame(Settings.CONFIGURATION.getBlock(BlockRFMultiblockFrame.class.getSimpleName(), 2042).getInt());
