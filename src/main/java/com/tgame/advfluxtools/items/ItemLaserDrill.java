@@ -156,7 +156,6 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 		{
 			tag.setInteger("mode", 0);
 		}
-		System.out.println("Mode: " + tag.getInteger("mode"));
 		EnumLaserMode enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
 
 		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
@@ -177,8 +176,10 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 			return itemstack;
 		}
 
-		this.shootLaserDrill(world, player, itemstack, 600);
-		this.extractEnergy(itemstack, enumLaser.powerusage, false);
+		if (this.getEnergyStored(itemstack) > enumLaser.powerusage){
+			this.shootLaserDrill(world, player, itemstack, 600);
+			this.extractEnergy(itemstack, enumLaser.powerusage, false);
+		}
 
 		tag.setInteger("mode", enumLaser.ordinal());
 		itemstack.setTagCompound(tag);
