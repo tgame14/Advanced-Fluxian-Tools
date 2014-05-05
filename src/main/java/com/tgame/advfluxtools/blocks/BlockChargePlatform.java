@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
 import java.util.List;
+import java.util.Vector;
 
 /**
  * @author tgame14
@@ -100,18 +101,27 @@ public class BlockChargePlatform extends BlockContainer
 			IInventory inv = player.inventory;
 			TileChargePlatform tile = (TileChargePlatform) world.getBlockTileEntity(x, y, z);
 
+			Vector<ItemStack> chargableItems = new Vector<ItemStack>();
 			for (int i = 0; i < inv.getSizeInventory(); i++)
 			{
 				ItemStack stack = inv.getStackInSlot(i);
 
 				if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
 				{
-					IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
-					energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed, false), false);
-					break;
+					chargableItems.add(stack);
+				}
+			}
+			
+			if (chargableItems.size() > 0){
+				int chargePerItem = chargeSpeed / chargableItems.size();
+				
+				for (ItemStack chargableItem: chargableItems){
+					IEnergyContainerItem energyItem = (IEnergyContainerItem) chargableItem.getItem();
+					energyItem.receiveEnergy(chargableItem, tile.extractEnergy(ForgeDirection.UP, chargePerItem, false), false);
 				}
 			}
 		}
+
 
 	}
 
