@@ -153,8 +153,8 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 			this.setDead();
 		}
 
-		Vec3 currPos = Vec3.createVectorHelper(this.posX, this.posY, this.posZ);
-		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+		Vec3 currPos = Vec3.createVectorHelper(this.posX, this.posY+1.62, this.posZ);
+		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY+1.62, this.posZ + this.motionZ);
 		MovingObjectPosition hit = worldObj.rayTraceBlocks_do_do(Vec3Utility.cloneVec3(currPos), Vec3Utility.cloneVec3(nextPos), false, false);
 
 		if (hit != null)
