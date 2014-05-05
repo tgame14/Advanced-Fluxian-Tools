@@ -71,7 +71,7 @@ public class AdvancedFluxTools
 		GameRegistry.registerBlock(blockRFMultiblockFrame, BlockRFMultiblockFrame.class.getSimpleName());
 		GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
 
-		EntityRegistry.registerGlobalEntityID(EntityLaserProjectile.class, EntityLaserProjectile.class.getSimpleName(), 0);
+		EntityRegistry.registerGlobalEntityID(EntityLaserProjectile.class, EntityLaserProjectile.class.getSimpleName(), EntityRegistry.findGlobalUniqueEntityId());
 		Settings.CONFIGURATION.save();
 		proxy.preInit();
 
