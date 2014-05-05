@@ -30,7 +30,7 @@ public class TileRFFurnace extends RFTileMultiblock implements IFluidHandler
 	@Override
 	public MultiblockControllerBase createNewMultiblock()
 	{
-		return new RFFurnaceController(getWorldObj());
+		return new RFFurnaceController(getWorldObj(), this);
 	}
 
 	@Override

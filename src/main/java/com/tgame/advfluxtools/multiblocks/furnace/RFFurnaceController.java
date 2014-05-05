@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -23,9 +24,9 @@ import net.minecraftforge.fluids.IFluidTank;
  */
 public class RFFurnaceController extends RFMultiblockController implements IFluidTank, IInventory
 {
-	protected RFFurnaceController(World world)
+	protected RFFurnaceController(World world, TileEntity tile)
 	{
-		super(world);
+		super(world, tile);
 		this.tank = new FluidTank(32000);
 	}
 

@@ -1,4 +1,4 @@
-package com.tgame.advfluxtools.multiblocks;
+package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.Settings;

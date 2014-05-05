@@ -6,7 +6,7 @@ import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockEventHandler;
-import com.tgame.advfluxtools.multiblocks.BlockRFMultiblockFrame;
+import com.tgame.advfluxtools.multiblocks.furnace.BlockRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceFacing;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFFurnace;

@@ -53,7 +53,7 @@ public class TileRFMultiblockFrame extends RFTileMultiblock
 	@Override
 	public MultiblockControllerBase createNewMultiblock()
 	{
-		return new RFFurnaceController(worldObj);
+		return new RFFurnaceController(worldObj, this);
 	}
 
 	@Override
