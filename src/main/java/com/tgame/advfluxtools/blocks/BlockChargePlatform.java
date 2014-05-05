@@ -1,13 +1,16 @@
 package com.tgame.advfluxtools.blocks;
 
+import cofh.api.block.IDismantleable;
 import cofh.api.energy.IEnergyContainerItem;
 import com.tgame.advfluxtools.AFTCreativeTab;
+import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -19,11 +22,14 @@ import net.minecraftforge.common.ForgeDirection;
 
 import java.util.List;
 
+import thermalexpansion.block.TileTEBase;
+import thermalexpansion.util.Utils;
+
 /**
  * @author tgame14
  * @since 30/04/14
  */
-public class BlockChargePlatform extends BlockContainer
+public class BlockChargePlatform extends BlockContainer implements IDismantleable
 {
 	protected Icon cellRedstone;
 	protected Icon cellHardened;
@@ -154,6 +160,30 @@ public class BlockChargePlatform extends BlockContainer
 				break;
 		}
 		return super.getIcon(side, meta);
+	}
+
+	@Override
+	public ItemStack dismantleBlock(EntityPlayer player, World world, int x,
+			int y, int z, boolean returnBlock) {
+		int metadata = world.getBlockMetadata(x, y, z);
+		
+	    ItemStack dropBlock = new ItemStack(AdvancedFluxTools.blockChargePlatform, 1, metadata);
+	   
+        EntityItem item = new EntityItem(world, x, y, z, dropBlock);
+        item.age = 10;
+        world.spawnEntityInWorld(item);
+
+        world.setBlock(x, y, z, 0);
+      return dropBlock;
+	      
+
+	}
+
+	@Override
+	public boolean canDismantle(EntityPlayer player, World world, int x, int y,
+			int z) {
+		// TODO Auto-generated method stub
+		return true;
 	}
 
 }
