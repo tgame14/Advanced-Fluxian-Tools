@@ -28,7 +28,7 @@ import net.minecraftforge.common.MinecraftForge;
  * @author tgame14
  * @since 29/04/14
  */
-@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION)
+@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION,dependencies="required-after:ThermalExpansion")
 public class AdvancedFluxTools
 {
 	@Mod.Instance(Settings.ID)
