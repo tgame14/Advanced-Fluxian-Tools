@@ -56,13 +56,13 @@ minecraft {
 }
 
 
-task copyBuildXml(type: Copy) {
+task copyProperties(type: Copy) {
     from 'build.properties'
     into 'output'
 }
 
 jar {
-    dependsOn copyBuildXml
+    dependsOn copyProperties
     classifier = 'universal'
 
     destinationDir = file 'output'
@@ -78,12 +78,13 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             println "maven working Eh? \n\n\n"
+            dependsOn 'build'
             artifact jar
             artifact deobfJar
 
             artifact {
                 classifier = "output/properties"
-                file config
+                file 'output/build.properties'
             }
         }
     }
