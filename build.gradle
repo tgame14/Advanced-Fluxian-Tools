@@ -10,7 +10,8 @@ buildscript {
         classpath 'net.minecraftforge.gradle:ForgeGradle:1.0-SNAPSHOT'
     }
 }
-apply plugin 'java'
+
+
 apply plugin: 'forge'
 
 sourceSets
@@ -27,7 +28,7 @@ sourceSets
                     }
         }
 
-version = "0.0.0.2"
+version = "0.0.0." + System.getenv().BUILD_NUMBER
 group = "com.tgame.advfluxtools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "advfluxtools"
 
