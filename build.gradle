@@ -17,10 +17,11 @@ sourceSets
                     {
                         java
                                 {
-                                    exclude /cofh/gui
-                                    exclude /cofh/render
-                                    exclude /cofh/util
-                                    exclude /cofh/world
+                                    srcDir 'src'
+                                    exclude / cofh / gui
+                                    exclude / cofh / render
+                                    exclude / cofh / util
+                                    exclude / cofh / world
                                 }
                     }
         }
@@ -28,27 +29,27 @@ sourceSets
 apply plugin: 'forge'
 
 version = "0.0.0.2"
-group= "com.tgame.advfluxtools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+group = "com.tgame.advfluxtools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "advfluxtools"
 
 minecraft {
-	version = "1.6.4-9.11.1.964"
+    version = "1.6.4-9.11.1.964"
     replace "@AUTHOR@", "tgame14"
     replace "@VERSION@", project.version
 }
 
 processResources
-{
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod/info'
-                
-        // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
-    }
-        
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
-    }
-}
+        {
+            // replace stuff in mcmod.info, nothing else
+            from(sourceSets.main.resources.srcDirs) {
+                include 'mcmod/info'
+
+                // replace version and mcversion
+                expand 'version': project.version, 'mcversion': project.minecraft.version
+            }
+
+            // copy everything else, thats not the mcmod.info
+            from(sourceSets.main.resources.srcDirs) {
+                exclude 'mcmod.info'
+            }
+        }
