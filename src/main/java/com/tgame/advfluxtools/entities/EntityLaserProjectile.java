@@ -4,6 +4,7 @@ import com.google.common.io.ByteArrayDataInput;
 import com.google.common.io.ByteArrayDataOutput;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.items.EnumLaserMode;
+import com.tgame.advfluxtools.utility.MathUtility;
 import com.tgame.advfluxtools.utility.Vec3Utility;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
@@ -69,17 +70,17 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 	}
 
-
+	//TODO: enforce a new Math.hypot as the java one is too precise and too slow
 	public void setProjectileHeading(double startMotX, double startMotY, double startMotZ, float speed)
 	{
-		double currSpeed = Math.hypot(Math.hypot(startMotX, startMotY), startMotZ);
+		double currSpeed = MathUtility.hypot(MathUtility.hypot(startMotX, startMotY), startMotZ);
 
 		this.motionX = startMotX / (currSpeed * speed);
 		this.motionY = startMotY / (currSpeed * speed);
 		this.motionZ = startMotZ / (currSpeed * speed);
 
 		this.prevRotationYaw = this.rotationYaw = (float) Math.toDegrees(Math.atan2(startMotX, startMotZ));
-		this.prevRotationPitch = this.rotationPitch = (float) Math.toDegrees(Math.atan2(startMotY, Math.hypot(startMotX, startMotZ)));
+		this.prevRotationPitch = this.rotationPitch = (float) Math.toDegrees(Math.atan2(startMotY, MathUtility.hypot(startMotX, startMotZ)));
 
 	}
 

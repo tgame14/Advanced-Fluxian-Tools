@@ -10,4 +10,14 @@ public class MathUtility
 	{
 		return a < b ? a : b;
 	}
+
+	public static double hypot(double a, double b)
+	{
+		return Math.sqrt(a * a + b * b);
+	}
+
+	public static double hypot(int a, int b)
+	{
+		return hypot((double) a, (double) b);
+	}
 }
