@@ -1,3 +1,5 @@
+import com.sun.org.apache.xpath.internal.SourceTree
+
 buildscript {
     repositories {
         mavenCentral()
@@ -61,12 +63,13 @@ task deobfJar(type: Jar) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            println "maven working Eh? \n\n\n"
             artifact jar
             artifact deobfJar
 
             artifact {
                 classifier = "properties"
-                file 'output/build.properties'
+                file config
             }
         }
     }

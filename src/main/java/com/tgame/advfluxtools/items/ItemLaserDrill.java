@@ -69,7 +69,14 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 		{
 			energy += energyReceived;
 			tags.setInteger("Energy", energy);
-			container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
+
+			double x = (double) getEnergyStored(container) / (double) getMaxEnergyStored(container);
+			System.out.println("stored " + getEnergyStored(container));
+			System.out.println("max " + getMaxEnergyStored(container));
+			System.out.println("precentage " + x);
+
+			container.setItemDamage(1 + (100 - (int) (x * 100)));
+
 
 		}
 		return energyReceived;
@@ -89,7 +96,9 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 		{
 			energy -= energyExtracted;
 			tags.setInteger("Energy", energy);
-			container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+			double x = (double) getEnergyStored(container) / (double) getMaxEnergyStored(container);
+
+			container.setItemDamage(1 + (100 - (int) (x * 100)));
 
 		}
 		return energyExtracted;
@@ -102,7 +111,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 		NBTTagCompound tags = container.getTagCompound();
 		if (tags == null || !tags.hasKey("Energy"))
 		{
-			return 0;
+			tags.setInteger("Energy", 0);
 		}
 		return tags.getInteger("Energy");
 	}
@@ -177,7 +186,8 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 			return itemstack;
 		}
 
-		if (this.getEnergyStored(itemstack) > enumLaser.powerusage){
+		if (this.getEnergyStored(itemstack) > enumLaser.powerusage)
+		{
 			this.shootLaserDrill(world, player, itemstack, 600);
 			this.extractEnergy(itemstack, enumLaser.powerusage, false);
 		}
