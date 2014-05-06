@@ -11,6 +11,9 @@ buildscript {
     }
 }
 
+apply plugin: 'forge'
+apply plugin 'java'
+
 sourceSets
         {
             api
@@ -24,9 +27,6 @@ sourceSets
                                 }
                     }
         }
-
-apply plugin: 'forge'
-apply plugin 'java'
 
 version = "0.0.0.2"
 group = "com.tgame.advfluxtools" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
