@@ -17,11 +17,10 @@ sourceSets
                     {
                         java
                                 {
-                                    srcDir 'src'
-                                    exclude / cofh / gui
-                                    exclude / cofh / render
-                                    exclude / cofh / util
-                                    exclude / cofh / world
+                                    exclude 'cofh/gui/**'
+                                    exclude 'cofh/render/**'
+                                    exclude 'cofh/util/**'
+                                    exclude 'cofh/world/**'
                                 }
                     }
         }
