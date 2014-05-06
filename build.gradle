@@ -77,8 +77,8 @@ task deobfJar(type: Jar) {
 publishing {
     publications {
         mavenJava(MavenPublication) {
-            println "maven working Eh? \n\n\n"
             dependsOn 'build'
+            
             artifact jar
             artifact deobfJar
 
