@@ -53,6 +53,40 @@ minecraft {
     replace "@VERSION@", project.version
 }
 
+task deobfJar(type: Jar) {
+    from sourceSets.main.output
+    classifier 'deobf'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+            artifact deobfJar
+
+            artifact {
+                classifier = "properties"
+                file 'output/build.properties'
+            }
+        }
+    }
+    repositories {
+        maven {
+            url "file://var/www/maven"
+        }
+    }
+}
+
+repositories {
+    maven {
+        url 'http://tgame-mods.info/maven'
+        //TODO: ADD MORE REPOS HERE
+    }
+}
+dependencies {
+    // TODO: ADD DEPENDENCIES (first waila)
+}
+
 processResources
         {
 //            MCMOD.INFO GENERATED ON RUNTIME
