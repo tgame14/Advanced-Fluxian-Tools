@@ -76,9 +76,10 @@ task deobfJar(type: Jar) {
 
 publishing {
     publications {
+        dependsOn 'build'
+        
         mavenJava(MavenPublication) {
-            dependsOn 'build'
-            
+
             artifact jar
             artifact deobfJar
 
