@@ -55,10 +55,24 @@ minecraft {
     replace "@VERSION@", project.version
 }
 
+
+task copyBuildXml(type: Copy) {
+    from 'build.properties'
+    into 'output'
+}
+
+jar {
+    dependsOn copyBuildXml
+    classifier = 'universal'
+
+    destinationDir = file 'output'
+}
+
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier 'deobf'
 }
+
 
 publishing {
     publications {
@@ -68,7 +82,7 @@ publishing {
             artifact deobfJar
 
             artifact {
-                classifier = "properties"
+                classifier = "output/properties"
                 file config
             }
         }
