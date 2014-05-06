@@ -11,6 +11,20 @@ buildscript {
     }
 }
 
+sourceSets
+        {
+            api
+                    {
+                        java
+                                {
+                                    exclude /cofh/gui
+                                    exclude /cofh/render
+                                    exclude /cofh/util
+                                    exclude /cofh/world
+                                }
+                    }
+        }
+
 apply plugin: 'forge'
 
 version = "0.0.0.2"
