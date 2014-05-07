@@ -71,9 +71,9 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 			tags.setInteger("Energy", energy);
 
 			double x = (double) getEnergyStored(container) / (double) getMaxEnergyStored(container);
-//			System.out.println("stored " + getEnergyStored(container));
-//			System.out.println("max " + getMaxEnergyStored(container));
-//			System.out.println("precentage " + x);
+			//			System.out.println("stored " + getEnergyStored(container));
+			//			System.out.println("max " + getMaxEnergyStored(container));
+			//			System.out.println("precentage " + x);
 
 			container.setItemDamage(1 + (100 - (int) (x * 100)));
 
@@ -160,40 +160,43 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 	@Override
 	public ItemStack onItemRightClick(ItemStack itemstack, World world, EntityPlayer player)
 	{
-		NBTTagCompound tag = NBTUtility.getOrCreateNBTTag(itemstack);
-
-		if (!tag.hasKey("mode"))
+		if (!world.isRemote)
 		{
-			tag.setInteger("mode", 0);
-		}
-		EnumLaserMode enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
+			NBTTagCompound tag = NBTUtility.getOrCreateNBTTag(itemstack);
 
-		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
-		{
-			EnumLaserMode[] test = EnumLaserMode.values();
-			if (tag.getInteger("mode") < EnumLaserMode.values().length - 1)
-			{
-				tag.setInteger("mode", tag.getInteger("mode") + 1);
-			}
-			else
+			if (!tag.hasKey("mode"))
 			{
 				tag.setInteger("mode", 0);
 			}
-			enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
+			EnumLaserMode enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
 
+			if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+			{
+				EnumLaserMode[] test = EnumLaserMode.values();
+				if (tag.getInteger("mode") < EnumLaserMode.values().length - 1)
+				{
+					tag.setInteger("mode", tag.getInteger("mode") + 1);
+				}
+				else
+				{
+					tag.setInteger("mode", 0);
+				}
+				enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
+
+				itemstack.setTagCompound(tag);
+				player.addChatMessage(StatCollector.translateToLocal("info.laser.mode").replaceAll("%m", enumLaser.name()));
+				return itemstack;
+			}
+
+			if (this.getEnergyStored(itemstack) > enumLaser.powerusage)
+			{
+				this.shootLaserDrill(world, player, itemstack, 600);
+				this.extractEnergy(itemstack, enumLaser.powerusage, false);
+			}
+
+			tag.setInteger("mode", enumLaser.ordinal());
 			itemstack.setTagCompound(tag);
-			player.addChatMessage(StatCollector.translateToLocal("info.laser.mode").replaceAll("%m", enumLaser.name()));
-			return itemstack;
 		}
-
-		if (this.getEnergyStored(itemstack) > enumLaser.powerusage)
-		{
-			this.shootLaserDrill(world, player, itemstack, 600);
-			this.extractEnergy(itemstack, enumLaser.powerusage, false);
-		}
-
-		tag.setInteger("mode", enumLaser.ordinal());
-		itemstack.setTagCompound(tag);
 		return super.onItemRightClick(itemstack, world, player);
 	}
 
