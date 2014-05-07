@@ -71,9 +71,9 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 			tags.setInteger("Energy", energy);
 
 			double x = (double) getEnergyStored(container) / (double) getMaxEnergyStored(container);
-			System.out.println("stored " + getEnergyStored(container));
-			System.out.println("max " + getMaxEnergyStored(container));
-			System.out.println("precentage " + x);
+//			System.out.println("stored " + getEnergyStored(container));
+//			System.out.println("max " + getMaxEnergyStored(container));
+//			System.out.println("precentage " + x);
 
 			container.setItemDamage(1 + (100 - (int) (x * 100)));
 

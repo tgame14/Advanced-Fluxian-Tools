@@ -17,6 +17,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeDirection;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -99,17 +100,26 @@ public class BlockChargePlatform extends BlockContainer
 			EntityPlayer player = (EntityPlayer) entity;
 			IInventory inv = player.inventory;
 			TileChargePlatform tile = (TileChargePlatform) world.getBlockTileEntity(x, y, z);
+			ArrayList<ItemStack> chargableItems = new ArrayList<ItemStack>();
 
 			for (int i = 0; i < inv.getSizeInventory(); i++)
 			{
 				ItemStack stack = inv.getStackInSlot(i);
-
 				if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
 				{
-					IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
-					energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed, false), false);
-					break;
+					chargableItems.add(stack);
 				}
+
+			}
+			System.out.println("PRE chargeSpeed = " + chargeSpeed);
+			chargeSpeed /= chargableItems.size();
+			System.out.println("chargableItems = " + chargableItems);
+			System.out.println("chargeSpeed = " + chargeSpeed);
+
+			for (ItemStack stack : chargableItems)
+			{
+				IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
+				energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed / chargableItems.size(), false), false);
 			}
 		}
 
