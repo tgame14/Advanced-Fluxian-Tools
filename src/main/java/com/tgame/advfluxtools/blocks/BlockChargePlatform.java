@@ -113,7 +113,10 @@ public class BlockChargePlatform extends BlockContainer
 					}
 				}
 				//			System.out.println("PRE chargeSpeed = " + chargeSpeed);
-				chargeSpeed /= chargableItems.size();
+				if (chargableItems.size() != 0)
+				{
+					chargeSpeed /= chargableItems.size();
+				}
 				//			System.out.println("chargableItems = " + chargableItems);
 				//			System.out.println("chargeSpeed = " + chargeSpeed);
 
@@ -131,8 +134,11 @@ public class BlockChargePlatform extends BlockContainer
 					if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
 					{
 						IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
-						energyItem.receiveEnergy(stack, chargeSpeed, false);
-						break;
+						if (!(energyItem.getEnergyStored(stack) >= energyItem.getMaxEnergyStored(stack)))
+						{
+							energyItem.receiveEnergy(stack, chargeSpeed, false);
+							break;
+						}
 					}
 				}
 			}
