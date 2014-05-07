@@ -112,13 +112,11 @@ public class BlockChargePlatform extends BlockContainer
 						chargableItems.add(stack);
 					}
 				}
-				//			System.out.println("PRE chargeSpeed = " + chargeSpeed);
+
 				if (chargableItems.size() != 0)
 				{
 					chargeSpeed /= chargableItems.size();
 				}
-				//			System.out.println("chargableItems = " + chargableItems);
-				//			System.out.println("chargeSpeed = " + chargeSpeed);
 
 				for (ItemStack stack : chargableItems)
 				{
