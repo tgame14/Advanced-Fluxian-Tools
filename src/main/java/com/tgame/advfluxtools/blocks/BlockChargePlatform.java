@@ -2,6 +2,7 @@ package com.tgame.advfluxtools.blocks;
 
 import cofh.api.energy.IEnergyContainerItem;
 import com.tgame.advfluxtools.AFTCreativeTab;
+import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -75,12 +76,11 @@ public class BlockChargePlatform extends BlockContainer
 	}
 
 
-
 	@Override
 	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
 	{
 		int chargeSpeed = 0;
-		switch (world.getBlockMetadata(x, y, z))
+		switch (world.getBlockMetadata(x, y, z) % 3)
 		{
 			case 0:
 				chargeSpeed = 80;
@@ -100,29 +100,67 @@ public class BlockChargePlatform extends BlockContainer
 			EntityPlayer player = (EntityPlayer) entity;
 			IInventory inv = player.inventory;
 			TileChargePlatform tile = (TileChargePlatform) world.getBlockTileEntity(x, y, z);
-			ArrayList<ItemStack> chargableItems = new ArrayList<ItemStack>();
-
-			for (int i = 0; i < inv.getSizeInventory(); i++)
+			if (world.getBlockMetadata(x, y, z) < 3)
 			{
-				ItemStack stack = inv.getStackInSlot(i);
-				if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
+				ArrayList<ItemStack> chargableItems = new ArrayList<ItemStack>();
+
+				for (int i = 0; i < inv.getSizeInventory(); i++)
 				{
-					chargableItems.add(stack);
+					ItemStack stack = inv.getStackInSlot(i);
+					if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
+					{
+						chargableItems.add(stack);
+					}
 				}
+				//			System.out.println("PRE chargeSpeed = " + chargeSpeed);
+				chargeSpeed /= chargableItems.size();
+				//			System.out.println("chargableItems = " + chargableItems);
+				//			System.out.println("chargeSpeed = " + chargeSpeed);
 
+				for (ItemStack stack : chargableItems)
+				{
+					IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
+					energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed / chargableItems.size(), false), false);
+				}
 			}
-//			System.out.println("PRE chargeSpeed = " + chargeSpeed);
-			chargeSpeed /= chargableItems.size();
-//			System.out.println("chargableItems = " + chargableItems);
-//			System.out.println("chargeSpeed = " + chargeSpeed);
-
-			for (ItemStack stack : chargableItems)
+			else
 			{
-				IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
-				energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed / chargableItems.size(), false), false);
+				for (int i = 0; i < inv.getSizeInventory(); i++)
+				{
+					ItemStack stack = inv.getStackInSlot(i);
+					if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
+					{
+						IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
+						energyItem.receiveEnergy(stack, chargeSpeed, false);
+						break;
+					}
+				}
 			}
 		}
 
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+	{
+		if (!world.isRemote)
+		{
+			if (player.getHeldItem() != null && player.getHeldItem().itemID == AdvancedFluxTools.itemCresentHammer.itemID)
+			{
+				int meta = world.getBlockMetadata(x, y, z);
+				if (meta > 2)
+				{
+					world.setBlockMetadataWithNotify(x, y, z, meta - 3, 3);
+					player.addChatMessage("Cover Entire Inventory");
+				}
+				else
+				{
+					world.setBlockMetadataWithNotify(x, y, z, meta + 3, 3);
+					player.addChatMessage("First item First");
+				}
+			}
+		}
+		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
 	}
 
 	@Override
@@ -152,7 +190,7 @@ public class BlockChargePlatform extends BlockContainer
 	@Override
 	public Icon getIcon(int side, int meta)
 	{
-		switch (meta)
+		switch (meta % 3)
 		{
 			case 0:
 				return this.cellLeadstone;
