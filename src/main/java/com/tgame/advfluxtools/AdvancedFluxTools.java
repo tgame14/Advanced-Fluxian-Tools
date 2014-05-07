@@ -10,6 +10,7 @@ import com.tgame.advfluxtools.multiblocks.furnace.BlockRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceFacing;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFMultiblockFrame;
 import com.tgame.advfluxtools.multiblocks.furnace.TileRFFurnace;
+import com.tgame.advfluxtools.utility.Mods;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModMetadata;
 import cpw.mods.fml.common.SidedProxy;
@@ -28,7 +29,7 @@ import net.minecraftforge.common.MinecraftForge;
  * @author tgame14
  * @since 29/04/14
  */
-@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION)
+@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION, dependencies = "after:" + Mods.TE3)
 public class AdvancedFluxTools
 {
 	@Mod.Instance(Settings.ID)
