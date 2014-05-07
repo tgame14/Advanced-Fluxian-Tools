@@ -19,6 +19,7 @@ import java.util.List;
  * @author tgame14
  * @since 30/04/14
  */
+@Deprecated
 public enum EnumLaserMode
 {
 	EXPLOSION(4000)

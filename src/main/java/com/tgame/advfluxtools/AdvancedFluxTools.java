@@ -82,7 +82,7 @@ public class AdvancedFluxTools
 	public void init(FMLInitializationEvent event)
 	{
 		metadata.authorList.add("@AUTHOR@");
-		metadata.credits = "@AUTHOR@, and wanting better content from mods";
+		metadata.credits = "@AUTHOR@, https://github.com/tgame14/Advanced-Fluxian-Tools/blob/master/CREDITS.md";
 		metadata.description = "A Mod that adds Advanced tools and machinery";
 		metadata.modId = Settings.ID;
 		metadata.version = Settings.VERSION;
