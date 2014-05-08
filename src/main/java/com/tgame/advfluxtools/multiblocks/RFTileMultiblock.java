@@ -18,7 +18,7 @@ import net.minecraftforge.common.ForgeDirection;
  * @author tgame14
  * @since 01/05/14
  */
-public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBase implements IEnergyHandler, IInventory
+public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBase implements IEnergyHandler//, IInventory
 {
 
 	@Override
@@ -86,75 +86,75 @@ public abstract class RFTileMultiblock extends RectangularMultiblockTileEntityBa
 
 	/// * * * IINVENTORY * * * ///
 
-	@Override
-	public int getSizeInventory()
-	{
-		return getRFController().getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return getRFController().getStackInSlot(i);
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		return getRFController().decrStackSize(i, j);
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int i)
-	{
-		return getRFController().getStackInSlotOnClosing(i);
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		getRFController().setInventorySlotContents(i, itemstack);
-	}
-
-	@Override
-	public String getInvName()
-	{
-		return getRFController().getInvName();
-	}
-
-	@Override
-	public boolean isInvNameLocalized()
-	{
-		return getRFController().isInvNameLocalized();
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return getRFController().getInventoryStackLimit();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
-		return getRFController().isUseableByPlayer(entityplayer);
-	}
-
-	@Override
-	public void openChest()
-	{
-		getRFController().openChest();
-	}
-
-	@Override
-	public void closeChest()
-	{
-		getRFController().closeChest();
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack)
-	{
-		return getRFController().isItemValidForSlot(i, itemstack);
-	}
+//	@Override
+//	public int getSizeInventory()
+//	{
+//		return getRFController().getSizeInventory();
+//	}
+//
+//	@Override
+//	public ItemStack getStackInSlot(int i)
+//	{
+//		return getRFController().getStackInSlot(i);
+//	}
+//
+//	@Override
+//	public ItemStack decrStackSize(int i, int j)
+//	{
+//		return getRFController().decrStackSize(i, j);
+//	}
+//
+//	@Override
+//	public ItemStack getStackInSlotOnClosing(int i)
+//	{
+//		return getRFController().getStackInSlotOnClosing(i);
+//	}
+//
+//	@Override
+//	public void setInventorySlotContents(int i, ItemStack itemstack)
+//	{
+//		getRFController().setInventorySlotContents(i, itemstack);
+//	}
+//
+//	@Override
+//	public String getInvName()
+//	{
+//		return getRFController().getInvName();
+//	}
+//
+//	@Override
+//	public boolean isInvNameLocalized()
+//	{
+//		return getRFController().isInvNameLocalized();
+//	}
+//
+//	@Override
+//	public int getInventoryStackLimit()
+//	{
+//		return getRFController().getInventoryStackLimit();
+//	}
+//
+//	@Override
+//	public boolean isUseableByPlayer(EntityPlayer entityplayer)
+//	{
+//		return getRFController().isUseableByPlayer(entityplayer);
+//	}
+//
+//	@Override
+//	public void openChest()
+//	{
+//		getRFController().openChest();
+//	}
+//
+//	@Override
+//	public void closeChest()
+//	{
+//		getRFController().closeChest();
+//	}
+//
+//	@Override
+//	public boolean isItemValidForSlot(int i, ItemStack itemstack)
+//	{
+//		return getRFController().isItemValidForSlot(i, itemstack);
+//	}
 }

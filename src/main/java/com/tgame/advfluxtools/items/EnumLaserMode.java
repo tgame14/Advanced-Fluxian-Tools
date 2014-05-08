@@ -22,7 +22,7 @@ import java.util.List;
 @Deprecated
 public enum EnumLaserMode
 {
-	EXPLOSION(4000)
+	EXPLOSION(8000)
 			{
 				@Override
 				public void onImpact(World world, EntityLaserProjectile projectile, MovingObjectPosition hit)

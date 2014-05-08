@@ -149,11 +149,12 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 		if (this.ticksExisted > this.lifeCycle)
 		{
 			this.setDead();
+			return;
 		}
 
 		Vec3 currPos = Vec3.createVectorHelper(this.posX, this.posY + 1.62, this.posZ);
 		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY + 1.62, this.posZ + this.motionZ);
-		MovingObjectPosition hit = worldObj.rayTraceBlocks_do_do(Vec3Utility.cloneVec3(currPos), Vec3Utility.cloneVec3(nextPos), false, false);
+		MovingObjectPosition hit = Vec3Utility.rayTrace(worldObj, Vec3Utility.cloneVec3(currPos), Vec3Utility.cloneVec3(nextPos), false);
 
 		if (hit != null)
 		{
@@ -161,6 +162,11 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 			if (!isDead)
 			{
+				if (hit.entityHit != null && hit.entityHit == getThrower())
+				{
+					this.setPosition(this.posX + this.motionX, this.posY + this.motionY, this.posZ + this.motionZ);
+					return;
+				}
 				enumMode.onImpact(worldObj, this, hit);
 			}
 		}
