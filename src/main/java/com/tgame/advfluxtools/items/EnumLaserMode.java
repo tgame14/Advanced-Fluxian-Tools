@@ -22,51 +22,60 @@ import java.util.List;
 @Deprecated
 public enum EnumLaserMode
 {
-	EXPLOSION(8000)
-			{
-				@Override
-				public void onImpact(World world, EntityLaserProjectile projectile, MovingObjectPosition hit)
-				{
-					if (!world.isRemote)
-					{
-						world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, 4, true);
-						projectile.setDead();
-					}
-				}
-			},
+    EXPLOSION(8000)
+            {
+                @Override
+                public void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit)
+                {
+                    if (!world.isRemote)
+                    {
+                        world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, 2, true);
+                        projectile.setDead();
+                    }
+                }
+            },
 
-	MINE(2000)
-			{
-				@Override
-				public void onImpact(World world, EntityLaserProjectile projectile, MovingObjectPosition hit)
-				{
-					if (!world.isRemote)
-					{
-						if (hit.typeOfHit == EnumMovingObjectType.ENTITY)
-						{
-							if (hit.entityHit instanceof EntityLivingBase)
-							{
-								EntityLivingBase liveEntity = (EntityLivingBase) hit.entityHit;
-								liveEntity.attackEntityFrom(new EntityDamageSource("entity.laser", projectile), 4F);
-							}
-						}
-						else
-						{
-							world.destroyBlock(hit.blockX, hit.blockY, hit.blockZ, true);
-							projectile.setBlocksHit(projectile.getBlocksHit() + 1);
-						}
-						if (projectile.getBlocksHit() > 5)
-							projectile.setDead();
-					}
-				}
-			};
+    MINE(2000)
+            {
+                @Override
+                public void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit)
+                {
+                    if (!world.isRemote)
+                    {
+                        if (hit.typeOfHit == EnumMovingObjectType.ENTITY)
+                        {
+                            if (hit.entityHit instanceof EntityLivingBase)
+                            {
+                                EntityLivingBase liveEntity = (EntityLivingBase) hit.entityHit;
+                                liveEntity.attackEntityFrom(new EntityDamageSource("entity.laser", projectile), 4F);
+                            }
+                        }
+                        else
+                        {
+                            Block block = Block.blocksList[world.getBlockId(hit.blockX, hit.blockY, hit.blockZ)];
+                            if (block.blockHardness < 30F && block.blockHardness != -1.0F)
+                            {
 
-	public final int powerusage;
+                                world.destroyBlock(hit.blockX, hit.blockY, hit.blockZ, true);
+                                projectile.setBlocksHit(projectile.getBlocksHit() + 1);
+                            }
+                            else
+                            {
+                                projectile.setDead();
+                            }
+                        }
+                        if (projectile.getBlocksHit() > 5)
+                            projectile.setDead();
+                    }
+                }
+            };
 
-	private EnumLaserMode(int powerusage)
-	{
-		this.powerusage = powerusage;
-	}
+    public final int powerusage;
 
-	public abstract void onImpact(World world, EntityLaserProjectile projectile, MovingObjectPosition hit);
+    private EnumLaserMode (int powerusage)
+    {
+        this.powerusage = powerusage;
+    }
+
+    public abstract void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit);
 }
