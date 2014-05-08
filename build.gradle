@@ -32,7 +32,7 @@ sourceSets
                                 {
                                     exclude 'cofh/gui/**'
                                     exclude 'cofh/render/**'
-                                    exclude 'cofh/util/**'
+                                    //exclude 'cofh/util/**'
                                     exclude 'cofh/world/**'
                                 }
                     }
