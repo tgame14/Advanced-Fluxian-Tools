@@ -1,8 +1,6 @@
 package com.tgame.advfluxtools.multiblocks;
 
 import cofh.api.energy.IEnergyHandler;
-import com.tgame.advfluxtools.libs.containers.ExternalInventory;
-import com.tgame.advfluxtools.libs.containers.IExternalInventory;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.RectangularMultiblockTileEntityBase;

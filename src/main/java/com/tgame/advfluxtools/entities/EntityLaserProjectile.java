@@ -23,23 +23,10 @@ import net.minecraft.world.World;
  */
 public class EntityLaserProjectile extends Entity implements IEntityAdditionalSpawnData, IThrowableEntity
 {
-	private int lifeCycle; //kill bullets after 30 seconds or more
 	protected Entity owner;
-
+	private int lifeCycle; //kill bullets after 30 seconds or more
 	private EnumLaserMode enumMode;
-
-	public int getBlocksHit()
-	{
-		return blocksHit;
-	}
-
-	public void setBlocksHit(int blocksHit)
-	{
-		this.blocksHit = blocksHit;
-	}
-
 	private int blocksHit;
-
 
 	public EntityLaserProjectile(World par1World, EntityLivingBase shooter, EnumLaserMode mode, int lifeCycle)
 	{
@@ -53,10 +40,10 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 	}
 
-
 	private EntityLaserProjectile(World world, Vec3 origin, float yaw, float pitch, EntityLivingBase shooter, float speed)
 	{
 		super(world);
+		Settings.LOGGER.info("Spawned on: " + (world.isRemote ? "client" : "server"));
 		double yawRad = Math.toRadians(yaw);
 		double pitchRad = Math.toRadians(pitch);
 		this.setLocationAndAngles(origin.xCoord, origin.yCoord, origin.zCoord, (float) yawRad, (float) pitchRad);
@@ -68,6 +55,16 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 
 		this.setProjectileHeading(startMotX, startMotY, startMotZ, speed);
 
+	}
+
+	public int getBlocksHit()
+	{
+		return blocksHit;
+	}
+
+	public void setBlocksHit(int blocksHit)
+	{
+		this.blocksHit = blocksHit;
 	}
 
 	//TODO: enforce a new Math.hypot as the java one is too precise and too slow
@@ -154,8 +151,8 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 			this.setDead();
 		}
 
-		Vec3 currPos = Vec3.createVectorHelper(this.posX, this.posY+1.62, this.posZ);
-		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY+1.62, this.posZ + this.motionZ);
+		Vec3 currPos = Vec3.createVectorHelper(this.posX, this.posY + 1.62, this.posZ);
+		Vec3 nextPos = Vec3.createVectorHelper(this.posX + this.motionX, this.posY + this.motionY + 1.62, this.posZ + this.motionZ);
 		MovingObjectPosition hit = worldObj.rayTraceBlocks_do_do(Vec3Utility.cloneVec3(currPos), Vec3Utility.cloneVec3(nextPos), false, false);
 
 		if (hit != null)

@@ -2,42 +2,38 @@ package com.tgame.advfluxtools.multiblocks;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyStorage;
-import com.tgame.advfluxtools.Settings;
-import com.tgame.advfluxtools.libs.containers.ExternalInventory;
-import com.tgame.advfluxtools.libs.containers.IExternalInventory;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.RectangularMultiblockControllerBase;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
-import net.minecraftforge.fluids.IFluidBlock;
 
 /**
  * @author tgame14
  * @since 01/05/14
  */
-public abstract class RFMultiblockController extends RectangularMultiblockControllerBase implements IEnergyStorage, IExternalInventory
+public abstract class RFMultiblockController extends RectangularMultiblockControllerBase implements IEnergyStorage
 {
-	/** default external energy storage object */
+	/**
+	 * default external energy storage object
+	 */
 	protected EnergyStorage energy;
 
 	protected RFMultiblockController(World world, TileEntity tile)
 	{
 		super(world);
-		//TODO: Handle per block in creation and addition
-		this.energy = new EnergyStorage(16000, 80);
-		this.inv = new ExternalInventory(tile, 24 * 2 + 4 * 9);
 	}
 
 	@Override
 	public void onAttachedPartWithMultiblockData(IMultiblockPart part, NBTTagCompound data)
 	{
-
+		if (data.hasKey("Energy"))
+		{
+			this.energy.setEnergyStored(this.energy.getEnergyStored() + data.getInteger("Energy"));
+		}
 	}
 
 	@Override
@@ -55,7 +51,16 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void onMachineAssembled()
 	{
-
+		if (this.energy == null)
+		{
+			this.energy = new EnergyStorage(8000 * this.getNumConnectedBlocks(), 10000);
+		}
+		else
+		{
+			int stored = this.energy.getEnergyStored();
+			this.energy = new EnergyStorage(8000 * this.getNumConnectedBlocks(), 10000);
+			this.energy.setEnergyStored(stored);
+		}
 	}
 
 	@Override
@@ -175,93 +180,5 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	public void decodeDescriptionPacket(NBTTagCompound data)
 	{
 
-	}
-
-	/// * * * IEXTERNALINVENTORY * * * ///
-
-	protected ExternalInventory inv;
-
-	@Override
-	public int getSizeInventory()
-	{
-		return this.inv.getSizeInventory();
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inv.getStackInSlot(i);
-	}
-
-	@Override
-	public ItemStack[] getItems()
-	{
-		return this.inv.getItems();
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		return this.inv.decrStackSize(i, j);
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int i)
-	{
-		return this.inv.getStackInSlotOnClosing(i);
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inv.setInventorySlotContents(i, itemstack);
-	}
-
-	@Override
-	public String getInvName()
-	{
-		return this.inv.getInvName();
-	}
-
-	@Override
-	public boolean isInvNameLocalized()
-	{
-		return this.inv.isInvNameLocalized();
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return this.inv.getInventoryStackLimit();
-	}
-
-	@Override
-	public void onInventoryChanged()
-	{
-		this.inv.onInventoryChanged();
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
-		return this.inv.isUseableByPlayer(entityplayer);
-	}
-
-	@Override
-	public void openChest()
-	{
-		this.inv.openChest();
-	}
-
-	@Override
-	public void closeChest()
-	{
-		this.inv.closeChest();
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack)
-	{
-		return this.inv.isItemValidForSlot(i, itemstack);
 	}
 }

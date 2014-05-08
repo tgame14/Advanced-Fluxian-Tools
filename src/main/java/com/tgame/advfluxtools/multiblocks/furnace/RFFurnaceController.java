@@ -6,6 +6,7 @@ import com.tgame.advfluxtools.libs.erogenousbeef.common.CoordTriplet;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.IMultiblockPart;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
+import com.tgame.advfluxtools.libs.inventory.item.IInventoryStorage;
 import com.tgame.advfluxtools.multiblocks.RFMultiblockController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
@@ -22,7 +23,7 @@ import net.minecraftforge.fluids.IFluidTank;
  * @author tgame14
  * @since 01/05/14
  */
-public class RFFurnaceController extends RFMultiblockController implements IFluidTank, IInventory
+public class RFFurnaceController extends RFMultiblockController implements IFluidTank//, IInventoryStorage
 {
 	protected RFFurnaceController(World world, TileEntity tile)
 	{
@@ -286,90 +287,5 @@ public class RFFurnaceController extends RFMultiblockController implements IFlui
 	public int getMaxEnergyStored()
 	{
 		return this.energy.getMaxEnergyStored();
-	}
-
-	/// * * * IINVENTORY * * * ///
-
-	protected ItemStack[] inv = new ItemStack[2];
-
-
-	@Override
-	public int getSizeInventory()
-	{
-		return this.inv.length;
-	}
-
-	@Override
-	public ItemStack getStackInSlot(int i)
-	{
-		return this.inv[i];
-	}
-
-	@Override
-	public ItemStack decrStackSize(int i, int j)
-	{
-		this.inv[i].stackSize -= j;
-		return this.inv[i];
-
-	}
-
-	@Override
-	public ItemStack getStackInSlotOnClosing(int i)
-	{
-		return this.inv[i];
-	}
-
-	@Override
-	public void setInventorySlotContents(int i, ItemStack itemstack)
-	{
-		this.inv[i] = itemstack;
-	}
-
-	@Override
-	public String getInvName()
-	{
-		return "inv.rffurnace.name";
-	}
-
-	@Override
-	public boolean isInvNameLocalized()
-	{
-		return true;
-	}
-
-	@Override
-	public int getInventoryStackLimit()
-	{
-		return 64;
-	}
-
-	@Override
-	public void onInventoryChanged()
-	{
-
-	}
-
-	@Override
-	public boolean isUseableByPlayer(EntityPlayer entityplayer)
-	{
-		return false;
-	}
-
-	@Override
-	public void openChest()
-	{
-
-	}
-
-	@Override
-	public void closeChest()
-	{
-
-	}
-
-	@Override
-	public boolean isItemValidForSlot(int i, ItemStack itemstack)
-	{
-		return i < this.inv.length;
 	}
 }
