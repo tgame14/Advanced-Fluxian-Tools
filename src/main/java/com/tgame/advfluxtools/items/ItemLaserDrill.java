@@ -46,6 +46,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 
         this.setMaxDamage(100);
         this.setMaxStackSize(1);
+        this.setNoRepair();
     }
 
     /* IEnergyContainerItem */
@@ -61,8 +62,6 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
         {
             energy += energyReceived;
             tags.setInteger("Energy", energy);
-            container.setItemDamage(1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
-
         }
         return energyReceived;
     }
@@ -81,11 +80,19 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
         {
             energy -= energyExtracted;
             tags.setInteger("Energy", energy);
-            int x = 1 + (getMaxEnergyStored(container) - energy) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container);
-            container.setItemDamage(x);
-
         }
+
         return energyExtracted;
+    }
+
+    @Override
+    public int getDisplayDamage (ItemStack stack)
+    {
+        if (stack.stackTagCompound == null)
+        {
+            EnergyHelper.setDefaultEnergyTag(stack, 0);
+        }
+        return 1 + capacity - stack.stackTagCompound.getInteger("Energy");
     }
 
     @Override
@@ -186,7 +193,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
 
     public void shootLaserDrill (World world, EntityLivingBase entity, ItemStack stack, int lifetime)
     {
-        EntityLaserProjectile laserProjectile = new EntityLaserProjectile(world, entity, EnumLaserMode.values()[stack.getTagCompound().getInteger("mode")], lifetime);
+        EntityLaserProjectile laserProjectile = new EntityLaserProjectile(world, entity, EnumLaserMode.values()[stack.getTagCompound().getInteger("mode")], lifetime, EnumLaserMode.values()[stack.getTagCompound().getInteger("mode")].speed);
         world.spawnEntityInWorld(laserProjectile);
     }
 

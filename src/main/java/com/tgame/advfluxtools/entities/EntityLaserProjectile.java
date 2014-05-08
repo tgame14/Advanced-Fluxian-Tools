@@ -28,9 +28,9 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 	private EnumLaserMode enumMode;
 	private int blocksHit;
 
-	public EntityLaserProjectile(World par1World, EntityLivingBase shooter, EnumLaserMode mode, int lifeCycle)
+	public EntityLaserProjectile(World par1World, EntityLivingBase shooter, EnumLaserMode mode, int lifeCycle, float speed)
 	{
-		this(par1World, Vec3.createVectorHelper(shooter.posX, shooter.posY, shooter.posZ), shooter.rotationYaw, shooter.rotationPitch, shooter, 1);
+		this(par1World, Vec3.createVectorHelper(shooter.posX, shooter.posY, shooter.posZ), shooter.rotationYaw, shooter.rotationPitch, shooter, speed);
 
 		this.setSize(0.5F, 0.3F);
 		this.owner = shooter;

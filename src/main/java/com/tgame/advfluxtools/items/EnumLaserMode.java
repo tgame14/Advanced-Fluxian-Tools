@@ -19,10 +19,10 @@ import java.util.List;
  * @author tgame14
  * @since 30/04/14
  */
-@Deprecated
+//@Deprecated TODO: Deprecate but in the meanwhile the crossed out line bugs me
 public enum EnumLaserMode
 {
-    EXPLOSION(8000)
+    EXPLOSION(8000, 0.8F)
             {
                 @Override
                 public void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit)
@@ -35,7 +35,7 @@ public enum EnumLaserMode
                 }
             },
 
-    MINE(2000)
+    MINE(2000, 1.2F)
             {
                 @Override
                 public void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit)
@@ -71,10 +71,12 @@ public enum EnumLaserMode
             };
 
     public final int powerusage;
+    public final float speed;
 
-    private EnumLaserMode (int powerusage)
+    private EnumLaserMode (int powerusage, float speed)
     {
         this.powerusage = powerusage;
+        this.speed = speed;
     }
 
     public abstract void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit);
