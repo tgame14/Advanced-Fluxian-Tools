@@ -76,7 +76,7 @@ public class AdvancedFluxTools
         GameRegistry.registerBlock(blockRFMultiblockFrame, BlockRFMultiblockFrame.class.getSimpleName());
         GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
 
-        EntityRegistry.registerModEntity(EntityLaserProjectile.class, "EntityLaserProjectile", 0, instance, 80, 3, true);
+        //EntityRegistry.registerModEntity(EntityLaserProjectile.class, "EntityLaserProjectile", 1, instance, 80, 3, true);
         Settings.CONFIGURATION.save();
         proxy.preInit();
 
@@ -115,6 +115,7 @@ public class AdvancedFluxTools
         ItemStack redsEnergy = GameRegistry.findItemStack(Mods.TE3, "cellReinforced", 1);
 
         ItemStack gearElectrum = GameRegistry.findItemStack(Mods.TE3, "gearElectrum", 1);
+        ItemStack hardenedCapacitor = GameRegistry.findItemStack(Mods.TE3, "capacitorHardened", 1);
 
         ItemStack ppIron = new ItemStack(Block.pressurePlateIron);
 
@@ -124,7 +125,7 @@ public class AdvancedFluxTools
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
 
-            //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 0), " B ", " E ", "GG ", 'B'));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 1), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', Item.emerald, 'G', gearElectrum));
         }
 
         proxy.postInit();

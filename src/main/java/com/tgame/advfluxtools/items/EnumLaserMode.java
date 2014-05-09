@@ -29,7 +29,7 @@ public enum EnumLaserMode
                 {
                     if (!world.isRemote)
                     {
-                        world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, 2, true);
+                        world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, 3.5F, true);
                         projectile.setDead();
                     }
                 }

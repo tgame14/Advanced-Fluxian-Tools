@@ -5,24 +5,18 @@ import cofh.util.EnergyHelper;
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
-import com.tgame.advfluxtools.utility.MathUtility;
 import com.tgame.advfluxtools.utility.NBTUtility;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
-import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.StatCollector;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
 
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -32,8 +26,7 @@ import java.util.List;
 public class ItemLaserDrill extends Item implements IEnergyContainerItem
 {
     protected int capacity = 400000;
-    protected int maxRec = 2000;
-    protected int maxExt = 2000;
+    protected int maxTransfer = 2000;
 
 
     public ItemLaserDrill (int id)
@@ -47,63 +40,72 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
         this.setMaxDamage(100);
         this.setMaxStackSize(1);
         this.setNoRepair();
+        canRepair = false;
     }
 
     /* IEnergyContainerItem */
     @Override
     public int receiveEnergy (ItemStack container, int maxReceive, boolean simulate)
     {
-        NBTTagCompound tags = container.getTagCompound();
-        if (tags == null || !tags.hasKey("Energy"))
-            return 0;
-        int energy = tags.getInteger("Energy");
-        int energyReceived = Math.min(capacity - energy, Math.min(this.maxRec, maxReceive));
+        if (container.stackTagCompound == null)
+        {
+            EnergyHelper.setDefaultEnergyTag(container, 0);
+        }
+        int stored = container.stackTagCompound.getInteger("Energy");
+        int receive = Math.min(maxReceive, Math.min(capacity - stored, maxTransfer));
+
         if (!simulate)
         {
-            energy += energyReceived;
-            tags.setInteger("Energy", energy);
+            stored += receive;
+            container.stackTagCompound.setInteger("Energy", stored);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - stored) * (container.getMaxDamage() - 2) / getMaxEnergyStored(container));
         }
-        return energyReceived;
+
+        return receive;
     }
 
     @Override
     public int extractEnergy (ItemStack container, int maxExtract, boolean simulate)
     {
-        NBTTagCompound tags = container.getTagCompound();
-        if (tags == null || !tags.hasKey("Energy"))
+        if (container.stackTagCompound == null)
         {
-            return 0;
+            EnergyHelper.setDefaultEnergyTag(container, 0);
         }
-        int energy = tags.getInteger("Energy");
-        int energyExtracted = Math.min(energy, Math.min(this.maxExt, maxExtract));
+        int stored = container.stackTagCompound.getInteger("Energy");
+        int extract = Math.min(maxExtract, stored);
+
         if (!simulate)
         {
-            energy -= energyExtracted;
-            tags.setInteger("Energy", energy);
+            stored -= extract;
+            container.stackTagCompound.setInteger("Energy", stored);
+            container.setItemDamage(1 + (getMaxEnergyStored(container) - stored) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
+               //TODO: enable RSA Support
+            //            if (stored == 0)
+            //            {
+            //                setEmpoweredState(container, false);
+            //            }
         }
-
-        return energyExtracted;
+        return extract;
     }
 
     @Override
     public int getDisplayDamage (ItemStack stack)
     {
-        if (stack.stackTagCompound == null)
+        if (!stack.hasTagCompound())
         {
             EnergyHelper.setDefaultEnergyTag(stack, 0);
         }
-        return 1 + capacity - stack.stackTagCompound.getInteger("Energy");
+        return 1 + capacity - stack.getTagCompound().getInteger("Energy");
     }
 
     @Override
     public int getEnergyStored (ItemStack container)
     {
-
-        if (container.stackTagCompound == null)
+        if (!container.hasTagCompound())
         {
             EnergyHelper.setDefaultEnergyTag(container, 0);
         }
-        return container.stackTagCompound.getInteger("Energy");
+        return container.getTagCompound().getInteger("Energy");
     }
 
     @Override
