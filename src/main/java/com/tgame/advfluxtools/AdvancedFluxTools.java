@@ -18,6 +18,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
@@ -25,12 +26,14 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * @author tgame14
  * @since 29/04/14
  */
-@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION, dependencies = "after:" + Mods.TE3)
+@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION, dependencies = "after:" + Mods.TE3 /*+ ";required-after" + Mods.COFH*/)
+//@NetworkMod(channels = Settings.CHANNEL, clientSideRequired = true, serverSideRequired = true)
 public class AdvancedFluxTools
 {
     @Mod.Instance(Settings.ID)
@@ -100,24 +103,28 @@ public class AdvancedFluxTools
     {
         // RECIPES
 
-        itemCresentHammer = GameRegistry.findItemStack("ThermalExpansion", "wrench", 1);
+        itemCresentHammer = GameRegistry.findItemStack(Mods.TE3, "wrench", 1);
 
-        ItemStack leadConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyBasic", 1);
-        ItemStack leadEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellBasic", 1);
+        ItemStack leadConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyBasic", 1);
+        ItemStack leadEnergy = GameRegistry.findItemStack(Mods.TE3, "cellBasic", 1);
 
-        ItemStack hardenedConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyHardened", 1);
-        ItemStack hardenedEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellHardened", 1);
+        ItemStack hardenedConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyHardened", 1);
+        ItemStack hardenedEnergy = GameRegistry.findItemStack(Mods.TE3, "cellHardened", 1);
 
-        ItemStack redsConduit = GameRegistry.findItemStack("ThermalExpansion", "conduitEnergyReinforced", 1);
-        ItemStack redsEnergy = GameRegistry.findItemStack("ThermalExpansion", "cellReinforced", 1);
+        ItemStack redsConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyReinforced", 1);
+        ItemStack redsEnergy = GameRegistry.findItemStack(Mods.TE3, "cellReinforced", 1);
+
+        ItemStack gearElectrum = GameRegistry.findItemStack(Mods.TE3, "gearElectrum", 1);
 
         ItemStack ppIron = new ItemStack(Block.pressurePlateIron);
 
         if (Loader.isModLoaded(Mods.TE3))
         {
-            GameRegistry.addShapedRecipe(new ItemStack(blockChargePlatform, 1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy);
-            GameRegistry.addShapedRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy);
-            GameRegistry.addShapedRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy);
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
+
+            //GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 0), " B ", " E ", "GG ", 'B'));
         }
 
         proxy.postInit();

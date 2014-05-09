@@ -7,4 +7,5 @@ package com.tgame.advfluxtools.utility;
 public class Mods
 {
 	public static final String TE3 = "ThermalExpansion";
+    public static final String COFH = "CoFHCore";
 }

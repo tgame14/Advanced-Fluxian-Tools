@@ -43,7 +43,7 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
 	private EntityLaserProjectile(World world, Vec3 origin, float yaw, float pitch, EntityLivingBase shooter, float speed)
 	{
 		super(world);
-		Settings.LOGGER.info("Spawned on: " + (world.isRemote ? "client" : "server"));
+		//Settings.LOGGER.info("Spawned on: " + (world.isRemote ? "client" : "server"));
 		double yawRad = Math.toRadians(yaw);
 		double pitchRad = Math.toRadians(pitch);
 		this.setLocationAndAngles(origin.xCoord, origin.yCoord, origin.zCoord, (float) yawRad, (float) pitchRad);
