@@ -27,185 +27,186 @@ import java.util.List;
  */
 public class BlockChargePlatform extends BlockContainer
 {
-	protected Icon cellRedstone;
-	protected Icon cellHardened;
-	protected Icon cellLeadstone;
+    protected Icon cellRedstone;
+    protected Icon cellHardened;
+    protected Icon cellLeadstone;
 
-	public BlockChargePlatform(int id)
-	{
-		super(id, Material.iron);
+    public BlockChargePlatform (int id)
+    {
+        super(id, Material.iron);
 
-		this.setCreativeTab(AFTCreativeTab.INSTANCE);
-		this.setUnlocalizedName(this.getClass().getSimpleName());
-		this.setHardness(3.0F);
-		this.setResistance(5.0F);
-
-
-	}
-
-	@Override
-	public int damageDropped(int metadata)
-	{
-		return metadata;
-	}
-
-	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
-	{
-		this.setBlockBounds(0F, 0F, 0F, 1F, 0.2F, 1F);
-		super.setBlockBoundsBasedOnState(par1IBlockAccess, par2, par3, par4);
-	}
-
-	@Override
-	public void setBlockBoundsForItemRender()
-	{
-		this.setBlockBounds(0F, 0F, 0F, 1F, 0.2F, 1F);
-		super.setBlockBoundsForItemRender();
-	}
-
-	@Override
-	public boolean isOpaqueCube()
-	{
-		return false;
-	}
-
-	@Override
-	public boolean isBlockSolid(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-	{
-		return false;
-	}
+        this.setCreativeTab(AFTCreativeTab.INSTANCE);
+        this.setUnlocalizedName(this.getClass().getSimpleName());
+        this.setHardness(3.0F);
+        this.setResistance(5.0F);
 
 
-	@Override
-	public void onEntityCollidedWithBlock(World world, int x, int y, int z, Entity entity)
-	{
-		int chargeSpeed = 0;
-		switch (world.getBlockMetadata(x, y, z) % 3)
-		{
-			case 0:
-				chargeSpeed = 80;
-				break;
-			case 1:
-				chargeSpeed = 400;
-				break;
-			case 2:
-				chargeSpeed = 10000;
-				break;
-			default:
-				break;
-		}
+    }
 
-		if (entity instanceof EntityPlayer)
-		{
-			EntityPlayer player = (EntityPlayer) entity;
-			IInventory inv = player.inventory;
-			TileChargePlatform tile = (TileChargePlatform) world.getBlockTileEntity(x, y, z);
-			if (world.getBlockMetadata(x, y, z) < 3)
-			{
-				ArrayList<ItemStack> chargableItems = new ArrayList<ItemStack>();
+    @Override
+    public int damageDropped (int metadata)
+    {
+        return metadata;
+    }
 
-				for (int i = 0; i < inv.getSizeInventory(); i++)
-				{
-					ItemStack stack = inv.getStackInSlot(i);
-					if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
-					{
-						chargableItems.add(stack);
-					}
-				}
+    @Override
+    public void setBlockBoundsBasedOnState (IBlockAccess par1IBlockAccess, int par2, int par3, int par4)
+    {
+        this.setBlockBounds(0F, 0F, 0F, 1F, 0.2F, 1F);
+        super.setBlockBoundsBasedOnState(par1IBlockAccess, par2, par3, par4);
+    }
 
-				if (chargableItems.size() != 0)
-				{
-					chargeSpeed /= chargableItems.size();
-				}
+    @Override
+    public void setBlockBoundsForItemRender ()
+    {
+        this.setBlockBounds(0F, 0F, 0F, 1F, 0.2F, 1F);
+        super.setBlockBoundsForItemRender();
+    }
 
-				for (ItemStack stack : chargableItems)
-				{
-					IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
-					energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed / chargableItems.size(), false), false);
-				}
-			}
-			else
-			{
-				for (int i = 0; i < inv.getSizeInventory(); i++)
-				{
-					ItemStack stack = inv.getStackInSlot(i);
-					if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
-					{
-						IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
-						if (!(energyItem.getEnergyStored(stack) >= energyItem.getMaxEnergyStored(stack)))
-						{
-							energyItem.receiveEnergy(stack, chargeSpeed, false);
-							break;
-						}
-					}
-				}
-			}
-		}
+    @Override
+    public boolean isOpaqueCube ()
+    {
+        return false;
+    }
 
-	}
+    @Override
+    public boolean isBlockSolid (IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
+    {
+        return false;
+    }
 
-	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
-	{
-		if (!world.isRemote)
-		{
-			if (player.getHeldItem() != null && player.getHeldItem().itemID == AdvancedFluxTools.itemCresentHammer.itemID)
-			{
-				int meta = world.getBlockMetadata(x, y, z);
-				if (meta > 2)
-				{
-					world.setBlockMetadataWithNotify(x, y, z, meta - 3, 3);
-					player.addChatMessage("Cover Entire Inventory");
-				}
-				else
-				{
-					world.setBlockMetadataWithNotify(x, y, z, meta + 3, 3);
-					player.addChatMessage("First item First");
-				}
-			}
-		}
-		return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
-	}
 
-	@Override
-	public void getSubBlocks(int par1, CreativeTabs par2CreativeTabs, List par3List)
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			par3List.add(new ItemStack(this, 1, i));
-		}
+    @Override
+    public void onEntityCollidedWithBlock (World world, int x, int y, int z, Entity entity)
+    {
+        int chargeSpeed = 0;
+        switch (world.getBlockMetadata(x, y, z) % 3)
+        {
+        case 0:
+            chargeSpeed = 80;
+            break;
+        case 1:
+            chargeSpeed = 400;
+            break;
+        case 2:
+            chargeSpeed = 10000;
+            break;
+        default:
+            break;
+        }
 
-	}
+        if (entity instanceof EntityPlayer)
+        {
+            EntityPlayer player = (EntityPlayer) entity;
+            IInventory inv = player.inventory;
+            TileChargePlatform tile = (TileChargePlatform) world.getBlockTileEntity(x, y, z);
+            if (world.getBlockMetadata(x, y, z) < 3)
+            {
+                ArrayList<ItemStack> chargableItems = new ArrayList<ItemStack>();
 
-	@Override
-	public TileEntity createNewTileEntity(World world)
-	{
-		return new TileChargePlatform();
-	}
+                for (int i = 0; i < inv.getSizeInventory(); i++)
+                {
+                    ItemStack stack = inv.getStackInSlot(i);
+                    if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
+                    {
+                        chargableItems.add(stack);
+                    }
+                }
 
-	@Override
-	public void registerIcons(IconRegister register)
-	{
-		this.cellLeadstone = register.registerIcon(Settings.RESOURCE_LOCATION + "CellLeadstone");
-		this.cellHardened = register.registerIcon(Settings.RESOURCE_LOCATION + "CellHardened");
-		this.cellRedstone = register.registerIcon(Settings.RESOURCE_LOCATION + "CellRedstone");
-	}
+                if (chargableItems.size() != 0)
+                {
+                    chargeSpeed /= chargableItems.size();
+                }
 
-	@Override
-	public Icon getIcon(int side, int meta)
-	{
-		switch (meta % 3)
-		{
-			case 0:
-				return this.cellLeadstone;
-			case 1:
-				return this.cellHardened;
-			case 2:
-				return this.cellRedstone;
-			default:
-				break;
-		}
-		return super.getIcon(side, meta);
-	}
+                for (ItemStack stack : chargableItems)
+                {
+                    IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
+                    if (!(energyItem.getEnergyStored(stack) >= energyItem.getMaxEnergyStored(stack)))
+                        energyItem.receiveEnergy(stack, tile.extractEnergy(ForgeDirection.UP, chargeSpeed / chargableItems.size(), false), false);
+                }
+            }
+            else
+            {
+                for (int i = 0; i < inv.getSizeInventory(); i++)
+                {
+                    ItemStack stack = inv.getStackInSlot(i);
+                    if (stack != null && stack.getItem() instanceof IEnergyContainerItem)
+                    {
+                        IEnergyContainerItem energyItem = (IEnergyContainerItem) stack.getItem();
+                        if (!(energyItem.getEnergyStored(stack) >= energyItem.getMaxEnergyStored(stack)))
+                        {
+                            energyItem.receiveEnergy(stack, chargeSpeed, false);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public boolean onBlockActivated (World world, int x, int y, int z, EntityPlayer player, int side, float hitX, float hitY, float hitZ)
+    {
+        if (!world.isRemote)
+        {
+            if (player.getHeldItem() != null && player.getHeldItem().itemID == AdvancedFluxTools.itemCresentHammer.itemID)
+            {
+                int meta = world.getBlockMetadata(x, y, z);
+                if (meta > 2)
+                {
+                    world.setBlockMetadataWithNotify(x, y, z, meta - 3, 3);
+                    player.addChatMessage("Cover Entire Inventory");
+                }
+                else
+                {
+                    world.setBlockMetadataWithNotify(x, y, z, meta + 3, 3);
+                    player.addChatMessage("First item First");
+                }
+            }
+        }
+        return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+    }
+
+    @Override
+    public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            par3List.add(new ItemStack(this, 1, i));
+        }
+
+    }
+
+    @Override
+    public TileEntity createNewTileEntity (World world)
+    {
+        return new TileChargePlatform();
+    }
+
+    @Override
+    public void registerIcons (IconRegister register)
+    {
+        this.cellLeadstone = register.registerIcon(Settings.RESOURCE_LOCATION + "CellLeadstone");
+        this.cellHardened = register.registerIcon(Settings.RESOURCE_LOCATION + "CellHardened");
+        this.cellRedstone = register.registerIcon(Settings.RESOURCE_LOCATION + "CellRedstone");
+    }
+
+    @Override
+    public Icon getIcon (int side, int meta)
+    {
+        switch (meta % 3)
+        {
+        case 0:
+            return this.cellLeadstone;
+        case 1:
+            return this.cellHardened;
+        case 2:
+            return this.cellRedstone;
+        default:
+            break;
+        }
+        return super.getIcon(side, meta);
+    }
 
 }
