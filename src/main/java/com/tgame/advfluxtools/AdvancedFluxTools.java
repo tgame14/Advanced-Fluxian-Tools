@@ -1,16 +1,12 @@
 package com.tgame.advfluxtools;
 
 import com.tgame.advfluxtools.blocks.BlockChargePlatform;
-import com.tgame.advfluxtools.blocks.TileChargePlatform;
-import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
-import com.tgame.advfluxtools.entities.EntityLaserProjectile;
+
+import com.tgame.advfluxtools.blocks.BlockCreativeGenerator;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
-import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockEventHandler;
-import com.tgame.advfluxtools.multiblocks.furnace.BlockRFMultiblockFrame;
-import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnaceFacing;
-import com.tgame.advfluxtools.multiblocks.furnace.TileRFMultiblockFrame;
-import com.tgame.advfluxtools.multiblocks.furnace.TileRFFurnace;
 import com.tgame.advfluxtools.utility.Mods;
+import com.tgame.mods.libs.registry.IItemDefinition;
+import com.tgame.mods.libs.registry.RegistryHandler;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModMetadata;
@@ -18,14 +14,11 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.network.NetworkMod;
-import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -45,40 +38,50 @@ public class AdvancedFluxTools
 
     @Mod.Metadata
     public static ModMetadata metadata;
-
-    public static Item itemLaserDrill;
-
-    public static Block blockChargePlatform;
     public static Block blockRFFurnaceBasic;
     public static Block blockRFMultiblockFrame;
-
     public static ItemStack itemCresentHammer;
+
+    public static IItemDefinition itemLaserDrill;
+    public static IItemDefinition blockChargePlatform;
+    private RegistryHandler registry;
+
+    public AdvancedFluxTools ()
+    {
+        this.registry = new RegistryHandler();
+    }
+
 
     @Mod.EventHandler
     public void preInit (FMLPreInitializationEvent event)
     {
         Settings.CONFIGURATION = new Configuration(event.getSuggestedConfigurationFile());
-        Settings.CONFIGURATION.load();
-        /** this line took me 2 hours to write. Blame stupidity */
-        MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
+        blockChargePlatform = registry.registerBlock(new BlockChargePlatform());
+        itemLaserDrill = registry.registerItem(new ItemLaserDrill());
+        registry.registerBlock(new BlockCreativeGenerator());
 
-        itemLaserDrill = new ItemLaserDrill(Settings.CONFIGURATION.getItem(ItemLaserDrill.class.getSimpleName(), 22040).getInt());
-        GameRegistry.registerItem(itemLaserDrill, itemLaserDrill.getClass().getSimpleName());
+        //        Settings.CONFIGURATION.load();
 
-        blockChargePlatform = new BlockChargePlatform(Settings.CONFIGURATION.getBlock(BlockChargePlatform.class.getSimpleName(), 2040).getInt());
-        GameRegistry.registerBlock(blockChargePlatform, ItemBlockMetadata.class, blockChargePlatform.getClass().getSimpleName());
-        GameRegistry.registerTileEntity(TileChargePlatform.class, TileChargePlatform.class.getSimpleName());
-
-        blockRFFurnaceBasic = new BlockRFFurnaceFacing(Settings.CONFIGURATION.getBlock(BlockRFFurnaceFacing.class.getSimpleName(), 2041).getInt());
-        GameRegistry.registerBlock(blockRFFurnaceBasic, BlockRFFurnaceFacing.class.getSimpleName());
-        GameRegistry.registerTileEntity(TileRFFurnace.class, TileRFFurnace.class.getSimpleName());
-
-        blockRFMultiblockFrame = new BlockRFMultiblockFrame(Settings.CONFIGURATION.getBlock(BlockRFMultiblockFrame.class.getSimpleName(), 2042).getInt());
-        GameRegistry.registerBlock(blockRFMultiblockFrame, BlockRFMultiblockFrame.class.getSimpleName());
-        GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
-
-        //EntityRegistry.registerModEntity(EntityLaserProjectile.class, "EntityLaserProjectile", 1, instance, 80, 3, true);
-        Settings.CONFIGURATION.save();
+        //        /** this line took me 2 hours to write. Blame stupidity */
+        //        //MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
+        //
+        //        itemLaserDrill = new ItemLaserDrill(Settings.CONFIGURATION.getItem(ItemLaserDrill.class.getSimpleName(), 22040).getInt());
+        //        GameRegistry.registerItem(itemLaserDrill, itemLaserDrill.getClass().getSimpleName());
+        //
+        //        blockChargePlatform = new BlockChargePlatform(Settings.CONFIGURATION.getBlock(BlockChargePlatform.class.getSimpleName(), 2040).getInt());
+        //        GameRegistry.registerBlock(blockChargePlatform, ItemBlockMetadata.class, blockChargePlatform.getClass().getSimpleName());
+        //        GameRegistry.registerTileEntity(TileChargePlatform.class, TileChargePlatform.class.getSimpleName());
+        //
+        //        blockRFFurnaceBasic = new BlockRFFurnaceFacing(Settings.CONFIGURATION.getBlock(BlockRFFurnaceFacing.class.getSimpleName(), 2041).getInt());
+        //        GameRegistry.registerBlock(blockRFFurnaceBasic, BlockRFFurnaceFacing.class.getSimpleName());
+        //        GameRegistry.registerTileEntity(TileRFFurnace.class, TileRFFurnace.class.getSimpleName());
+        //
+        //        blockRFMultiblockFrame = new BlockRFMultiblockFrame(Settings.CONFIGURATION.getBlock(BlockRFMultiblockFrame.class.getSimpleName(), 2042).getInt());
+        //        GameRegistry.registerBlock(blockRFMultiblockFrame, BlockRFMultiblockFrame.class.getSimpleName());
+        //        GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
+        //
+        //        //EntityRegistry.registerModEntity(EntityLaserProjectile.class, "EntityLaserProjectile", 1, instance, 80, 3, true);
+        //        Settings.CONFIGURATION.save();
         proxy.preInit();
 
     }
@@ -120,14 +123,14 @@ public class AdvancedFluxTools
 
         ItemStack ppIron = new ItemStack(GameData.getBlockRegistry().getObject("light_weighted_pressure_plate"));
 
-        if (Loader.isModLoaded(Mods.TE3))
-        {
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
-
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 1), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
-        }
+//        if (Loader.isModLoaded(Mods.TE3))
+//        {
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy));
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
+//
+//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 1), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
+//        }
 
         proxy.postInit();
     }

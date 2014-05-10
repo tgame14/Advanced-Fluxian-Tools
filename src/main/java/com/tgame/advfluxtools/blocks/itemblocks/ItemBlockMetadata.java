@@ -1,5 +1,6 @@
 package com.tgame.advfluxtools.blocks.itemblocks;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
@@ -10,9 +11,9 @@ import net.minecraft.util.StatCollector;
  */
 public class ItemBlockMetadata extends ItemBlock
 {
-	public ItemBlockMetadata(int id)
+	public ItemBlockMetadata(Block block)
 	{
-		super(id);
+		super(block);
 
 		this.setHasSubtypes(true);
 	}

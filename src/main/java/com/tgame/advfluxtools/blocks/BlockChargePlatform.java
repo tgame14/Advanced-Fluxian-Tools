@@ -4,14 +4,16 @@ import cofh.api.energy.IEnergyContainerItem;
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
+import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
+import com.tgame.mods.libs.registry.Registry;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
-import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
@@ -27,6 +29,7 @@ import java.util.List;
  * @author tgame14
  * @since 30/04/14
  */
+@Registry.BlockData(tileClass = TileChargePlatform.class, itemBlock = ItemBlockMetadata.class)
 public class BlockChargePlatform extends BlockContainer
 {
     protected IIcon cellRedstone;
@@ -171,7 +174,7 @@ public class BlockChargePlatform extends BlockContainer
     }
 
     @Override
-    public void getSubBlocks (int par1, CreativeTabs par2CreativeTabs, List par3List)
+    public void getSubBlocks (Item item, CreativeTabs par2CreativeTabs, List par3List)
     {
         for (int i = 0; i < 3; i++)
         {
@@ -187,7 +190,7 @@ public class BlockChargePlatform extends BlockContainer
     }
 
     @Override
-    public void registerIcons (IIconRegister register)
+    public void registerBlockIcons (IIconRegister register)
     {
         this.cellLeadstone = register.registerIcon(Settings.RESOURCE_LOCATION + "CellLeadstone");
         this.cellHardened = register.registerIcon(Settings.RESOURCE_LOCATION + "CellHardened");
@@ -195,7 +198,7 @@ public class BlockChargePlatform extends BlockContainer
     }
 
     @Override
-    public Icon getIcon (int side, int meta)
+    public IIcon getIcon (int side, int meta)
     {
         switch (meta % 3)
         {

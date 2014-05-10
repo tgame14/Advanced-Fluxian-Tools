@@ -2,10 +2,7 @@ package com.tgame.advfluxtools;
 
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.entities.RenderLaserProjectile;
-import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockClientTickHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
-import cpw.mods.fml.common.registry.TickRegistry;
-import cpw.mods.fml.relauncher.Side;
 
 /**
  * @author tgame14
@@ -30,6 +27,6 @@ public class ClientProxy extends CommonProxy
 	public void registerTickHandlers()
 	{
 		super.registerTickHandlers();
-		TickRegistry.registerTickHandler(new MultiblockClientTickHandler(), Side.CLIENT);
+		//TickRegistry.registerTickHandler(new MultiblockClientTickHandler(), Side.CLIENT);
 	}
 }

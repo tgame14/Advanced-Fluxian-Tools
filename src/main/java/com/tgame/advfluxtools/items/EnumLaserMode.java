@@ -55,7 +55,7 @@ public enum EnumLaserMode
                             if (block.getBlockHardness(world, hit.blockX, hit.blockY, hit.blockZ) < 30F && block.getBlockHardness(world, hit.blockX, hit.blockY, hit.blockZ) != -1.0F)
                             {
 
-                                world.destroyBlock(hit.blockX, hit.blockY, hit.blockZ, true);
+                                world.func_147480_a(hit.blockX, hit.blockY, hit.blockZ, true);
                                 projectile.setBlocksHit(projectile.getBlocksHit() + 1);
                             }
                             else

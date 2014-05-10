@@ -51,7 +51,7 @@ public class Vec3Utility
 
 	public static MovingObjectPosition rayTraceBlocks(World world,Vec3 origin, Vec3 target, boolean collisionFlag)
 	{
-		return world.rayTraceBlocks_do_do(origin, target, collisionFlag, !collisionFlag);
+		return world.rayTraceBlocks(origin, target);
 	}
 
 	/**
