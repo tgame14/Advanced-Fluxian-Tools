@@ -54,9 +54,11 @@ minecraft {
 }
 
 task createChangelog(type: Copy) {
-    printf "Called createChangelog"
-    """git --no-pager log --pretty=format:"%cn : %s" > changelog-${project.version}.txt""".execute()
-    from "changelog-${project.version}.txt"
+    println "Called createChangelog"
+    """git --no-pager log --pretty=format:"%cn : %s" > changelog.txt""".execute()
+    println "executed git command"
+    println 'changelog.txt'
+    from "changelog.txt"
     into 'output'
 }
 
