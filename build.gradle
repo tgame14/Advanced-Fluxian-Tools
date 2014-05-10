@@ -53,6 +53,11 @@ minecraft {
     replace "@VERSION@", project.version
 }
 
+task createChangelog(type: Copy) {
+    "git log --pretty=format: "%cn : %s" > changelog-${project.version}.txt".execute()
+    from 'changelog-${project.version}.txt'
+    into 'output'
+}
 
 task copyProperties(type: Copy) {
     from 'build.properties'
@@ -76,6 +81,7 @@ task deobfJar(type: Jar) {
 
 publishing {
     publications {
+        publish.dependsOn 'createChangelog'
         publish.dependsOn 'build'
 
         mavenJava(MavenPublication) {
