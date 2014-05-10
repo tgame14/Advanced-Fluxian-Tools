@@ -109,7 +109,6 @@ repositories {
 dependencies {
     // TODO: ADD DEPENDENCIES (first waila)
 }
-
 processResources
         {
 //            MCMOD.INFO GENERATED ON RUNTIME
