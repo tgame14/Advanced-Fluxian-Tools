@@ -6,6 +6,7 @@ import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
@@ -13,10 +14,11 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Icon;
+import net.minecraft.util.ChatComponentText;
+import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,16 +29,16 @@ import java.util.List;
  */
 public class BlockChargePlatform extends BlockContainer
 {
-    protected Icon cellRedstone;
-    protected Icon cellHardened;
-    protected Icon cellLeadstone;
+    protected IIcon cellRedstone;
+    protected IIcon cellHardened;
+    protected IIcon cellLeadstone;
 
-    public BlockChargePlatform (int id)
+    public BlockChargePlatform ()
     {
-        super(id, Material.iron);
+        super(Material.iron);
 
         this.setCreativeTab(AFTCreativeTab.INSTANCE);
-        this.setUnlocalizedName(this.getClass().getSimpleName());
+        this.setBlockName(this.getClass().getSimpleName());
         this.setHardness(3.0F);
         this.setResistance(5.0F);
 
@@ -99,7 +101,7 @@ public class BlockChargePlatform extends BlockContainer
         {
             EntityPlayer player = (EntityPlayer) entity;
             IInventory inv = player.inventory;
-            TileChargePlatform tile = (TileChargePlatform) world.getBlockTileEntity(x, y, z);
+            TileChargePlatform tile = (TileChargePlatform) world.getTileEntity(x, y, z);
             if (world.getBlockMetadata(x, y, z) < 3)
             {
                 ArrayList<ItemStack> chargableItems = new ArrayList<ItemStack>();
@@ -150,18 +152,18 @@ public class BlockChargePlatform extends BlockContainer
     {
         if (!world.isRemote)
         {
-            if (player.getHeldItem() != null && player.getHeldItem().itemID == AdvancedFluxTools.itemCresentHammer.itemID)
+            if (player.getHeldItem() != null && player.getHeldItem().isItemEqual(AdvancedFluxTools.itemCresentHammer))
             {
                 int meta = world.getBlockMetadata(x, y, z);
                 if (meta > 2)
                 {
                     world.setBlockMetadataWithNotify(x, y, z, meta - 3, 3);
-                    player.addChatMessage("Cover Entire Inventory");
+                    player.addChatMessage(new ChatComponentText("Cover Entire Inventory"));
                 }
                 else
                 {
                     world.setBlockMetadataWithNotify(x, y, z, meta + 3, 3);
-                    player.addChatMessage("First item First");
+                    player.addChatMessage(new ChatComponentText("First item First"));
                 }
             }
         }
@@ -179,13 +181,13 @@ public class BlockChargePlatform extends BlockContainer
     }
 
     @Override
-    public TileEntity createNewTileEntity (World world)
+    public TileEntity createNewTileEntity (World world, int meta)
     {
         return new TileChargePlatform();
     }
 
     @Override
-    public void registerIcons (IconRegister register)
+    public void registerIcons (IIconRegister register)
     {
         this.cellLeadstone = register.registerIcon(Settings.RESOURCE_LOCATION + "CellLeadstone");
         this.cellHardened = register.registerIcon(Settings.RESOURCE_LOCATION + "CellHardened");

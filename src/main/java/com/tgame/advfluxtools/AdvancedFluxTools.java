@@ -20,12 +20,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
@@ -117,7 +118,7 @@ public class AdvancedFluxTools
         ItemStack gearElectrum = GameRegistry.findItemStack(Mods.TE3, "gearElectrum", 1);
         ItemStack hardenedCapacitor = GameRegistry.findItemStack(Mods.TE3, "capacitorHardened", 1);
 
-        ItemStack ppIron = new ItemStack(Block.pressurePlateIron);
+        ItemStack ppIron = new ItemStack(GameData.getBlockRegistry().getObject("light_weighted_pressure_plate"));
 
         if (Loader.isModLoaded(Mods.TE3))
         {
@@ -125,7 +126,7 @@ public class AdvancedFluxTools
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
             GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
 
-            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 1), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', Item.emerald, 'G', gearElectrum));
+            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 1), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
         }
 
         proxy.postInit();

@@ -4,7 +4,7 @@ import com.tgame.advfluxtools.libs.erogenousbeef.common.CoordTriplet;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockControllerBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockTileEntityBase;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 public abstract class RectangularMultiblockTileEntityBase extends
 		MultiblockTileEntityBase

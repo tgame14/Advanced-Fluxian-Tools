@@ -1,9 +1,9 @@
 package com.tgame.advfluxtools;
 
 import cpw.mods.fml.common.FMLLog;
-import net.minecraftforge.common.Configuration;
-
-import java.util.logging.Logger;
+import net.minecraftforge.common.config.Configuration;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * @author tgame14
@@ -19,11 +19,7 @@ public class Settings
 
 	public static final String RESOURCE_LOCATION = ID + ":";
 
-	public static final Logger LOGGER = Logger.getLogger(ID);
-	static
-	{
-		LOGGER.setParent(FMLLog.getLogger());
-	}
+	public static final Logger LOGGER = LogManager.getLogger(ID);
 	public static Configuration CONFIGURATION;
 
 

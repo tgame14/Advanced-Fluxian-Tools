@@ -13,6 +13,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import org.lwjgl.input.Keyboard;
@@ -29,9 +30,9 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
     protected int maxTransfer = 2000;
 
 
-    public ItemLaserDrill (int id)
+    public ItemLaserDrill ()
     {
-        super(id);
+        super();
 
         this.setCreativeTab(AFTCreativeTab.INSTANCE);
         this.setUnlocalizedName(this.getClass().getSimpleName());
@@ -176,7 +177,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
             itemstack.setTagCompound(tag);
             if (world.isRemote)
             {
-                player.addChatMessage(StatCollector.translateToLocal("info.laser.mode").replaceAll("%m", enumLaser.name()));
+                player.addChatMessage(new ChatComponentText(StatCollector.translateToLocal("info.laser.mode").replaceAll("%m", enumLaser.name())));
             }
             return itemstack;
         }

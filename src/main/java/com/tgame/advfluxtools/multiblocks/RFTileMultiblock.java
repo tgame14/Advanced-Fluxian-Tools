@@ -5,10 +5,7 @@ import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockController
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.MultiblockValidationException;
 import com.tgame.advfluxtools.libs.erogenousbeef.multiblock.rectangular.RectangularMultiblockTileEntityBase;
 import com.tgame.advfluxtools.multiblocks.furnace.RFFurnaceController;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.common.ForgeDirection;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * All multiblock tiles that want to be under this System, need to extend this class
