@@ -6,7 +6,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
-import net.minecraft.util.EnumMovingObjectType;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 
@@ -42,7 +41,7 @@ public enum EnumLaserMode
                 {
                     if (!world.isRemote)
                     {
-                        if (hit.typeOfHit == EnumMovingObjectType.ENTITY)
+                        if (hit.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY)
                         {
                             if (hit.entityHit instanceof EntityLivingBase)
                             {
@@ -52,8 +51,8 @@ public enum EnumLaserMode
                         }
                         else
                         {
-                            Block block = Block.blocksList[world.getBlockId(hit.blockX, hit.blockY, hit.blockZ)];
-                            if (block.blockHardness < 30F && block.blockHardness != -1.0F)
+                            Block block = world.getBlock(hit.blockX, hit.blockY, hit.blockZ);
+                            if (block.getBlockHardness(world, hit.blockX, hit.blockY, hit.blockZ) < 30F && block.getBlockHardness(world, hit.blockX, hit.blockY, hit.blockZ) != -1.0F)
                             {
 
                                 world.destroyBlock(hit.blockX, hit.blockY, hit.blockZ, true);
