@@ -54,7 +54,7 @@ minecraft {
 }
 
 task createChangelog(type: Copy) {
-    "git log --pretty=format: "%cn : %s" > changelog-${project.version}.txt".execute()
+    """git --no-pager log --pretty=format:"%cn : %s" > changelog-${project.version}.txt""".execute()
     from 'changelog-${project.version}.txt'
     into 'output'
 }
