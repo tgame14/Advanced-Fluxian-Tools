@@ -12,5 +12,5 @@ import net.minecraft.world.World;
  */
 public interface ILaserProjectile
 {
-	void onImpact(World world, IThrowableEntity projectile, Entity entity, MovingObjectPosition hit);
+	void onImpact(World world, EntityLaserProjectile projectile, MovingObjectPosition hit);
 }
