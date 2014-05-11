@@ -1,10 +1,10 @@
 package com.tgame.advfluxtools.items;
 
 import cofh.api.energy.IEnergyContainerItem;
-import cofh.util.EnergyHelper;
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
+import com.tgame.advfluxtools.utility.EnergyUtility;
 import com.tgame.advfluxtools.utility.NBTUtility;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -50,7 +50,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
     {
         if (container.stackTagCompound == null)
         {
-            EnergyHelper.setDefaultEnergyTag(container, 0);
+            EnergyUtility.setDefaultEnergyTag(container, 0);
         }
         int stored = container.stackTagCompound.getInteger("Energy");
         int receive = Math.min(maxReceive, Math.min(capacity - stored, maxTransfer));
@@ -70,7 +70,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
     {
         if (container.stackTagCompound == null)
         {
-            EnergyHelper.setDefaultEnergyTag(container, 0);
+            EnergyUtility.setDefaultEnergyTag(container, 0);
         }
         int stored = container.stackTagCompound.getInteger("Energy");
         int extract = Math.min(maxExtract, stored);
@@ -94,7 +94,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
     {
         if (!stack.hasTagCompound())
         {
-            EnergyHelper.setDefaultEnergyTag(stack, 0);
+            EnergyUtility.setDefaultEnergyTag(stack, 0);
         }
         return 1 + capacity - stack.getTagCompound().getInteger("Energy");
     }
@@ -104,7 +104,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
     {
         if (!container.hasTagCompound())
         {
-            EnergyHelper.setDefaultEnergyTag(container, 0);
+            EnergyUtility.setDefaultEnergyTag(container, 0);
         }
         return container.getTagCompound().getInteger("Energy");
     }

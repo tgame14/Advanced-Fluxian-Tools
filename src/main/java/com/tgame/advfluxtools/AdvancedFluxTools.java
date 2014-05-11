@@ -28,7 +28,7 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
  * @author tgame14
  * @since 29/04/14
  */
-@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION, dependencies = "after:" + Mods.TE3 /*+ ";required-after" + Mods.COFH*/)
+@Mod(modid = Settings.ID, name = Settings.NAME, version = Settings.VERSION, dependencies = "after:" + Mods.TE3 + ";required-after:tgamecore" /*+ ";required-after" + Mods.COFH*/)
 //@NetworkMod(channels = Settings.CHANNEL, clientSideRequired = true, serverSideRequired = true)
 public class AdvancedFluxTools
 {

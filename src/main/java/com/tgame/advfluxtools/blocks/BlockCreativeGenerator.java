@@ -18,6 +18,7 @@ public class BlockCreativeGenerator extends BlockContainer
     {
         super(Material.sponge);
         this.setCreativeTab(AFTCreativeTab.INSTANCE);
+        this.setBlockName("creativepowerGenerator");
     }
 
     @Override
