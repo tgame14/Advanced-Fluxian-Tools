@@ -41,6 +41,14 @@ sourceSets
                                     exclude 'cofh/world/**'
                                 }
                     }
+            main
+                    {
+                        java
+                                {
+                                    exclude 'com/tgame/advfluxtools/multiblocks'
+                                    exclude 'com/tgame/advfluxtools/libs'
+                                }
+                    }
         }
 
 version = "${config.major_version}.${config.minor_version}.${config.revis_version}"
