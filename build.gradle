@@ -13,6 +13,7 @@ buildscript {
 
 
 apply plugin: 'forge'
+apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
 ext.buildProps = file "build.properties"
@@ -111,12 +112,13 @@ publishing {
 
 repositories {
     maven {
+        name 'Tgame Maven'
         url 'http://tgame-mods.info/maven'
-        //TODO: ADD MORE REPOS HERE
     }
+    mavenCentral()
 }
 dependencies {
-    // TODO: ADD DEPENDENCIES (first waila)
+    compile group: 'com.tgame.mods', name: 'tgame-core', version: "${config.tgame_core_version}", classifier: "deobf"
 }
 processResources
         {
