@@ -18,6 +18,8 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -130,6 +132,24 @@ public class AdvancedFluxTools
 
             GameRegistry.addRecipe(new ShapedOreRecipe(itemLaserDrill.getItemStack(1, 0), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
 
+        }
+        else
+        {
+            ItemStack quartz = new ItemStack(Blocks.quartz_block);
+            ItemStack redTorch = new ItemStack(Blocks.redstone_torch);
+            ItemStack ppIron = new ItemStack(Blocks.heavy_weighted_pressure_plate);
+            ItemStack ppGold = new ItemStack(Blocks.light_weighted_pressure_plate);
+            ItemStack soulSand = new ItemStack(Blocks.soul_sand);
+            ItemStack ironBlock = new ItemStack(Blocks.iron_block);
+            ItemStack anvil = new ItemStack(Blocks.anvil);
+            ItemStack enderEye = new ItemStack(Items.ender_eye);
+            ItemStack emerald = new ItemStack(Items.emerald);
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 0), "CPC", "PEP", "CPC", 'C', redTorch, 'P', ppIron, 'E', soulSand));
+            GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 1), "CPC", "PEP", "CPC", 'C', quartz, 'P', ppIron, 'E', soulSand));
+            GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 2), "CPC", "PEP", "CPC", 'C', anvil, 'P', ppGold, 'E', enderEye));
+
+            GameRegistry.addRecipe(new ShapedOreRecipe(itemLaserDrill.getItemStack(1, 0), " B ", " E ", "GG ", 'B', redTorch, 'E', emerald, 'G', quartz));
         }
         if (wrench == null)
         {

@@ -7,13 +7,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/api/java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/gradle" />
+      <excludeFolder url="file://$MODULE_DIR$/src/api/java/cofh/gui" />
+      <excludeFolder url="file://$MODULE_DIR$/src/api/java/cofh/gui/element" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/com/tgame/advfluxtools/libs" />
       <excludeFolder url="file://$MODULE_DIR$/src/main/java/com/tgame/advfluxtools/multiblocks" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="Forge" />
-    <orderEntry type="module" module-name="CoFHLib" />
     <orderEntry type="module" module-name="tgame-core" />
   </component>
 </module>
