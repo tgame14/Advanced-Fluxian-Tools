@@ -1,6 +1,7 @@
 package com.tgame.advfluxtools.items;
 
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
+import com.tgame.mods.config.Config;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -28,7 +29,7 @@ public enum EnumLaserMode
                 {
                     if (!world.isRemote)
                     {
-                        world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, 3.5F, true);
+                        world.createExplosion(projectile, projectile.posX, projectile.posY, projectile.posZ, LASER_EXPLOSION_SIZE, true);
                         projectile.setDead();
                     }
                 }
@@ -79,4 +80,7 @@ public enum EnumLaserMode
     }
 
     public abstract void onImpact (World world, EntityLaserProjectile projectile, MovingObjectPosition hit);
+
+    @Config
+    private static float LASER_EXPLOSION_SIZE = 3.5F;
 }

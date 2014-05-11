@@ -16,6 +16,7 @@ public class Settings
 	public static final String CHANNEL = ID;
 	public static final String VERSION = "@VERSION@";
 	public static final String AUTHOR = "@AUTHOR@";
+    public static final String DOMAIN = "com.tgame.advfluxtools";
 
 	public static final String RESOURCE_LOCATION = ID + ":";
 

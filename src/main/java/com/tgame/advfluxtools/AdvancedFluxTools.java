@@ -5,6 +5,7 @@ import com.tgame.advfluxtools.blocks.BlockChargePlatform;
 import com.tgame.advfluxtools.blocks.BlockCreativeGenerator;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
 import com.tgame.advfluxtools.utility.Mods;
+import com.tgame.mods.config.ConfigHandler;
 import com.tgame.mods.libs.registry.IItemDefinition;
 import com.tgame.mods.libs.registry.RegistryHandler;
 import cpw.mods.fml.common.Loader;
@@ -134,6 +135,8 @@ public class AdvancedFluxTools
         {
             wrench = new ItemStack(GameData.getItemRegistry().getObject("golden_hoe"));
         }
+
+        ConfigHandler.configure(Settings.CONFIGURATION, Settings.DOMAIN);
 
         proxy.postInit();
     }
