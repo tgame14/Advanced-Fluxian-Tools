@@ -152,8 +152,8 @@ public abstract class RFMultiblockController extends RectangularMultiblockContro
 	@Override
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
 	{
-		Block block = Block.blocksList[world.getBlockId(x, y, z)];
-		if (block != null && block.isAirBlock(world, x, y, z))
+		Block block = world.getBlock(x, y, z);
+		if (block != null && block.isAir(world, x, y, z))
 			throw new MultiblockValidationException("Internal blocks must be EMPTY!");
 
 	}
