@@ -155,8 +155,14 @@ public class BlockChargePlatform extends BlockContainer
     {
         if (!world.isRemote)
         {
-            if (player.getHeldItem() != null && player.getHeldItem().isItemEqual(AdvancedFluxTools.itemCresentHammer))
+            if (player.getHeldItem() != null && player.getHeldItem().isItemEqual(AdvancedFluxTools.wrench))
             {
+                if (player.isSneaking())
+                {
+                    player.addChatMessage(new ChatComponentText("Tile: " + world.getTileEntity(x, y, z)));
+                    return super.onBlockActivated(world, x, y, z, player, side, hitX, hitY, hitZ);
+                }
+
                 int meta = world.getBlockMetadata(x, y, z);
                 if (meta > 2)
                 {

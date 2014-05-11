@@ -17,7 +17,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.registry.GameData;
 import cpw.mods.fml.common.registry.GameRegistry;
 import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.oredict.ShapedOreRecipe;
@@ -40,7 +39,7 @@ public class AdvancedFluxTools
     public static ModMetadata metadata;
     public static Block blockRFFurnaceBasic;
     public static Block blockRFMultiblockFrame;
-    public static ItemStack itemCresentHammer;
+    public static ItemStack wrench;
 
     public static IItemDefinition itemLaserDrill;
     public static IItemDefinition blockChargePlatform;
@@ -106,31 +105,35 @@ public class AdvancedFluxTools
     public void postInit (FMLPostInitializationEvent event)
     {
         // RECIPES
+        if (Loader.isModLoaded(Mods.TE3))
+        {
+            wrench = GameRegistry.findItemStack(Mods.TE3, "wrench", 1);
 
-        itemCresentHammer = GameRegistry.findItemStack(Mods.TE3, "wrench", 1);
+            ItemStack leadConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyBasic", 1);
+            ItemStack leadEnergy = GameRegistry.findItemStack(Mods.TE3, "cellBasic", 1);
 
-        ItemStack leadConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyBasic", 1);
-        ItemStack leadEnergy = GameRegistry.findItemStack(Mods.TE3, "cellBasic", 1);
+            ItemStack hardenedConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyHardened", 1);
+            ItemStack hardenedEnergy = GameRegistry.findItemStack(Mods.TE3, "cellHardened", 1);
 
-        ItemStack hardenedConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyHardened", 1);
-        ItemStack hardenedEnergy = GameRegistry.findItemStack(Mods.TE3, "cellHardened", 1);
+            ItemStack redsConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyReinforced", 1);
+            ItemStack redsEnergy = GameRegistry.findItemStack(Mods.TE3, "cellReinforced", 1);
 
-        ItemStack redsConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyReinforced", 1);
-        ItemStack redsEnergy = GameRegistry.findItemStack(Mods.TE3, "cellReinforced", 1);
+            ItemStack gearElectrum = GameRegistry.findItemStack(Mods.TE3, "gearElectrum", 1);
+            ItemStack hardenedCapacitor = GameRegistry.findItemStack(Mods.TE3, "capacitorHardened", 1);
 
-        ItemStack gearElectrum = GameRegistry.findItemStack(Mods.TE3, "gearElectrum", 1);
-        ItemStack hardenedCapacitor = GameRegistry.findItemStack(Mods.TE3, "capacitorHardened", 1);
+            ItemStack ppIron = new ItemStack(GameData.getBlockRegistry().getObject("light_weighted_pressure_plate"));
 
-        ItemStack ppIron = new ItemStack(GameData.getBlockRegistry().getObject("light_weighted_pressure_plate"));
+            GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy));
+            GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
+            GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
 
-//        if (Loader.isModLoaded(Mods.TE3))
-//        {
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 0), "CPC", "PEP", "CPC", 'C', leadConduit, 'P', ppIron, 'E', leadEnergy));
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 1), "CPC", "PEP", "CPC", 'C', hardenedConduit, 'P', ppIron, 'E', hardenedEnergy));
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(blockChargePlatform, 1, 2), "CPC", "PEP", "CPC", 'C', redsConduit, 'P', ppIron, 'E', redsEnergy));
-//
-//            GameRegistry.addRecipe(new ShapedOreRecipe(new ItemStack(itemLaserDrill, 1, 1), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
-//        }
+            GameRegistry.addRecipe(new ShapedOreRecipe(itemLaserDrill.getItemStack(1, 0), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
+
+        }
+        if (wrench == null)
+        {
+            wrench = new ItemStack(GameData.getItemRegistry().getObject("golden_hoe"));
+        }
 
         proxy.postInit();
     }

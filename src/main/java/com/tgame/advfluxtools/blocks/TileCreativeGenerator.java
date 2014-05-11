@@ -1,7 +1,9 @@
 package com.tgame.advfluxtools.blocks;
 
 import cofh.api.energy.EnergyStorage;
+import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.TileEnergyHandler;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
 /**
@@ -39,5 +41,20 @@ public class TileCreativeGenerator extends TileEnergyHandler
     public int getMaxEnergyStored (ForgeDirection from)
     {
         return Integer.MAX_VALUE;
+    }
+
+    @Override
+    public void updateEntity ()
+    {
+        super.updateEntity();
+        for (ForgeDirection dir : ForgeDirection.VALID_DIRECTIONS)
+        {
+            TileEntity tile = worldObj.getTileEntity(xCoord + dir.offsetX, yCoord + dir.offsetY, zCoord + dir.offsetZ);
+            if (tile instanceof IEnergyHandler)
+            {
+                IEnergyHandler handler = (IEnergyHandler) tile;
+                ((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), this.extractEnergy(ForgeDirection.UNKNOWN, 0, true), false);
+            }
+        }
     }
 }
