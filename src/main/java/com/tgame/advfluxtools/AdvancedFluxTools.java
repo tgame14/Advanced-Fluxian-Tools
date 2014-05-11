@@ -56,9 +56,9 @@ public class AdvancedFluxTools
     public void preInit (FMLPreInitializationEvent event)
     {
         Settings.CONFIGURATION = new Configuration(event.getSuggestedConfigurationFile());
-        blockChargePlatform = registry.registerBlock(new BlockChargePlatform());
-        itemLaserDrill = registry.registerItem(new ItemLaserDrill());
-        registry.registerBlock(new BlockCreativeGenerator());
+        blockChargePlatform = registry.registerBlock(new BlockChargePlatform(), BlockChargePlatform.class);
+        itemLaserDrill = registry.registerItem(new ItemLaserDrill(), ItemLaserDrill.class);
+        registry.registerBlock(new BlockCreativeGenerator(), BlockCreativeGenerator.class);
 
         //        Settings.CONFIGURATION.load();
 

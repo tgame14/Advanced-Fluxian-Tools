@@ -5,7 +5,7 @@ import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.blocks.itemblocks.ItemBlockMetadata;
-import com.tgame.mods.libs.registry.Registry;
+import com.tgame.mods.libs.registry.BlockData;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
@@ -29,7 +29,7 @@ import java.util.List;
  * @author tgame14
  * @since 30/04/14
  */
-@Registry.BlockData(tileClass = TileChargePlatform.class, itemBlock = ItemBlockMetadata.class)
+@BlockData(tileClass = TileChargePlatform.class, itemBlockClass = ItemBlockMetadata.class)
 public class BlockChargePlatform extends BlockContainer
 {
     protected IIcon cellRedstone;
