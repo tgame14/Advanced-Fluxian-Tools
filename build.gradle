@@ -69,6 +69,8 @@ minecraft {
 
 curse {
     printf "publishing to curse"
+    if (!System.getenv().JOB_NAME.contains("Release"))
+        return
     apiKey = project.CURSE_API_KEY
     projectId = "220382"
     releaseType = project.RELEASE_CHANNEL
