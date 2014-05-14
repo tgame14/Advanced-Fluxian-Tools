@@ -17,6 +17,7 @@ buildscript {
 
 
 apply plugin: 'forge'
+apply plugin: 'curseforge'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 
@@ -66,13 +67,11 @@ minecraft {
     replace "@VERSION@", project.version
 }
 
-task createChangelog(type: Copy) {
-    println "Called createChangelog"
-    """git --no-pager log --pretty=format:"%cn : %s" > changelog.txt""".execute()
-    println "executed git command"
-    println 'changelog.txt'
-    from "changelog.txt"
-    into 'output'
+curse {
+    printf "publishing to curse"
+    apiKey = project.CURSE_API_KEY
+    projectId = "220382"
+    releaseType = project.RELEASE_CHANNEL
 }
 
 task copyProperties(type: Copy) {
@@ -97,8 +96,8 @@ task deobfJar(type: Jar) {
 
 publishing {
     publications {
-        publish.dependsOn 'createChangelog'
         publish.dependsOn 'build'
+        publish.dependsOn 'curse'
 
         mavenJava(MavenPublication) {
 
