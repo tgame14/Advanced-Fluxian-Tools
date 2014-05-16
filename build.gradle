@@ -69,8 +69,6 @@ minecraft {
 
 curse {
     printf "publishing to curse"
-    if (!System.getenv().JOB_NAME.contains("Release"))
-        return
     apiKey = project.CURSE_API_KEY
     projectId = "220382"
     releaseType = project.RELEASE_CHANNEL
@@ -95,11 +93,14 @@ task deobfJar(type: Jar) {
     destinationDir = file 'output'
 }
 
+task release () {
+    dependsOn 'build'
+    dependsOn 'curse'
+}
 
 publishing {
     publications {
         publish.dependsOn 'build'
-        publish.dependsOn 'curse'
 
         mavenJava(MavenPublication) {
 
