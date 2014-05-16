@@ -1,13 +1,12 @@
 package com.tgame.advfluxtools;
 
 import com.tgame.advfluxtools.blocks.BlockChargePlatform;
-
 import com.tgame.advfluxtools.blocks.BlockCreativeGenerator;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
-import com.tgame.advfluxtools.utility.Mods;
 import com.tgame.mods.config.ConfigHandler;
 import com.tgame.mods.libs.registry.IItemDefinition;
 import com.tgame.mods.libs.registry.RegistryHandler;
+import com.tgame.mods.libs.utility.Mods;
 import cpw.mods.fml.common.Loader;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.ModMetadata;

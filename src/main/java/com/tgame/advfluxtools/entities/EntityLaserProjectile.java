@@ -1,11 +1,8 @@
 package com.tgame.advfluxtools.entities;
 
-import com.google.common.io.ByteArrayDataInput;
-import com.google.common.io.ByteArrayDataOutput;
-import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.items.EnumLaserMode;
-import com.tgame.advfluxtools.utility.MathUtility;
-import com.tgame.advfluxtools.utility.Vec3Utility;
+import com.tgame.mods.libs.utility.MathUtility;
+import com.tgame.mods.libs.utility.Vec3Utility;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.registry.IEntityAdditionalSpawnData;
@@ -14,7 +11,6 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;

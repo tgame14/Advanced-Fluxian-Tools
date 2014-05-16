@@ -3,17 +3,10 @@ package com.tgame.advfluxtools.items;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.mods.config.Config;
 import net.minecraft.block.Block;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.EntityDamageSource;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
 
 /**
  * @author tgame14

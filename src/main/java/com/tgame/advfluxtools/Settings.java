@@ -1,6 +1,5 @@
 package com.tgame.advfluxtools;
 
-import cpw.mods.fml.common.FMLLog;
 import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

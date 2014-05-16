@@ -5,7 +5,7 @@ import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
 import com.tgame.advfluxtools.utility.EnergyUtility;
-import com.tgame.advfluxtools.utility.NBTUtility;
+import com.tgame.mods.libs.utility.NBTUtility;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.entity.EntityLivingBase;

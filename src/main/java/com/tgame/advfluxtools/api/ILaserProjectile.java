@@ -1,8 +1,6 @@
 package com.tgame.advfluxtools.api;
 
 import com.tgame.advfluxtools.entities.EntityLaserProjectile;
-import cpw.mods.fml.common.registry.IThrowableEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.World;
 

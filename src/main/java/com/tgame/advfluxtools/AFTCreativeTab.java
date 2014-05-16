@@ -1,10 +1,7 @@
 package com.tgame.advfluxtools;
 
-import com.tgame.advfluxtools.blocks.BlockChargePlatform;
-import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 /**
  * @author tgame14
