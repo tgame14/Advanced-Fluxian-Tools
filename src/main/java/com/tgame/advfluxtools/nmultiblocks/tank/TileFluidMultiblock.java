@@ -6,6 +6,8 @@ import com.tgame.mods.libs.multiblocks.grid.AbstractMultiblockNode;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import com.tgame.mods.libs.multiblocks.simpleimpl.TileSimpleNode;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraftforge.common.util.ForgeDirection;
+import net.minecraftforge.fluids.*;
 
 import java.util.Set;
 
@@ -13,96 +15,23 @@ import java.util.Set;
  * @since 24/05/14
  * @author tgame14
  */
-public class TileFluidMultiblock extends TileSimpleNode
+public class TileFluidMultiblock extends TileSimpleNode implements IFluidHandler
 {
-    @Override
-    public boolean isConnected ()
-    {
-        return false;
-    }
-
-    @Override
-    public GridController getMultiblockController ()
-    {
-        return null;
-    }
-
-    @Override
-    public WorldPos getWorldLocation ()
-    {
-        return null;
-    }
-
-    @Override
-    public void onDetached (GridController multiblockController)
-    {
-
-    }
-
-    @Override
-    public void onOrphaned (GridController oldController, int oldControllerSize, int newControllerSize)
-    {
-
-    }
-
     @Override
     public GridController createNewMultiblock ()
     {
-        return null;
+        return new FluidGridController(worldObj);
+    }
+
+    public IFluidTank getInternalTank ()
+    {
+        return (IFluidTank) this.getMultiblockController();
     }
 
     @Override
     public Class<? extends GridController> getMultiblockControllerType ()
     {
-        return null;
-    }
-
-    @Override
-    public void onAssimilated (GridController newController)
-    {
-
-    }
-
-    @Override
-    public void setVisited ()
-    {
-
-    }
-
-    @Override
-    public void setUnvisited ()
-    {
-
-    }
-
-    @Override
-    public boolean isVisited ()
-    {
-        return false;
-    }
-
-    @Override
-    public void becomeMultiblockSaveDelegate ()
-    {
-
-    }
-
-    @Override
-    public void forfeitMultiblockSaveDelegate ()
-    {
-
-    }
-
-    @Override
-    public boolean isMultiblockSaveDelegate ()
-    {
-        return false;
-    }
-
-    @Override
-    public AbstractMultiblockNode[] getNeighboringParts ()
-    {
-        return new AbstractMultiblockNode[0];
+        return FluidGridController.class;
     }
 
     @Override
@@ -113,36 +42,6 @@ public class TileFluidMultiblock extends TileSimpleNode
 
     @Override
     public void onMachineDeactivated ()
-    {
-
-    }
-
-    @Override
-    public Set<GridController> attachToNeighbors ()
-    {
-        return null;
-    }
-
-    @Override
-    public void assertDetached ()
-    {
-
-    }
-
-    @Override
-    public boolean hasMultiblockSaveData ()
-    {
-        return false;
-    }
-
-    @Override
-    public NBTTagCompound getMultiblockSaveData ()
-    {
-        return null;
-    }
-
-    @Override
-    public void onMultiblockDataAssimilated ()
     {
 
     }
@@ -174,6 +73,49 @@ public class TileFluidMultiblock extends TileSimpleNode
     @Override
     public void isGoodForInterior () throws MultiblockValidationException
     {
+        throw new MultiblockValidationException("Tank must be empty internally!");
+    }
 
+    /// * * * IFLUIDHANDLER * * * ///
+
+    @Override
+    public int fill (ForgeDirection from, FluidStack resource, boolean doFill)
+    {
+        return this.getInternalTank().fill(resource, doFill);
+    }
+
+    @Override
+    public FluidStack drain (ForgeDirection from, FluidStack resource, boolean doDrain)
+    {
+        if (resource == null || !resource.isFluidEqual(this.getInternalTank().getFluid()))
+        {
+            return null;
+        }
+
+        return this.getInternalTank().drain(resource.amount, doDrain);
+    }
+
+    @Override
+    public FluidStack drain (ForgeDirection from, int maxDrain, boolean doDrain)
+    {
+        return this.getInternalTank().drain(maxDrain, doDrain);
+    }
+
+    @Override
+    public boolean canFill (ForgeDirection from, Fluid fluid)
+    {
+        return true;
+    }
+
+    @Override
+    public boolean canDrain (ForgeDirection from, Fluid fluid)
+    {
+        return true;
+    }
+
+    @Override
+    public FluidTankInfo[] getTankInfo (ForgeDirection from)
+    {
+        return new FluidTankInfo[] { this.getInternalTank().getInfo() };
     }
 }
