@@ -38,10 +38,39 @@ public class RFGridController extends SimpleGridController implements IEnergySto
     }
 
     @Override
+    protected int getMinimumNumberOfBlocksForAssembledMachine ()
+    {
+        return 1;
+    }
+
+    @Override
+    protected int getMaximumXSize ()
+    {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected int getMaximumZSize ()
+    {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected int getMaximumYSize ()
+    {
+        return Integer.MAX_VALUE;
+    }
+
+    @Override
+    protected boolean updateServer ()
+    {
+        return false;
+    }
+
+    @Override
     protected void onMachinePaused ()
     {
         super.onMachinePaused();
-        this.energy.setMaxTransfer(0);
     }
 
     @Override
