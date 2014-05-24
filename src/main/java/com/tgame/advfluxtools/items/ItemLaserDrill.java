@@ -80,7 +80,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
             stored -= extract;
             container.stackTagCompound.setInteger("Energy", stored);
             container.setItemDamage(1 + (getMaxEnergyStored(container) - stored) * (container.getMaxDamage() - 1) / getMaxEnergyStored(container));
-               //TODO: enable RSA Support
+            //TODO: enable RSA Support
             //            if (stored == 0)
             //            {
             //                setEmpoweredState(container, false);
