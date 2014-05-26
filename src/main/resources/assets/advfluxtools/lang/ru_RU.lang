@@ -1,0 +1,13 @@
+# Tooltips and Information
+info.laser.mode=Режим лазера: %m
+
+# Blocks
+tile.BlockChargePlatform.0.name=Свинцовая зарядная платформа
+tile.BlockChargePlatform.1.name=Усиленная зарядная платформа
+tile.BlockChargePlatform.2.name=Красная зарядная платформа
+
+# Items
+item.ItemLaserDrill.name=Флаксовый лазерный бур
+
+# Creative Tab
+itemGroup.AFT=Advanced-Fluxian-Tools
