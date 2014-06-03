@@ -2,6 +2,7 @@ package com.tgame.advfluxtools.nmultiblocks.energy;
 
 import cofh.api.energy.IEnergyHandler;
 import cofh.api.energy.IEnergyStorage;
+import com.tgame.advfluxtools.Settings;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import com.tgame.mods.libs.multiblocks.simpleimpl.TileSimpleNode;
@@ -13,7 +14,6 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public class TileEnergyMultiblock extends TileSimpleNode implements IEnergyHandler
 {
-
     @Override
     public GridController createNewMultiblock ()
     {

@@ -3,6 +3,7 @@ package com.tgame.advfluxtools;
 import com.tgame.advfluxtools.blocks.BlockChargePlatform;
 import com.tgame.advfluxtools.blocks.BlockCreativeGenerator;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
+import com.tgame.advfluxtools.nmultiblocks.energy.BlockFluxBattery;
 import com.tgame.mods.config.ConfigHandler;
 import com.tgame.mods.libs.registry.IItemDefinition;
 import com.tgame.mods.libs.registry.RegistryHandler;
@@ -42,9 +43,12 @@ public class AdvancedFluxTools
     public static Block blockRFFurnaceBasic;
     public static Block blockRFMultiblockFrame;
     public static ItemStack wrench;
+	public static ItemStack multimeter;
 
     public static IItemDefinition itemLaserDrill;
     public static IItemDefinition blockChargePlatform;
+
+	public static IItemDefinition blockFluxBattery;
     private RegistryHandler registry;
 
     public AdvancedFluxTools ()
@@ -60,31 +64,9 @@ public class AdvancedFluxTools
         blockChargePlatform = registry.registerBlock(new BlockChargePlatform(), BlockChargePlatform.class);
         itemLaserDrill = registry.registerItem(new ItemLaserDrill(), ItemLaserDrill.class);
         registry.registerBlock(new BlockCreativeGenerator(), BlockCreativeGenerator.class);
+		blockFluxBattery = registry.registerBlock(new BlockFluxBattery(), BlockFluxBattery.class);
 
 		GameRegistry.registerCustomItemStack("laserDrill", itemLaserDrill.getItemStack(1, 1));
-
-        //        Settings.CONFIGURATION.load();
-
-        //        /** this line took me 2 hours to write. Blame stupidity */
-        //        //MinecraftForge.EVENT_BUS.register(new MultiblockEventHandler());
-        //
-        //        itemLaserDrill = new ItemLaserDrill(Settings.CONFIGURATION.getItem(ItemLaserDrill.class.getSimpleName(), 22040).getInt());
-        //        GameRegistry.registerItem(itemLaserDrill, itemLaserDrill.getClass().getSimpleName());
-        //
-        //        blockChargePlatform = new BlockChargePlatform(Settings.CONFIGURATION.getBlock(BlockChargePlatform.class.getSimpleName(), 2040).getInt());
-        //        GameRegistry.registerBlock(blockChargePlatform, ItemBlockMetadata.class, blockChargePlatform.getClass().getSimpleName());
-        //        GameRegistry.registerTileEntity(TileChargePlatform.class, TileChargePlatform.class.getSimpleName());
-        //
-        //        blockRFFurnaceBasic = new BlockRFFurnaceFacing(Settings.CONFIGURATION.getBlock(BlockRFFurnaceFacing.class.getSimpleName(), 2041).getInt());
-        //        GameRegistry.registerBlock(blockRFFurnaceBasic, BlockRFFurnaceFacing.class.getSimpleName());
-        //        GameRegistry.registerTileEntity(TileRFFurnace.class, TileRFFurnace.class.getSimpleName());
-        //
-        //        blockRFMultiblockFrame = new BlockRFMultiblockFrame(Settings.CONFIGURATION.getBlock(BlockRFMultiblockFrame.class.getSimpleName(), 2042).getInt());
-        //        GameRegistry.registerBlock(blockRFMultiblockFrame, BlockRFMultiblockFrame.class.getSimpleName());
-        //        GameRegistry.registerTileEntity(TileRFMultiblockFrame.class, TileRFMultiblockFrame.class.getSimpleName());
-        //
-        //        //EntityRegistry.registerModEntity(EntityLaserProjectile.class, "EntityLaserProjectile", 1, instance, 80, 3, true);
-        //        Settings.CONFIGURATION.save();
         proxy.preInit();
 
     }
@@ -112,6 +94,7 @@ public class AdvancedFluxTools
         if (Loader.isModLoaded(Mods.TE3))
         {
             wrench = GameRegistry.findItemStack(Mods.TE3, "wrench", 1);
+			multimeter = GameRegistry.findItemStack(Mods.TE3, "multimeter", 1);
 
             ItemStack leadConduit = GameRegistry.findItemStack(Mods.TE3, "conduitEnergyBasic", 1);
             ItemStack leadEnergy = GameRegistry.findItemStack(Mods.TE3, "cellBasic", 1);
@@ -136,6 +119,9 @@ public class AdvancedFluxTools
         }
         else
         {
+			wrench = new ItemStack(Items.golden_hoe);
+			multimeter = new ItemStack(Items.compass);
+
             ItemStack quartz = new ItemStack(Blocks.quartz_block);
             ItemStack redTorch = new ItemStack(Blocks.redstone_torch);
             ItemStack ppIron = new ItemStack(Blocks.heavy_weighted_pressure_plate);
@@ -151,10 +137,6 @@ public class AdvancedFluxTools
             GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 2), "CPC", "PEP", "CPC", 'C', anvil, 'P', ppGold, 'E', enderEye));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(itemLaserDrill.getItemStack(1, 0), " B ", " E ", "GG ", 'B', redTorch, 'E', emerald, 'G', quartz));
-        }
-        if (wrench == null)
-        {
-            wrench = new ItemStack(GameData.getItemRegistry().getObject("golden_hoe"));
         }
 
         ConfigHandler.configure(Settings.CONFIGURATION, Settings.DOMAIN);

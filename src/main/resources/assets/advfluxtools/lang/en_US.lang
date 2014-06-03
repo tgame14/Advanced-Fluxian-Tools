@@ -1,5 +1,6 @@
 # Tooltips and Information
 info.laser.mode=Laser Mode: %m
+#info.energy.level=Energy Level:
 
 # Blocks
 tile.BlockChargePlatform.0.name=Leadstone Charge Platform
