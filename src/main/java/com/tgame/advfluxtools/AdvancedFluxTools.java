@@ -61,6 +61,8 @@ public class AdvancedFluxTools
         itemLaserDrill = registry.registerItem(new ItemLaserDrill(), ItemLaserDrill.class);
         registry.registerBlock(new BlockCreativeGenerator(), BlockCreativeGenerator.class);
 
+		GameRegistry.registerCustomItemStack("laserDrill", itemLaserDrill.getItemStack(1, 1));
+
         //        Settings.CONFIGURATION.load();
 
         //        /** this line took me 2 hours to write. Blame stupidity */
