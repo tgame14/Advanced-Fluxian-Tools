@@ -3,7 +3,7 @@ package com.tgame.advfluxtools;
 import com.tgame.advfluxtools.blocks.BlockChargePlatform;
 import com.tgame.advfluxtools.blocks.BlockCreativeGenerator;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
-import com.tgame.advfluxtools.nmultiblocks.energy.BlockFluxBattery;
+import com.tgame.advfluxtools.multiblocks.energy.BlockFluxBattery;
 import com.tgame.mods.config.ConfigHandler;
 import com.tgame.mods.libs.registry.IItemDefinition;
 import com.tgame.mods.libs.registry.RegistryHandler;

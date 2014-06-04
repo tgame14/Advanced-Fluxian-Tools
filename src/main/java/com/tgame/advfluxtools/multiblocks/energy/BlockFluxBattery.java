@@ -1,17 +1,15 @@
-package com.tgame.advfluxtools.nmultiblocks.energy;
+package com.tgame.advfluxtools.multiblocks.energy;
 
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
 import com.tgame.mods.libs.registry.BlockData;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 

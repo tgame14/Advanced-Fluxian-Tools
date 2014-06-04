@@ -1,9 +1,7 @@
-package com.tgame.advfluxtools.nmultiblocks.energy;
+package com.tgame.advfluxtools.multiblocks.energy;
 
 import cofh.api.energy.EnergyStorage;
 import cofh.api.energy.IEnergyStorage;
-import com.tgame.advfluxtools.Settings;
-import com.tgame.mods.libs.inventory.InventoryStorage;
 import com.tgame.mods.libs.multiblocks.grid.AbstractMultiblockNode;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import com.tgame.mods.libs.multiblocks.simpleimpl.SimpleGridController;
