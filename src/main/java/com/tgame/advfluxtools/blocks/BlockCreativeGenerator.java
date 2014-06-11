@@ -11,7 +11,7 @@ import net.minecraft.world.World;
  * @since 10/05/14
  * @author tgame14
  */
-@BlockData(tileClass = TileCreativeGenerator.class)
+@BlockData(tileClass = { TileCreativeGenerator.class} )
 public class BlockCreativeGenerator extends BlockContainer
 {
     public BlockCreativeGenerator ()

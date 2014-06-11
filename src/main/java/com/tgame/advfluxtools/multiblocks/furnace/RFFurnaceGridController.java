@@ -1,6 +1,7 @@
 package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.multiblocks.energy.RFGridController;
+import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import net.minecraft.world.World;
 
 /**
@@ -14,5 +15,14 @@ public class RFFurnaceGridController extends RFGridController
 		super(world);
 	}
 
+	@Override
+	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
+	{
+		super.isBlockGoodForInterior(world, x, y, z);
 
+		if (!world.getBlock(x, y, z).isAir(world, x, y, z))
+		{
+			throw new MultiblockValidationException("Internal of RFFurnace must be empty");
+		}
+	}
 }

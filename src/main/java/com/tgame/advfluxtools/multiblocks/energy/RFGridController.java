@@ -30,6 +30,7 @@ public class RFGridController extends SimpleGridController implements IEnergySto
 
 		this.energy.setCapacity(this.getNumConnectedBlocks() * 2000);
 		this.energy.setMaxTransfer(10000);
+		System.out.println("ASSEMBLED");
 	}
 
 	@Override

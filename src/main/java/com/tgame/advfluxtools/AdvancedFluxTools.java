@@ -4,6 +4,7 @@ import com.tgame.advfluxtools.blocks.BlockChargePlatform;
 import com.tgame.advfluxtools.blocks.BlockCreativeGenerator;
 import com.tgame.advfluxtools.items.ItemLaserDrill;
 import com.tgame.advfluxtools.multiblocks.energy.BlockFluxBattery;
+import com.tgame.advfluxtools.multiblocks.furnace.BlockRFFurnace;
 import com.tgame.mods.config.ConfigHandler;
 import com.tgame.mods.libs.registry.IItemDefinition;
 import com.tgame.mods.libs.registry.RegistryHandler;
@@ -40,13 +41,14 @@ public class AdvancedFluxTools
 
     @Mod.Metadata
     public static ModMetadata metadata;
-    public static Block blockRFFurnaceBasic;
-    public static Block blockRFMultiblockFrame;
     public static ItemStack wrench;
 	public static ItemStack multimeter;
 
     public static IItemDefinition itemLaserDrill;
     public static IItemDefinition blockChargePlatform;
+
+	public static IItemDefinition blockRFFurnace;
+	public static IItemDefinition blockRFFurnaceCasing;
 
 	public static IItemDefinition blockFluxBattery;
     private RegistryHandler registry;
@@ -61,10 +63,18 @@ public class AdvancedFluxTools
     public void preInit (FMLPreInitializationEvent event)
     {
         Settings.CONFIGURATION = new Configuration(event.getSuggestedConfigurationFile());
+
         blockChargePlatform = registry.registerBlock(new BlockChargePlatform(), BlockChargePlatform.class);
+
         itemLaserDrill = registry.registerItem(new ItemLaserDrill(), ItemLaserDrill.class);
-        registry.registerBlock(new BlockCreativeGenerator(), BlockCreativeGenerator.class);
+
 		blockFluxBattery = registry.registerBlock(new BlockFluxBattery(), BlockFluxBattery.class);
+
+		blockRFFurnace = registry.registerBlock(new BlockRFFurnace(BlockRFFurnace.class.getSimpleName(), false), BlockRFFurnace.class);
+		blockRFFurnaceCasing = registry.registerBlock(new BlockRFFurnace(BlockRFFurnace.class.getSimpleName() + "-casing", true), BlockRFFurnace.class);
+
+
+		registry.registerBlock(new BlockCreativeGenerator(), BlockCreativeGenerator.class);
 
 		GameRegistry.registerCustomItemStack("laserDrill", itemLaserDrill.getItemStack(1, 1));
         proxy.preInit();

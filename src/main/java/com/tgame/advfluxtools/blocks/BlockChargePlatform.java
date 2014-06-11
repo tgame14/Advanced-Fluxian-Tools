@@ -29,7 +29,7 @@ import java.util.List;
  * @author tgame14
  * @since 30/04/14
  */
-@BlockData(tileClass = TileChargePlatform.class, itemBlockClass = ItemBlockMetadata.class)
+@BlockData(tileClass = { TileChargePlatform.class }, itemBlockClass = ItemBlockMetadata.class)
 public class BlockChargePlatform extends BlockContainer
 {
     protected IIcon cellRedstone;

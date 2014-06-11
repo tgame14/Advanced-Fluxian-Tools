@@ -1,5 +1,6 @@
 package com.tgame.advfluxtools.multiblocks.energy;
 
+import cofh.api.energy.IEnergyHandler;
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
@@ -10,14 +11,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
+import java.awt.*;
 
 /**
  * @author tgame14
  * @since 03/06/14
  */
-@BlockData(tileClass = TileEnergyMultiblock.class)
+@BlockData(tileClass = { TileEnergyMultiblock.class } )
 public class BlockFluxBattery extends BlockContainer
 {
 	public BlockFluxBattery()
