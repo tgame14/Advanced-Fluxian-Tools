@@ -65,6 +65,7 @@ public class BlockFluxBattery extends BlockContainer
 			AbstractMultiblockNode node = (AbstractMultiblockNode) world.getTileEntity(x, y, z);
 
 			GridControllerGUI.invoke(node.getMultiblockController());
+			return true;
 		}
 		return false;
 	}

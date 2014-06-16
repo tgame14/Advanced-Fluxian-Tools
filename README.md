@@ -11,6 +11,5 @@ http://creativecommons.org/licenses/by-nc-sa/4.0/
 Modpacks
 ========
 
-I Recommend you contact me before taking any actions
-
-Go ahead, just send me a courtesy message you are adding it :)
+Modpacks require Explicit permission from me, the author to be put in any modpack.
+Private modpacks are allowed. private means under 40 users who have access to the pack.
