@@ -1,0 +1,17 @@
+# Tooltips and Information
+info.laser.mode=Laser-Modus: %m
+info.energy.level=Energielevel:
+
+# Blocks
+tile.BlockChargePlatform.0.name=Leadstone-Ladeplattform
+tile.BlockChargePlatform.1.name=Gehärtete Ladeplattform
+tile.BlockChargePlatform.2.name=Redstone-Ladeplattform
+
+# Items
+item.ItemLaserDrill.name=Fluxierender Laserbohrer
+
+# Creative Tab
+itemGroup.AFT=Advanced-Fluxian-Tools
+
+# Multiblocks
+multiblock.empty_interior.info=Innenraum des Multiblocks muss leer sein!
