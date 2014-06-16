@@ -17,15 +17,29 @@ public class TileRFFurnaceMultiblock extends TileEnergyMultiblock
 	}
 
 	@Override
+	public Class<? extends GridController> getMultiblockControllerType()
+	{
+		return RFFurnaceGridController.class;
+	}
+
+	@Override
+	public GridController createNewMultiblock()
+	{
+		return new RFFurnaceGridController(this.getWorldObj());
+	}
+
+	@Override
 	public void onMachineAssembled(GridController controller)
 	{
+		super.onMachineAssembled(controller);
 		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
 	}
 
 	@Override
 	public void onMachineBroken()
 	{
-		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+		super.onMachineBroken();
+		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
 	}
 
 	public static class TileRFFurnaceCasing extends TileRFFurnaceMultiblock

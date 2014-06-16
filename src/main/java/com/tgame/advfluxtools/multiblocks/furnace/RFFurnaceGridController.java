@@ -19,8 +19,6 @@ public class RFFurnaceGridController extends RFGridController
 	@Override
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
 	{
-		super.isBlockGoodForInterior(world, x, y, z);
-
 		if (!world.getBlock(x, y, z).isAir(world, x, y, z))
 		{
 			throw new MultiblockValidationException(StatCollector.translateToLocal("multiblock.empty_interior.info"));
