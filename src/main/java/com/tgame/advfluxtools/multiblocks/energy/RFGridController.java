@@ -1,18 +1,19 @@
 package com.tgame.advfluxtools.multiblocks.energy;
 
 import cofh.api.energy.EnergyStorage;
-import cofh.api.energy.IEnergyStorage;
+import cofh.api.energy.IEnergyHandler;
 import com.tgame.mods.libs.multiblocks.grid.AbstractMultiblockNode;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import com.tgame.mods.libs.multiblocks.simpleimpl.SimpleGridController;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
 
 /**
  * @author tgame14
  * @since 24/05/14
  */
-public class RFGridController extends SimpleGridController implements IEnergyStorage
+public class RFGridController extends SimpleGridController implements IEnergyHandler
 {
 	protected EnergyStorage energy;
 
@@ -45,7 +46,9 @@ public class RFGridController extends SimpleGridController implements IEnergySto
 	{
 		super.onAttachedPartWithMultiblockData(part, data);
 		if (data.hasKey("Energy"))
-			this.energy.setEnergyStored(this.getEnergyStored() + data.getInteger("Energy"));
+		{
+			this.energy.setEnergyStored(this.getEnergyStored(ForgeDirection.UNKNOWN) + data.getInteger("Energy"));
+		}
 	}
 
 	@Override
@@ -56,7 +59,9 @@ public class RFGridController extends SimpleGridController implements IEnergySto
 		NBTTagCompound nbt = new NBTTagCompound();
 		assimilated.writeToNBT(nbt);
 		if (nbt.hasKey("Energy"))
-			this.energy.setEnergyStored(getEnergyStored() + nbt.getInteger("Energy"));
+		{
+			this.energy.setEnergyStored(getEnergyStored(ForgeDirection.UNKNOWN) + nbt.getInteger("Energy"));
+		}
 	}
 
 	@Override
@@ -95,29 +100,6 @@ public class RFGridController extends SimpleGridController implements IEnergySto
 		super.onMachinePaused();
 	}
 
-	@Override
-	public int receiveEnergy(int maxReceive, boolean simulate)
-	{
-		return this.energy.receiveEnergy(maxReceive, simulate);
-	}
-
-	@Override
-	public int extractEnergy(int maxExtract, boolean simulate)
-	{
-		return this.energy.extractEnergy(maxExtract, simulate);
-	}
-
-	@Override
-	public int getEnergyStored()
-	{
-		return this.energy.getEnergyStored();
-	}
-
-	@Override
-	public int getMaxEnergyStored()
-	{
-		return this.energy.getMaxEnergyStored();
-	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound data)
@@ -141,5 +123,35 @@ public class RFGridController extends SimpleGridController implements IEnergySto
 	public void decodeDescriptionPacket(NBTTagCompound data)
 	{
 		this.readFromNBT(data);
+	}
+
+	@Override
+	public boolean canConnectEnergy(ForgeDirection from)
+	{
+		return this.isAssembled();
+	}
+
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate)
+	{
+		return this.energy.receiveEnergy(maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate)
+	{
+		return this.energy.extractEnergy(maxExtract, simulate);
+	}
+
+	@Override
+	public int getEnergyStored(ForgeDirection from)
+	{
+		return this.energy.getEnergyStored();
+	}
+
+	@Override
+	public int getMaxEnergyStored(ForgeDirection from)
+	{
+		return this.energy.getMaxEnergyStored();
 	}
 }
