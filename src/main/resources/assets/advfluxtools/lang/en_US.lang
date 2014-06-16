@@ -1,6 +1,6 @@
 # Tooltips and Information
 info.laser.mode=Laser Mode: %m
-#info.energy.level=Energy Level:
+info.energy.level=Energy Level:
 
 # Blocks
 tile.BlockChargePlatform.0.name=Leadstone Charge Platform
@@ -12,3 +12,6 @@ item.ItemLaserDrill.name=Fluxian Laser Drill
 
 # Creative Tab
 itemGroup.AFT=Advanced-Fluxian-Tools
+
+# Multiblocks
+multiblock.empty_interior.info=Interior of Multiblock must be empty!

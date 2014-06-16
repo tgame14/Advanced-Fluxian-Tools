@@ -1,21 +1,22 @@
 package com.tgame.advfluxtools.multiblocks.energy;
 
-import cofh.api.energy.IEnergyHandler;
 import com.tgame.advfluxtools.AFTCreativeTab;
 import com.tgame.advfluxtools.AdvancedFluxTools;
 import com.tgame.advfluxtools.Settings;
+import com.tgame.mods.libs.multiblocks.debugger.GridControllerGUI;
+import com.tgame.mods.libs.multiblocks.grid.AbstractMultiblockNode;
 import com.tgame.mods.libs.registry.BlockData;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.EnumChatFormatting;
-import net.minecraft.world.IBlockAccess;
+import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
-
-import java.awt.*;
 
 /**
  * @author tgame14
@@ -54,9 +55,16 @@ public class BlockFluxBattery extends BlockContainer
 			else
 				color = "\u00a76";
 
-			String energy = new StringBuilder().append("Energy Level: ").append(color).append(EnumChatFormatting.BOLD.toString()).append(RF).append("/").append(tile.getMaxEnergyStored(ForgeDirection.UNKNOWN)).append(" RF").toString();
+			String energy = new StringBuilder().append(StatCollector.translateToLocal("info.energy.level")).append(color).append(EnumChatFormatting.BOLD.toString()).append(RF).append("/").append(tile.getMaxEnergyStored(ForgeDirection.UNKNOWN)).append(" RF").toString();
 			entityplayer.addChatMessage(new ChatComponentText(energy));
 			return true;
+		}
+
+		if (world.isRemote && entityplayer.getHeldItem() != null && entityplayer.getHeldItem().getItem() == Item.getItemFromBlock( Blocks.bedrock))
+		{
+			AbstractMultiblockNode node = (AbstractMultiblockNode) world.getTileEntity(x, y, z);
+
+			GridControllerGUI.invoke(node.getMultiblockController());
 		}
 		return false;
 	}

@@ -2,6 +2,7 @@ package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.multiblocks.energy.TileEnergyMultiblock;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
+import com.tgame.mods.libs.multiblocks.grid.GridController;
 
 /**
  * @author tgame14
@@ -15,6 +16,17 @@ public class TileRFFurnaceMultiblock extends TileEnergyMultiblock
 		throw new MultiblockValidationException("Must be on faces of multiblock, frame requires a casing");
 	}
 
+	@Override
+	public void onMachineAssembled(GridController controller)
+	{
+		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+	}
+
+	@Override
+	public void onMachineBroken()
+	{
+		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+	}
 
 	public static class TileRFFurnaceCasing extends TileRFFurnaceMultiblock
 	{

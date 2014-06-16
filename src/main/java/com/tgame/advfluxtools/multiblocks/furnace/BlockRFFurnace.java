@@ -47,6 +47,12 @@ public class BlockRFFurnace extends BlockContainer
 	}
 
 	@Override
+	public IIcon getIcon(int side, int meta)
+	{
+		return meta == 0 ? this.blockIcon : this.active;
+	}
+
+	@Override
 	public TileEntity createNewTileEntity(World var1, int var2)
 	{
 		return isCasing ? new TileRFFurnaceMultiblock.TileRFFurnaceCasing() : new TileRFFurnaceMultiblock();

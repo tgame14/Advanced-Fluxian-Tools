@@ -6,10 +6,6 @@ package com.tgame.advfluxtools;
  */
 public class CommonProxy
 {
-	public void registerRenderers()
-	{
-
-	}
 
 	public void preInit()
 	{
@@ -18,16 +14,11 @@ public class CommonProxy
 
 	public void init()
 	{
-		registerTickHandlers();
+
 	}
 
 	public void postInit()
 	{
 
-	}
-
-	public void registerTickHandlers()
-	{
-		//TickRegistry.registerTickHandler(new MultiblockServerTickHandler(), Side.SERVER);
 	}
 }
