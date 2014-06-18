@@ -11,10 +11,12 @@ import net.minecraft.world.World;
  */
 public class RFFurnaceGridController extends RFGridController
 {
+
 	public RFFurnaceGridController(World world)
 	{
 		super(world);
 	}
+
 
 	@Override
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
