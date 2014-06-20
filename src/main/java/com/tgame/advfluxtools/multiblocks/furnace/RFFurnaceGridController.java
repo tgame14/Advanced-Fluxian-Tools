@@ -1,28 +1,37 @@
 package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.multiblocks.energy.RFGridController;
+import com.tgame.mods.libs.inventory.IInventoryHandler;
 import com.tgame.mods.libs.machinery.Furnace;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
+import net.minecraftforge.common.util.ForgeDirection;
+
+import java.util.List;
 
 /**
  * @author tgame14
  * @since 04/06/14
  */
-public class RFFurnaceGridController extends RFGridController
+public class RFFurnaceGridController extends RFGridController implements IInventoryHandler
 {
 	protected Furnace furnace;
 
 	public RFFurnaceGridController(World world)
 	{
 		super(world);
+
+		this.furnace = new Furnace(0, 1, 1);
 	}
 
 	@Override
 	protected boolean updateServer()
 	{
-		furnace.updateFurnace();
+		if (this.isAssembled())
+			return furnace.updateFurnace();
+		return false;
 	}
 
 	@Override
@@ -32,6 +41,20 @@ public class RFFurnaceGridController extends RFGridController
 		{
 			throw new MultiblockValidationException(StatCollector.translateToLocal("multiblock.empty_interior.info"));
 		}
+	}
+
+	@Override
+	protected void onMachineAssembled()
+	{
+		super.onMachineAssembled();
+		this.furnace.setActive(true);
+	}
+
+	@Override
+	protected void onMachineDisassembled()
+	{
+		super.onMachineDisassembled();
+		this.furnace.setActive(false);
 	}
 
 	@Override
@@ -56,5 +79,53 @@ public class RFFurnaceGridController extends RFGridController
 	protected int getMinimumZSize()
 	{
 		return 3;
+	}
+
+	@Override
+	public boolean canConnectInventory(ForgeDirection from)
+	{
+		return this.isAssembled();
+	}
+
+	@Override
+	public ItemStack insertItem(ForgeDirection from, ItemStack item, boolean simulate)
+	{
+		return this.furnace.getInputInv().insertItem(item, simulate);
+	}
+
+	@Override
+	public ItemStack extractItem(ForgeDirection from, ItemStack item, boolean simulate)
+	{
+		return this.furnace.getOutputInv().extractItem(item, simulate);
+	}
+
+	@Override
+	public ItemStack extractItem(ForgeDirection from, int maxExtract, boolean simulate)
+	{
+		return this.furnace.getOutputInv().extractItem(maxExtract, simulate);
+	}
+
+	@Override
+	public List<ItemStack> getInventoryContents(ForgeDirection from)
+	{
+		return this.furnace.getOutputInv().getInventoryContents();
+	}
+
+	@Override
+	public int getSizeInventory(ForgeDirection from)
+	{
+		return this.furnace.getOutputInv().getSizeInventory();
+	}
+
+	@Override
+	public boolean isEmpty(ForgeDirection from)
+	{
+		return this.furnace.getInputInv().isEmpty();
+	}
+
+	@Override
+	public boolean isFull(ForgeDirection from)
+	{
+		return this.furnace.getInputInv().isFull();
 	}
 }
