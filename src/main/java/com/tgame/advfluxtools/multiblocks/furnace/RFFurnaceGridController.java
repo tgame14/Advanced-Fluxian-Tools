@@ -1,6 +1,7 @@
 package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.multiblocks.energy.RFGridController;
+import com.tgame.mods.libs.machinery.Furnace;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
@@ -11,12 +12,18 @@ import net.minecraft.world.World;
  */
 public class RFFurnaceGridController extends RFGridController
 {
+	protected Furnace furnace;
 
 	public RFFurnaceGridController(World world)
 	{
 		super(world);
 	}
 
+	@Override
+	protected boolean updateServer()
+	{
+		furnace.updateFurnace();
+	}
 
 	@Override
 	protected void isBlockGoodForInterior(World world, int x, int y, int z) throws MultiblockValidationException
