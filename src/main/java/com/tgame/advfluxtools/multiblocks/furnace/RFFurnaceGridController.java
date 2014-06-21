@@ -27,11 +27,27 @@ public class RFFurnaceGridController extends RFGridController implements IInvent
 		this.furnace = new Furnace(0, 1, 1);
 	}
 
+	public int calcInternalSpace()
+	{
+		int maxX = this.getMaximumCoord().x();
+		int maxY = this.getMaximumCoord().y();
+		int maxZ = this.getMaximumCoord().z();
+
+		int minX = this.getMaximumCoord().x();
+		int minY = this.getMaximumCoord().y();
+		int minZ = this.getMaximumCoord().z();
+
+		return (maxX - minX - 2) * (maxZ - minZ - 2) * (maxY - minY - 2);
+
+	}
+
 	@Override
 	protected boolean updateServer()
 	{
 		if (this.isAssembled())
+		{
 			return furnace.updateFurnace();
+		}
 		return false;
 	}
 
@@ -49,6 +65,7 @@ public class RFFurnaceGridController extends RFGridController implements IInvent
 	{
 		super.onMachineAssembled();
 		this.furnace.setActive(true);
+		this.furnace.setBurnTicksPerItem(5 / this.calcInternalSpace());
 	}
 
 	@Override
@@ -147,5 +164,26 @@ public class RFFurnaceGridController extends RFGridController implements IInvent
 		super.readFromNBT(data);
 
 		this.furnace.readFromNBT(data.getCompoundTag("furnaceTag"));
+	}
+
+	@Override
+	public int receiveEnergy(ForgeDirection from, int maxReceive, boolean simulate)
+	{
+		if (this.getEnergyStored(ForgeDirection.UNKNOWN) == 0 && !simulate && maxReceive > 0)
+		{
+			this.furnace.setHasFuel(true);
+		}
+		return super.receiveEnergy(from, maxReceive, simulate);
+	}
+
+	@Override
+	public int extractEnergy(ForgeDirection from, int maxExtract, boolean simulate)
+	{
+
+		if (this.getEnergyStored(ForgeDirection.UNKNOWN) > 0 && !simulate && maxExtract >= this.getEnergyStored(ForgeDirection.UNKNOWN) )
+		{
+			this.furnace.setHasFuel(false);
+		}
+		return super.extractEnergy(from, maxExtract, simulate);
 	}
 }

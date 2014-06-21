@@ -53,7 +53,7 @@ public class TileCreativeGenerator extends TileEnergyHandler
             if (tile instanceof IEnergyHandler)
             {
                 IEnergyHandler handler = (IEnergyHandler) tile;
-                ((IEnergyHandler) tile).receiveEnergy(dir.getOpposite(), this.extractEnergy(ForgeDirection.UNKNOWN, 0, true), false);
+                handler.receiveEnergy(dir.getOpposite(), this.extractEnergy(ForgeDirection.UNKNOWN, 0, true), false);
             }
         }
     }

@@ -1,7 +1,6 @@
 package com.tgame.advfluxtools.multiblocks.energy;
 
 import cofh.api.energy.IEnergyHandler;
-import cofh.api.energy.IEnergyStorage;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import com.tgame.mods.libs.multiblocks.simpleimpl.TileSimpleNode;
@@ -67,9 +66,9 @@ public class TileEnergyMultiblock extends TileSimpleNode implements IEnergyHandl
 
     }
 
-    public IEnergyStorage getInternalEnergy()
+    public IEnergyHandler getInternalEnergy()
     {
-        return (IEnergyStorage) this.getMultiblockController();
+        return (IEnergyHandler) this.getMultiblockController();
     }
 
     @Override
@@ -81,24 +80,26 @@ public class TileEnergyMultiblock extends TileSimpleNode implements IEnergyHandl
     @Override
     public int receiveEnergy (ForgeDirection from, int maxReceive, boolean simulate)
     {
-        return getInternalEnergy().receiveEnergy(maxReceive, simulate);
+		if (this.getInternalEnergy() == null)
+			return 0;
+        return getInternalEnergy().receiveEnergy(from, maxReceive, simulate);
     }
 
     @Override
     public int extractEnergy (ForgeDirection from, int maxExtract, boolean simulate)
     {
-        return getInternalEnergy().extractEnergy(maxExtract, simulate);
+        return getInternalEnergy().extractEnergy(from, maxExtract, simulate);
     }
 
     @Override
     public int getEnergyStored (ForgeDirection from)
     {
-        return getInternalEnergy().getEnergyStored();
+        return getInternalEnergy().getEnergyStored(from);
     }
 
     @Override
     public int getMaxEnergyStored (ForgeDirection from)
     {
-        return getInternalEnergy().getMaxEnergyStored();
+        return getInternalEnergy().getMaxEnergyStored(from);
     }
 }

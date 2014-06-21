@@ -87,10 +87,6 @@ public class TileRFFurnaceMultiblock extends TileEnergyMultiblock implements IIn
 	@Override
 	public int getSizeInventory(ForgeDirection from)
 	{
-		System.out.println("\n\n AFFA");
-		System.out.println(this.getInventoryHandler());
-		if (this.getInventoryHandler() == null)
-			return 0;
 		return this.getInventoryHandler().getSizeInventory(from);
 	}
 
