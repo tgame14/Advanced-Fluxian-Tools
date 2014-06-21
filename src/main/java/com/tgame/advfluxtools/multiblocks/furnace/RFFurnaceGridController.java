@@ -5,6 +5,7 @@ import com.tgame.mods.libs.inventory.IInventoryHandler;
 import com.tgame.mods.libs.machinery.Furnace;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.StatCollector;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -127,5 +128,24 @@ public class RFFurnaceGridController extends RFGridController implements IInvent
 	public boolean isFull(ForgeDirection from)
 	{
 		return this.furnace.getInputInv().isFull();
+	}
+
+	@Override
+	public void writeToNBT(NBTTagCompound data)
+	{
+		super.writeToNBT(data);
+
+		NBTTagCompound furnaceTag = new NBTTagCompound();
+		this.furnace.writeToNBT(furnaceTag);
+
+		data.setTag("furnaceTag", furnaceTag);
+	}
+
+	@Override
+	public void readFromNBT(NBTTagCompound data)
+	{
+		super.readFromNBT(data);
+
+		this.furnace.readFromNBT(data.getCompoundTag("furnaceTag"));
 	}
 }
