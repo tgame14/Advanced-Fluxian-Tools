@@ -2,6 +2,7 @@ package com.tgame.advfluxtools.multiblocks.furnace;
 
 import com.tgame.advfluxtools.multiblocks.energy.TileEnergyMultiblock;
 import com.tgame.mods.libs.inventory.IInventoryHandler;
+import com.tgame.mods.libs.inventory.simpleimpl.TileInventoryHandler;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import net.minecraft.entity.player.EntityPlayer;
@@ -51,6 +52,8 @@ public class TileRFFurnaceMultiblock extends TileEnergyMultiblock implements IIn
 
 	public IInventoryHandler getInventoryHandler()
 	{
+		if (this.getMultiblockController() == null)
+			return new TileInventoryHandler(0);
 		return (IInventoryHandler) this.getMultiblockController();
 	}
 

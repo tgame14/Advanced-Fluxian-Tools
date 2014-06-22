@@ -12,8 +12,17 @@ import net.minecraftforge.common.util.ForgeDirection;
  */
 public class TGTileEnergyHandler extends TGTileBase implements IEnergyHandler
 	{
+		protected EnergyStorage storage;
 
-		protected EnergyStorage storage = new EnergyStorage(32000);
+		public TGTileEnergyHandler()
+		{
+			this.storage = new EnergyStorage(32000);
+		}
+
+		public TGTileEnergyHandler(int size)
+		{
+			this.storage = new EnergyStorage(size);
+		}
 
 		@Override
 		public void readFromNBT(NBTTagCompound nbt) {
