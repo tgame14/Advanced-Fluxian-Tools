@@ -80,8 +80,6 @@ public class TileEnergyMultiblock extends TileSimpleNode implements IEnergyHandl
     @Override
     public int receiveEnergy (ForgeDirection from, int maxReceive, boolean simulate)
     {
-		if (this.getInternalEnergy() == null)
-			return 0;
         return getInternalEnergy().receiveEnergy(from, maxReceive, simulate);
     }
 
