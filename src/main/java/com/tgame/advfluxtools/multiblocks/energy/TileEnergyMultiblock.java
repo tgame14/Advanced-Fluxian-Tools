@@ -1,6 +1,7 @@
 package com.tgame.advfluxtools.multiblocks.energy;
 
 import cofh.api.energy.IEnergyHandler;
+import com.tgame.advfluxtools.prefabs.TGTileEnergyHandler;
 import com.tgame.mods.libs.multiblocks.MultiblockValidationException;
 import com.tgame.mods.libs.multiblocks.grid.GridController;
 import com.tgame.mods.libs.multiblocks.simpleimpl.TileSimpleNode;
@@ -68,13 +69,15 @@ public class TileEnergyMultiblock extends TileSimpleNode implements IEnergyHandl
 
     public IEnergyHandler getInternalEnergy()
     {
+		if (this.getMultiblockController() == null)
+			return new TGTileEnergyHandler(0);
         return (IEnergyHandler) this.getMultiblockController();
     }
 
     @Override
     public boolean canConnectEnergy (ForgeDirection from)
     {
-        return true;
+        return getInternalEnergy().canConnectEnergy(from);
     }
 
     @Override

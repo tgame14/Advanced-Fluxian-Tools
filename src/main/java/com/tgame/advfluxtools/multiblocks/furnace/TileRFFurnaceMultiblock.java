@@ -8,6 +8,7 @@ import com.tgame.mods.libs.multiblocks.grid.GridController;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.common.util.ForgeDirection;
 
 import java.util.List;
@@ -40,13 +41,26 @@ public class TileRFFurnaceMultiblock extends TileEnergyMultiblock implements IIn
 	public void onMachineAssembled(GridController controller)
 	{
 		super.onMachineAssembled(controller);
-		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
 	}
 
 	@Override
 	public void onMachineBroken()
 	{
 		super.onMachineBroken();
+		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
+	}
+
+	@Override
+	public void onMachineActivated()
+	{
+		super.onMachineActivated();
+		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+	}
+
+	@Override
+	public void onMachineDeactivated()
+	{
+		super.onMachineDeactivated();
 		this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 0, 3);
 	}
 
@@ -176,11 +190,33 @@ public class TileRFFurnaceMultiblock extends TileEnergyMultiblock implements IIn
 	@Override
 	public boolean isItemValidForSlot(int var1, ItemStack var2)
 	{
-		return this.isFull(ForgeDirection.UNKNOWN);
+		boolean isFull = this.isFull(ForgeDirection.UNKNOWN);
+		boolean isSmeltable = FurnaceRecipes.smelting().getSmeltingResult(var2) != null;
+		return !isFull && isSmeltable;
 	}
 
 	public static class TileRFFurnaceCasing extends TileRFFurnaceMultiblock
 	{
+
+		@Override
+		public void onMachineActivated()
+		{
+
+		}
+
+		@Override
+		public void onMachineDeactivated()
+		{
+
+		}
+
+		@Override
+		public void onMachineAssembled(GridController controller)
+		{
+			super.onMachineAssembled(controller);
+			this.getWorldObj().setBlockMetadataWithNotify(xCoord, yCoord, zCoord, 1, 3);
+		}
+
 		@Override
 		public void isGoodForFrame() throws MultiblockValidationException
 		{
