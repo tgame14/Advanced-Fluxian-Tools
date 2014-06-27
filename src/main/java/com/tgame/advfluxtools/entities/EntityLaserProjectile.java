@@ -92,7 +92,7 @@ public class EntityLaserProjectile extends Entity implements IEntityAdditionalSp
         String ownerName = nbt.getString("owner");
         if (ownerName != null && !ownerName.equals("null"))
         {
-            this.owner = FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().getPlayerForUsername(ownerName);
+            this.owner = FMLCommonHandler.instance().getMinecraftServerInstance().getConfigurationManager().func_152612_a(ownerName);
         }
 
     }
