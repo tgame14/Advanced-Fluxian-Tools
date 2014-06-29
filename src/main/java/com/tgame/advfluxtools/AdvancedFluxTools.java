@@ -124,6 +124,8 @@ public class AdvancedFluxTools
 
             GameRegistry.addRecipe(new ShapedOreRecipe(itemLaserDrill.getItemStack(1, 0), " B ", " E ", "GG ", 'B', hardenedCapacitor, 'E', GameData.getItemRegistry().getObject("emerald"), 'G', gearElectrum));
 
+			GameRegistry.addRecipe(blockFluxBattery.getItemStack(1, 0), "SRS", "G G", "OOO", 'S', Blocks.iron_block, 'R', Items.redstone, 'G', Items.gold_ingot, 'O', Blocks.obsidian);
+
         }
         else
         {
@@ -145,6 +147,8 @@ public class AdvancedFluxTools
             GameRegistry.addRecipe(new ShapedOreRecipe(blockChargePlatform.getItemStack(1, 2), "CPC", "PEP", "CPC", 'C', anvil, 'P', ppGold, 'E', enderEye));
 
             GameRegistry.addRecipe(new ShapedOreRecipe(itemLaserDrill.getItemStack(1, 0), " B ", " E ", "GG ", 'B', redTorch, 'E', emerald, 'G', quartz));
+
+			GameRegistry.addShapedRecipe(blockFluxBattery.getItemStack(1, 0), " SRS", "G G", "OOO", 'S', ironBlock, 'R', Blocks.redstone_wire, 'G', Items.gold_ingot, 'O', Blocks.obsidian);
         }
 
         ConfigHandler.configure(Settings.CONFIGURATION, Settings.DOMAIN);
