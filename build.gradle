@@ -15,7 +15,7 @@ buildscript {
     }
 }
 
-
+apply plugin: 'idea'
 apply plugin: 'forge'
 apply plugin: 'curseforge'
 apply plugin: 'maven'
@@ -59,12 +59,12 @@ minecraft {
     replace "@VERSION@", project.version
 }
 
-curse {
-    printf "publishing to curse"
-    apiKey = project.CURSE_API_KEY
-    projectId = "220382"
-    releaseType = project.RELEASE_CHANNEL
-}
+//curse {
+//    printf "publishing to curse"
+//    apiKey = project.CURSE_API_KEY
+//    projectId = "220382"
+//    releaseType = project.RELEASE_CHANNEL
+//}
 
 task copyProperties(type: Copy) {
     from 'build.properties'
