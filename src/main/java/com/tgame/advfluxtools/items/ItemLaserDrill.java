@@ -161,7 +161,7 @@ public class ItemLaserDrill extends Item implements IEnergyContainerItem
         }
         EnumLaserMode enumLaser = EnumLaserMode.values()[tag.getInteger("mode")];
 
-        if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT))
+        if (player.isSneaking())
         {
             EnumLaserMode[] test = EnumLaserMode.values();
             if (tag.getInteger("mode") < EnumLaserMode.values().length - 1)
