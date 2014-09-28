@@ -1,0 +1,17 @@
+# Tooltips and Information
+info.laser.mode=镭射钻模式: %m
+info.energy.level=能量等级:
+
+# Blocks
+tile.BlockChargePlatform.0.name=铅石能量平台
+tile.BlockChargePlatform.1.name=硬化能量平台
+tile.BlockChargePlatform.2.name=红石能量平台
+
+# Items
+item.ItemLaserDrill.name=RF充能镭射钻
+
+# Creative Tab
+itemGroup.AFT=Advanced-Fluxian-Tools
+
+# Multiblocks
+multiblock.empty_interior.info=多方块结构的中心必须为空!
